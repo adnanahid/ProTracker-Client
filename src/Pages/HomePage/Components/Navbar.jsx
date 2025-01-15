@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../../../Provider/AuthProvider";
 const Navbar = () => {
+  const { user } = useContext(AuthContext);
   return (
-    <div className="navbar bg-black text-white fixed z-10">
+    <div className="navbar fixed z-10">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -19,13 +21,20 @@ const Navbar = () => {
       </div>
       <div className="navbar-center hidden lg:flex">
         <div className="space-x-5">
-          <NavLink>Home</NavLink>
-          <NavLink>Join as Employee</NavLink>
-          <NavLink>Join as HR Manager</NavLink>
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/join-as-employee">Join as Employee</NavLink>
+          <NavLink to="/join-as-hr">Join as HR Manager</NavLink>
         </div>
       </div>
       <div className="navbar-end">
-        <Link to="login" className="btn">SingIn</Link>
+        <div className="avatar">
+          <div className="w-12 rounded-full">
+            <img  referrerPolicy="no-referrer" src={user?.photoURL} alt={user?.displayName}/>
+          </div>
+        </div>
+        <Link to="/login" className="btn">
+          SingIn
+        </Link>
       </div>
     </div>
   );

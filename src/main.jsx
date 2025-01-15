@@ -6,6 +6,9 @@ import App from "./App";
 import ErrorPage from "./Pages/ErrorPage";
 import LoginPage from "./Pages/LoginPage";
 import Home from "./Pages/HomePage/Home";
+import JoinAsEmployee from "./Pages/JoinAsEmployee";
+import AuthProvider from "./Provider/AuthProvider";
+import JoinAsHR from "./Pages/JoinAsHR";
 
 const router = createBrowserRouter([
   {
@@ -18,7 +21,15 @@ const router = createBrowserRouter([
         element: <Home></Home>,
       },
       {
-        path: "login",
+        path: "/join-as-employee",
+        element: <JoinAsEmployee></JoinAsEmployee>,
+      },
+      {
+        path: "/join-as-hr",
+        element: <JoinAsHR></JoinAsHR>,
+      },
+      {
+        path: "/login",
         element: <LoginPage></LoginPage>,
       },
     ],
@@ -27,6 +38,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );

@@ -26,6 +26,7 @@ const LoginPage = () => {
             <input
               type="email"
               id="email"
+              name="email"
               placeholder="Enter your email"
               className="w-full mt-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
               required
@@ -40,6 +41,7 @@ const LoginPage = () => {
             <input
               type="password"
               id="password"
+              name="password"
               placeholder="Enter your password"
               className="w-full mt-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
               required
@@ -55,14 +57,13 @@ const LoginPage = () => {
           </button>
           {/* Divider */}
           <div className="flex items-center justify-between my-4">
-            <span className="w-1/5 border-b lg:w-1/4"></span>
+            <span className="w-1/5 border-b lg:w-5/12"></span>
             <span className="text-xs uppercase">or</span>
-            <span className="w-1/5 border-b lg:w-1/4"></span>
+            <span className="w-1/5 border-b lg:w-5/12"></span>
           </div>
 
           {/* Google Login */}
           <button
-            type="button"
             onClick={handleGoogleLogin}
             className="flex items-center justify-center w-full px-4 py-2 rounded-md border gap-3"
           >
