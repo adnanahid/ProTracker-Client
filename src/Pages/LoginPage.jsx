@@ -8,6 +8,8 @@ const LoginPage = () => {
   const { user, setUser, signInUser, signInWithGoogle } =
     useContext(AuthContext);
   const navigate = useNavigate();
+
+  //google login
   const handleGoogleLogin = (event) => {
     event.preventDefault();
     signInWithGoogle()
@@ -15,7 +17,6 @@ const LoginPage = () => {
         const user = result.user;
         setUser(user);
         toast.success("Login Successfully!");
-        reset();
         navigate("/");
       })
       .catch((error) => {
@@ -33,11 +34,9 @@ const LoginPage = () => {
         const user = result.user;
         setUser(user);
         toast.success("Login Successfully!");
-        reset();
         navigate("/");
       })
       .catch((error) => {
-        console.error(error.message);
         toast.error("An error occurred. Please try again.");
       });
   };

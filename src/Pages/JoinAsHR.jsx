@@ -9,7 +9,7 @@ const imageHostingKey = import.meta.env.VITE_ImgBB_Api;
 const imageHostingApi = `https://api.imgbb.com/1/upload?key=${imageHostingKey}`;
 
 const JoinAsHR = () => {
-  const { setUser, signInWithGoogle, userRegistration } =
+  const { setUser, userRegistration, updateUserProfile } =
     useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
@@ -22,24 +22,36 @@ const JoinAsHR = () => {
 
   const onSubmit = async (data) => {
     try {
-      // Prepare the company logo for upload
+      //for company logo
       const formData = new FormData();
       formData.append("image", data.companyLogo[0]);
-
-      // Upload the logo to ImgBB
-      const res = await axiosPublic.post(imageHostingApi, formData, {
+      const logoResponse = await axiosPublic.post(imageHostingApi, formData, {
         headers: {
           "content-type": "multipart/form-data",
         },
       });
-
       // If the upload is successful, get the image URL
-      const companyLogoUrl = res.data.data.url;
-      console.log("Company Logo URL: ", companyLogoUrl);
+      const companyLogoUrl = logoResponse.data.data.url;
+
+      //fot userPhoto
+      const userPhotoFormData = new FormData();
+      userPhotoFormData.append("image", data.userPhoto[0]);
+      const userPhotoResponse = await axiosPublic.post(
+        imageHostingApi,
+        userPhotoFormData,
+        {
+          headers: {
+            "content-type": "multipart/form-data",
+          },
+        }
+      );
+      // If the upload is successful, get the image URL
+      const userPhotoUrl = userPhotoResponse.data.data.url;
 
       // Proceed with user registration (after image upload)
       const HRInfo = {
         fullName: data.fullName,
+        userPhoto: userPhotoUrl,
         companyName: data.companyName,
         companyLogo: companyLogoUrl, // Save the URL of the uploaded logo
         email: data.email,
@@ -52,6 +64,7 @@ const JoinAsHR = () => {
       userRegistration(data.email, data.password)
         .then((result) => {
           const user = result.user;
+          updateUserProfile({ displayName: data.name, photoURL: userPhotoUrl });
           axiosPublic
             .post("/add-hr", HRInfo)
             .then((res) => {
@@ -61,8 +74,8 @@ const JoinAsHR = () => {
               console.log(error);
             });
           setUser(user);
+          console.log(user);
           toast.success("Registration Successful!");
-          reset();
           navigate("/"); // Navigate to home page or dashboard
         })
         .catch((error) => {
@@ -102,6 +115,29 @@ const JoinAsHR = () => {
           {errors.fullName && (
             <p className="text-red-500 text-sm mt-1">
               {errors.fullName.message}
+            </p>
+          )}
+        </div>
+
+        {/* userPhoto Logo */}
+        <div className="mb-4">
+          <label
+            htmlFor="userPhoto"
+            className="block text-sm font-medium text-gray-700"
+          >
+            User Photo
+          </label>
+          <input
+            type="file"
+            id="userPhoto"
+            {...register("userPhoto", {
+              required: "Company Logo is required",
+            })}
+            className="w-full mt-1 px-4 py-2 border rounded-md"
+          />
+          {errors.userPhoto && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.userPhoto.message}
             </p>
           )}
         </div>

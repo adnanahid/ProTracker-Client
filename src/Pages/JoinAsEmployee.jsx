@@ -7,7 +7,9 @@ import toast from "react-hot-toast";
 import useAxiosPublic from "../CustomHooks/UseAxiosPublic";
 
 const JoinAsEmployee = () => {
-  const { setUser, signInWithGoogle, userRegistration } =
+  const imageHostingKey = import.meta.env.VITE_ImgBB_Api;
+  const imageHostingApi = `https://api.imgbb.com/1/upload?key=${imageHostingKey}`;
+  const { setUser, signInWithGoogle, userRegistration, updateUserProfile } =
     useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
@@ -15,7 +17,6 @@ const JoinAsEmployee = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm();
 
   const handleGoogleLogin = (event) => {
@@ -23,7 +24,6 @@ const JoinAsEmployee = () => {
     signInWithGoogle()
       .then((result) => {
         const user = result.user;
-        console.log(user);
         const { displayName, email } = user;
         const employeeInfo = {
           name: displayName,
@@ -49,34 +49,55 @@ const JoinAsEmployee = () => {
       });
   };
 
-  const onSubmitForm = (data) => {
-    const { fullName, email, password, dateOfBirth } = data;
-    userRegistration(email, password)
-      .then((result) => {
-        const user = result.user; // Correctly retrieve the user
-        const employeeInfo = {
-          name: fullName,
-          email: email,
-          role: "employee",
-        };
-        axiosPublic
-          .post("/add-employee", employeeInfo)
-          .then((res) => {
-            console.log(res.data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-        setUser(user);
-        console.log(user);
-        toast.success("Registration Successful!");
-        reset();
-        navigate("/");
-      })
-      .catch((error) => {
-        console.error(error.message);
-        toast.error("An error occurred. Please try again.");
+  const onSubmitForm = async (data) => {
+    try {
+      const formData = new FormData();
+      formData.append("image", data.userPhoto[0]);
+
+      // Upload the image to ImgBB
+      const res = await axiosPublic.post(imageHostingApi, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
+      const userPhoto = res.data.data.url;
+
+      // Extract other form data
+      const { fullName, email, password } = data;
+
+      // Register the user
+      const result = await userRegistration(email, password);
+      const user = result.user;
+
+      // Update user profile
+      const updateEmployee = {
+        displayName: fullName,
+        photoURL: userPhoto,
+      };
+      await updateUserProfile(updateEmployee);
+
+      // Save employee details in your database
+      const employeeInfo = {
+        name: fullName,
+        photo: userPhoto,
+        email: email,
+        role: "employee",
+      };
+      await axiosPublic.post("/add-employee", employeeInfo);
+
+      // Set user in context and provide feedback
+      setUser(user);
+      console.log(user);
+      toast.success("Registration Successful!");
+      navigate("/");
+      
+    } catch (error) {
+      console.error(
+        "Error during registration:",
+        error.response?.data || error.message
+      );
+      toast.error("An error occurred. Please try again.");
+    }
   };
 
   return (
@@ -118,6 +139,32 @@ const JoinAsEmployee = () => {
                 {errors.fullName && (
                   <p className="text-red-500 text-sm mt-1">
                     {errors.fullName.message}
+                  </p>
+                )}
+              </div>
+
+              {/* PhotoURL */}
+              <div className="mb-4">
+                <label
+                  htmlFor="userPhoto"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Your Photo
+                </label>
+                <input
+                  type="file"
+                  id="userPhoto"
+                  {...register("userPhoto", {
+                    required: "userPhoto is required",
+                  })}
+                  className={`w-full mt-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+                    errors.photoURL ? "border-red-500" : "focus:ring-black"
+                  }`}
+                  placeholder="Enter your photo"
+                />
+                {errors.fullName && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.userPhoto.message}
                   </p>
                 )}
               </div>

@@ -10,6 +10,7 @@ import JoinAsEmployee from "./Pages/JoinAsEmployee";
 import AuthProvider from "./Provider/AuthProvider";
 import JoinAsHR from "./Pages/JoinAsHR";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "react-hot-toast";
 
 // Initialize QueryClient
 const queryClient = new QueryClient();
@@ -47,5 +48,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <RouterProvider router={router} />
       </QueryClientProvider>
     </AuthProvider>
+    <Toaster></Toaster>
   </React.StrictMode>
 );

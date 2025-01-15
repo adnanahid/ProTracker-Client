@@ -81,7 +81,7 @@ const Navbar = () => {
               Log Out
             </button>
             <div className="avatar">
-              <div className="w-12 rounded-full">
+              <div className="w-8 rounded-full">
                 <img
                   referrerPolicy="no-referrer"
                   src={user?.photoURL}
