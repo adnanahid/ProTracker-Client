@@ -1,13 +1,17 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
+import useAxiosPublic from "../CustomHooks/UseAxiosPublic";
+
+const imageHostingKey = import.meta.env.VITE_ImgBB_Api;
+const imageHostingApi = `https://api.imgbb.com/1/upload?key=${imageHostingKey}`;
 
 const JoinAsHR = () => {
   const { setUser, signInWithGoogle, userRegistration } =
     useContext(AuthContext);
+  const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
   const {
     register,
@@ -16,38 +20,59 @@ const JoinAsHR = () => {
     reset,
   } = useForm();
 
-  const handleGoogleLogin = (event) => {
-    event.preventDefault();
-    signInWithGoogle()
-      .then((result) => {
-        const user = result.user;
-        console.log(user);
-        setUser(user);
-        toast.success("Login Successfully!");
-        reset();
-        navigate("/");
-      })
-      .catch((error) => {
-        console.error(error.message);
-        toast.error("An error occurred. Please try again.");
-      });
-  };
+  const onSubmit = async (data) => {
+    try {
+      // Prepare the company logo for upload
+      const formData = new FormData();
+      formData.append("image", data.companyLogo[0]);
 
-  const onSubmit = (data) => {
-    const { fullName, email, password, dateOfBirth } = data;
-    userRegistration(email, password)
-      .then((result) => {
-        const user = result.user; // Correctly retrieve the user
-        setUser(user);
-        console.log(user);
-        toast.success("Registration Successful!");
-        reset();
-        navigate("/");
-      })
-      .catch((error) => {
-        console.error(error.message);
-        toast.error("An error occurred. Please try again.");
+      // Upload the logo to ImgBB
+      const res = await axiosPublic.post(imageHostingApi, formData, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
       });
+
+      // If the upload is successful, get the image URL
+      const companyLogoUrl = res.data.data.url;
+      console.log("Company Logo URL: ", companyLogoUrl);
+
+      // Proceed with user registration (after image upload)
+      const HRInfo = {
+        fullName: data.fullName,
+        companyName: data.companyName,
+        companyLogo: companyLogoUrl, // Save the URL of the uploaded logo
+        email: data.email,
+        password: data.password,
+        dateOfBirth: data.dob,
+        package: data.package,
+      };
+
+      // Call userRegistration
+      userRegistration(data.email, data.password)
+        .then((result) => {
+          const user = result.user;
+          axiosPublic
+            .post("/add-hr", HRInfo)
+            .then((res) => {
+              console.log(res.data);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          setUser(user);
+          toast.success("Registration Successful!");
+          reset();
+          navigate("/"); // Navigate to home page or dashboard
+        })
+        .catch((error) => {
+          console.error(error.message);
+          toast.error("An error occurred. Please try again.");
+        });
+    } catch (error) {
+      console.error("Image upload failed: ", error);
+      toast.error("Image upload failed. Please try again.");
+    }
   };
 
   return (
@@ -234,23 +259,6 @@ const JoinAsHR = () => {
               Sign Up
             </button>
           </div>
-
-          {/* Divider */}
-          <div className="flex items-center justify-between my-4">
-            <span className="w-1/5 border-b lg:w-5/12"></span>
-            <span className="text-xs uppercase">or</span>
-            <span className="w-1/5 border-b lg:w-5/12"></span>
-          </div>
-
-          {/* Google Login */}
-          <button
-            type="button"
-            onClick={handleGoogleLogin}
-            className="flex items-center justify-center w-full px-4 py-2 rounded-md border gap-3"
-          >
-            <FcGoogle className="text-2xl" />
-            Continue with Google
-          </button>
         </div>
       </form>
     </div>

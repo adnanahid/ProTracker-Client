@@ -1,14 +1,45 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FcGoogle } from "react-icons/fc";
+import { AuthContext } from "../Provider/AuthProvider";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-  const handleGoogleLogin = () => {
-    console.log("Google login clicked!");
+  const { user, setUser, signInUser, signInWithGoogle } =
+    useContext(AuthContext);
+  const navigate = useNavigate();
+  const handleGoogleLogin = (event) => {
+    event.preventDefault();
+    signInWithGoogle()
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+        toast.success("Login Successfully!");
+        reset();
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error(error.message);
+        toast.error("An error occurred. Please try again.");
+      });
   };
 
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log("Login button clicked!");
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    signInUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+        toast.success("Login Successfully!");
+        reset();
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error(error.message);
+        toast.error("An error occurred. Please try again.");
+      });
   };
 
   return (

@@ -3,6 +3,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import hrBanner from "../../../assets/images/hr2.jpg";
 import employeeBanner from "../../../assets/images/employee2.jpg";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   const slides = [
@@ -12,6 +13,7 @@ const Banner = () => {
       buttonText: "Join Now",
       redirectPath: "/hr-manager-signup",
       bgImage: hrBanner,
+      to: "/join-as-hr",
     },
     {
       title: "Join as Employee",
@@ -19,9 +21,9 @@ const Banner = () => {
       buttonText: "Join Now",
       redirectPath: "/employee-signup",
       bgImage: employeeBanner,
+      to: "join-as-employee",
     },
   ];
-
 
   return (
     <swiper-container class="mySwiper" navigation="true">
@@ -39,11 +41,12 @@ const Banner = () => {
               <div className="md:w-6/12 mx-auto opacity-80 py-16 rounded-3xl bg-black bg-opacity-80 p-6 text-center">
                 <h2 className="text-4xl font-bold mb-4">{slide.title}</h2>
                 <p className="text-lg mb-6">{slide.description}</p>
-                <button
+                <Link
+                  to={slide.to}
                   className="btn px-6 py-3 bg-black text-white rounded-md md:w-40"
                 >
                   {slide.buttonText}
-                </button>
+                </Link>
               </div>
             </div>
           </div>

@@ -9,6 +9,10 @@ import Home from "./Pages/HomePage/Home";
 import JoinAsEmployee from "./Pages/JoinAsEmployee";
 import AuthProvider from "./Provider/AuthProvider";
 import JoinAsHR from "./Pages/JoinAsHR";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+// Initialize QueryClient
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -39,7 +43,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
-      <RouterProvider router={router} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </AuthProvider>
   </React.StrictMode>
 );

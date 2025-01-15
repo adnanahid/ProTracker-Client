@@ -4,10 +4,12 @@ import { FcGoogle } from "react-icons/fc";
 import { AuthContext } from "../Provider/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import useAxiosPublic from "../CustomHooks/UseAxiosPublic";
 
 const JoinAsEmployee = () => {
   const { setUser, signInWithGoogle, userRegistration } =
     useContext(AuthContext);
+  const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
   const {
     register,
@@ -22,6 +24,20 @@ const JoinAsEmployee = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        const { displayName, email } = user;
+        const employeeInfo = {
+          name: displayName,
+          email: email,
+          role: "employee",
+        };
+        axiosPublic
+          .post("/add-employee", employeeInfo)
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
         setUser(user);
         toast.success("Login Successfully!");
         reset();
@@ -38,6 +54,19 @@ const JoinAsEmployee = () => {
     userRegistration(email, password)
       .then((result) => {
         const user = result.user; // Correctly retrieve the user
+        const employeeInfo = {
+          name: fullName,
+          email: email,
+          role: "employee",
+        };
+        axiosPublic
+          .post("/add-employee", employeeInfo)
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
         setUser(user);
         console.log(user);
         toast.success("Registration Successful!");
@@ -56,7 +85,7 @@ const JoinAsEmployee = () => {
         <div className="px-6 md:px-12 lg:px-24">
           <div className="rounded-lg p-8">
             <h2 className="text-3xl font-bold text-center mb-16">
-            Join As Employee
+              Join As Employee
             </h2>
 
             <form
