@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const AddAsset = () => {
   const { user } = useContext(AuthContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
   const {
     register,
@@ -19,14 +19,15 @@ const AddAsset = () => {
   // Submit Handler
   const onSubmit = (data) => {
     const addedDate = new Date().toISOString().split("T")[0];
-    const assetData = { ...data, addedDate };
+    const HREmail = user?.email;
+    const assetData = { ...data, addedDate, HREmail };
 
     axiosPublic
       .post("/add-asset", assetData)
       .then((response) => {
         console.log(response.data);
         toast.success("Asset added successfully!");
-        navigate("/all-asset")
+        navigate("/all-asset");
       })
       .catch((error) => {
         console.error("Error adding asset:", error);
