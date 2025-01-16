@@ -268,8 +268,8 @@ const JoinAsHR = () => {
           >
             <option value="">Select a package</option>
             <option value="5">5 Members for $5</option>
-            <option value="10">10 Members for $8</option>
-            <option value="20">20 Members for $15</option>
+            <option value="8">10 Members for $8</option>
+            <option value="15">20 Members for $15</option>
           </select>
           {errors.package && (
             <p className="text-red-500 text-sm mt-1">
