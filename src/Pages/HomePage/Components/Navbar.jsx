@@ -33,8 +33,8 @@ const Navbar = () => {
           {user && isHR && (
             <div className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
               <NavLink to="/">Home</NavLink>
-              <NavLink to="/join-as-employee">Asset List</NavLink>
-              <NavLink to="/join-as-hr">Add an Asset</NavLink>
+              <NavLink to="/all-asset">Asset List</NavLink>
+              <NavLink to="/add-asset">Add an Asset</NavLink>
               <NavLink to="/join-as-hr">All Request</NavLink>
               <NavLink to="/join-as-hr">Add an Employee</NavLink>
               <NavLink to="/join-as-hr">Profile</NavLink>
@@ -63,9 +63,9 @@ const Navbar = () => {
         {user && isHR && (
           <div className="space-x-5">
             <NavLink to="/">Home</NavLink>
-            <NavLink to="/join-as-employee">Asset List</NavLink>
-            <NavLink to="/join-as-hr">Add an Asset</NavLink>
-            <NavLink to="/join-as-hr">All Request</NavLink>
+            <NavLink to="/all-asset">Asset List</NavLink>
+            <NavLink to="/add-asset">Add an Asset</NavLink>
+            <NavLink to="/all-asset">All Request</NavLink>
             <NavLink to="/join-as-hr">Add an Employee</NavLink>
             <NavLink to="/join-as-hr">Profile</NavLink>
           </div>

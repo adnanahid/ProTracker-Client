@@ -12,6 +12,8 @@ import JoinAsHR from "./Pages/JoinAsHR";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import Payment from "./Pages/Payment";
+import AddAsset from "./Pages/PagesofHR/AddAsset";
+import AssetList from "./Pages/PagesofHR/AssetList";
 
 // Initialize QueryClient
 const queryClient = new QueryClient();
@@ -41,6 +43,15 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <LoginPage></LoginPage>,
+      },
+      //for hr
+      {
+        path: "/add-asset",
+        element: <AddAsset></AddAsset>,
+      },
+      {
+        path: "/all-asset",
+        element: <AssetList></AssetList>,
       },
     ],
   },
