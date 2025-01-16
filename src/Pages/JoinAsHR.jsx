@@ -67,22 +67,11 @@ const JoinAsHR = () => {
         .then((result) => {
           const user = result.user;
           updateUserProfile({ displayName: data.name, photoURL: userPhotoUrl });
-          axiosPublic
-            .post("/add-hr", HRInfo)
-            .then((res) => {
-              console.log(res.data);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
           setUser(user);
-          console.log(user);
           toast.success("Registration Successful!");
-          navigate("/payment", { state: packageAmount });
-          // <Navigate ></Navigate>
+          navigate("/payment", { state: HRInfo });
         })
-        .catch((error) => {
-          console.error(error.message);
+        .catch(() => {
           toast.error("An error occurred. Please try again.");
         });
     } catch (error) {
@@ -288,11 +277,6 @@ const JoinAsHR = () => {
             </p>
           )}
         </div>
-
-        {/* payment section */}
-        {/* <Elements stripe={stripePromise}>
-          <CheckoutForm amount={packageAmount} />
-        </Elements> */}
 
         {/* Signup Button */}
         <div className="text-center">
