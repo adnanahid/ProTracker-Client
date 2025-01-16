@@ -11,6 +11,7 @@ import AuthProvider from "./Provider/AuthProvider";
 import JoinAsHR from "./Pages/JoinAsHR";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
+import Payment from "./Pages/Payment";
 
 // Initialize QueryClient
 const queryClient = new QueryClient();
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "/join-as-hr",
         element: <JoinAsHR></JoinAsHR>,
+      },
+      {
+        path: "/payment",
+        element: <Payment></Payment>,
       },
       {
         path: "/login",

@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import useAxiosPublic from "../CustomHooks/UseAxiosPublic";
+import { useState } from "react";
 
 const imageHostingKey = import.meta.env.VITE_ImgBB_Api;
 const imageHostingApi = `https://api.imgbb.com/1/upload?key=${imageHostingKey}`;
@@ -17,8 +18,9 @@ const JoinAsHR = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm();
+
+  const [packageAmount, setPackageAmount] = useState(0);
 
   const onSubmit = async (data) => {
     try {
@@ -76,7 +78,8 @@ const JoinAsHR = () => {
           setUser(user);
           console.log(user);
           toast.success("Registration Successful!");
-          navigate("/"); // Navigate to home page or dashboard
+          navigate("/payment", { state: packageAmount });
+          // <Navigate ></Navigate>
         })
         .catch((error) => {
           console.error(error.message);
@@ -269,6 +272,7 @@ const JoinAsHR = () => {
           <select
             id="package"
             {...register("package", { required: "Please select a package" })}
+            onChange={(e) => setPackageAmount(Number(e.target.value))}
             className={`w-full mt-1 px-4 py-2 border rounded-md ${
               errors.package ? "border-red-500" : "border-gray-300"
             }`}
@@ -284,6 +288,11 @@ const JoinAsHR = () => {
             </p>
           )}
         </div>
+
+        {/* payment section */}
+        {/* <Elements stripe={stripePromise}>
+          <CheckoutForm amount={packageAmount} />
+        </Elements> */}
 
         {/* Signup Button */}
         <div className="text-center">
