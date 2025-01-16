@@ -6,17 +6,17 @@ import toast from "react-hot-toast";
 import useAxiosPublic from "../../CustomHooks/UseAxiosPublic";
 
 const AssetList = () => {
-  const [assets] = useAllAssets();
+  const { assets, refetch } = useAllAssets();
   const axiosPublic = useAxiosPublic();
 
   const handleUpdate = (asset) => {
     console.log(`Update item with ID: ${asset._id}`);
-
   };
 
   const handleDelete = (asset) => {
     console.log(`Delete item with ID: ${asset}`);
     axiosPublic.delete(`/delete-asset/${asset._id}`).then((res) => {
+      refetch();
       toast.success(`${asset.productName} is deleted`);
     });
   };

@@ -1,15 +1,24 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "./UseAxiosPublic";
 
 const useAllAssets = () => {
-  const [assets, setAssets] = useState({});
   const axiosPublic = useAxiosPublic();
-  useEffect(() => {
-    axiosPublic.get("/all-asset").then((res) => {
-      setAssets(res.data);
-    });
-  }, []);
-  return [assets];
+
+  const {
+    data: assets = [],
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["all-assets"], // Query key
+    queryFn: async () => {
+      const response = await axiosPublic.get("/all-asset");
+      return response.data;
+    },
+  });
+
+  return { assets, isLoading, isError, error, refetch };
 };
 
 export default useAllAssets;
