@@ -38,14 +38,19 @@ const Navbar = () => {
               <NavLink to="/add-asset">Add an Asset</NavLink>
               <NavLink to="/join-as-hr">All Request</NavLink>
               <NavLink to="/all-employees">Add an Employee</NavLink>
+              <NavLink to="/my-employee-list">My Employee List</NavLink>
               <NavLink to="/join-as-hr">Profile</NavLink>
             </div>
           )}
         </div>
         {clientDetails ? (
-          <a className="btn btn-ghost text-xl">
-            {clientDetails?.companyName}
-          </a>
+          clientDetails?.companyName ? (
+            <a className="btn btn-ghost text-xl">
+              {clientDetails?.companyName}
+            </a>
+          ) : (
+            <a className="btn btn-ghost text-xl">Joining Request is Pending</a>
+          )
         ) : (
           <a className="btn btn-ghost text-xl">ProTracker</a>
         )}
@@ -75,6 +80,7 @@ const Navbar = () => {
             <NavLink to="/add-asset">Add an Asset</NavLink>
             <NavLink to="/all-asset">All Request</NavLink>
             <NavLink to="/all-employees">Add an Employee</NavLink>
+            <NavLink to="/my-employee-list">My Employee List</NavLink>
             <NavLink to="/join-as-hr">Profile</NavLink>
           </div>
         )}
