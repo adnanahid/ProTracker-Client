@@ -1,34 +1,39 @@
 import React, { useState } from "react";
 import useAllEmployee from "../../CustomHooks/useAllEmployee";
+import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
+import useCheckRole from "../../CustomHooks/useCheckRole";
 
 const AddEmployeeToTeam = () => {
-  const { employees } = useAllEmployee();
-  const [teamCount, setTeamCount] = useState(0);
-  // const { clientDetails, isReloading, isError, error, refetch } = useCheckRole();
-
-  // Filter employees not affiliated with any company
-  const unAffiliatedEmployees = employees.filter((emp) => !emp.company);
+  const { employees, refetch } = useAllEmployee();
+  const axiosSecure = useAxiosSecure();
+  const { clientDetails, isReloading, isError, error } = useCheckRole();
 
   // Handle adding an employee to the team
-  const handleAddToTeam = (employeeId) => {
-    // Increment team count
-    setTeamCount((prevCount) => prevCount + 1);
-
-    // Add logic to update the employee's affiliation if needed (e.g., API call)
-    console.log(`Employee with ID ${employeeId} added to the team.`);
+  const handleAddToTeam = (employee) => {
+    axiosSecure
+      .post(`/add-to-team`, {
+        ...employee,
+        hrEmail: clientDetails.email,
+        companyName: clientDetails.companyName,
+        companyLogo: clientDetails.companyLogo,
+      })
+      .then((res) => {
+        console.log(res.data);
+        refetch();
+      });
   };
 
   return (
     <div className="max-w-screen-xl mx-auto">
       <h1 className="text-4xl font-bold text-center pt-28">Add an Employee</h1>
       <p className="text-center mt-4 text-lg">
-        Team Members Count: <span className="font-semibold">{teamCount}</span>
+        Team Members Count: <span className="font-semibold">{}</span>
       </p>
-      <div className="mt-10 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-        {unAffiliatedEmployees.map((employee) => (
+      <div className="mt-10 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+        {employees.map((employee) => (
           <div
             key={employee._id}
-            className="max-w-[200px] border p-4 rounded shadow hover:shadow-lg transition"
+            className="w-[220px] border p-4 rounded shadow hover:shadow-lg transition"
           >
             <div className="mt-4">
               <img
@@ -42,11 +47,10 @@ const AddEmployeeToTeam = () => {
               id={`employee-${employee._id}`}
               className="mr-2"
             />
-            <label htmlFor={`employee-${employee.id}`} className="font-medium">
-              {employee.name}
-            </label>
+            <p className="font-medium">{employee.name}</p>
+            <p className="font-medium">{employee.email}</p>
             <button
-              onClick={() => handleAddToTeam(employee._id)}
+              onClick={() => handleAddToTeam(employee)}
               className="bg-black text-white py-2 px-4 rounded mt-4 hover:bg-gray-800"
             >
               Add to the Team

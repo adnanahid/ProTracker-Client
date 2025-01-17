@@ -18,7 +18,7 @@ const useAllEmployee = () => {
     },
   });
 
-  return { employees, isLoading, isError, error, refetch };
+  return { employees, refetch, isLoading, isError, error };
 };
 
 export default useAllEmployee;

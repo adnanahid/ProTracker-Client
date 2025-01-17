@@ -8,14 +8,14 @@ const useCheckRole = () => {
   const axiosPublic = useAxiosPublic();
 
   const {
-    data: clientDetails = null, // Default to null
+    data: clientDetails = null,
     isLoading: isReloading,
     isError,
     error,
     refetch,
   } = useQuery({
     queryKey: ["userRole", user?.email],
-    enabled: !authLoading && !!user?.email, // Only fetch if user is loaded and email exists
+    enabled: !authLoading && !!user?.email,
     queryFn: async () => {
       try {
         const res = await axiosPublic.get(`/detailsOf/${user.email}`);
