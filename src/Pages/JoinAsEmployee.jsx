@@ -17,6 +17,7 @@ const JoinAsEmployee = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   const handleGoogleLogin = (event) => {

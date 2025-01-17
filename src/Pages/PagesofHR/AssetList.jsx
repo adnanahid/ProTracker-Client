@@ -1,13 +1,11 @@
 import React from "react";
 import useAllAssets from "../../CustomHooks/useAllAssets";
-import axios from "axios";
-import { RiCloseLargeFill } from "react-icons/ri";
 import toast from "react-hot-toast";
-import useAxiosPublic from "../../CustomHooks/UseAxiosPublic";
+import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
 
 const AssetList = () => {
   const { assets, refetch } = useAllAssets();
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
 
   const handleUpdate = (asset) => {
     console.log(`Update item with ID: ${asset._id}`);
@@ -15,7 +13,7 @@ const AssetList = () => {
 
   const handleDelete = (asset) => {
     console.log(`Delete item with ID: ${asset}`);
-    axiosPublic.delete(`/delete-asset/${asset._id}`).then((res) => {
+    axiosSecure.delete(`/delete-asset/${asset._id}`).then((res) => {
       refetch();
       toast.success(`${asset.productName} is deleted`);
     });

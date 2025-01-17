@@ -2,13 +2,13 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../Provider/AuthProvider";
-import useAxiosPublic from "../../CustomHooks/UseAxiosPublic";
 import { useNavigate } from "react-router-dom";
+import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
 
 const AddAsset = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const {
     register,
     handleSubmit,
@@ -22,7 +22,7 @@ const AddAsset = () => {
     const HREmail = user?.email;
     const assetData = { ...data, addedDate, HREmail };
 
-    axiosPublic
+    axiosSecure
       .post("/add-asset", assetData)
       .then((response) => {
         console.log(response.data);

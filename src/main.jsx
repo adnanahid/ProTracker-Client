@@ -14,6 +14,7 @@ import { Toaster } from "react-hot-toast";
 import Payment from "./Pages/Payment";
 import AddAsset from "./Pages/PagesofHR/AddAsset";
 import AssetList from "./Pages/PagesofHR/AssetList";
+import HRRoute from "./PrivateRoutes/HRRoute";
 
 // Initialize QueryClient
 const queryClient = new QueryClient();
@@ -47,11 +48,19 @@ const router = createBrowserRouter([
       //for hr
       {
         path: "/add-asset",
-        element: <AddAsset></AddAsset>,
+        element: (
+          <HRRoute>
+            <AddAsset></AddAsset>,
+          </HRRoute>
+        ),
       },
       {
         path: "/all-asset",
-        element: <AssetList></AssetList>,
+        element: (
+          <HRRoute>
+            <AssetList></AssetList>,
+          </HRRoute>
+        ),
       },
     ],
   },
