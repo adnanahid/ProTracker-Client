@@ -20,13 +20,13 @@ const CheckoutForm = () => {
   const elements = useElements();
   const location = useLocation();
   const HRInfo = location.state;
-  const packageAmount = parseInt(HRInfo.package);
+  const amount = parseInt(HRInfo.packageAmount);
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
 
   useEffect(() => {
     axiosPublic
-      .post("/create-payment-intent", { amount: packageAmount })
+      .post("/create-payment-intent", { amount: amount })
       .then((res) => {
         setClientSecret(res.data.clientSecret);
         console.log("Client secret:", res.data.clientSecret);
@@ -34,7 +34,7 @@ const CheckoutForm = () => {
       .catch((error) => {
         console.error("Error fetching client secret:", error);
       });
-  }, [axiosPublic, packageAmount]);
+  }, [axiosPublic, amount]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

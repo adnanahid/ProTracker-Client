@@ -25,9 +25,10 @@ const JoinAsEmployee = () => {
     signInWithGoogle()
       .then((result) => {
         const user = result.user;
-        const { displayName, email } = user;
+        const { displayName, email, photoURL } = user;
         const employeeInfo = {
           name: displayName,
+          photo: photoURL,
           email: email,
           role: "employee",
         };

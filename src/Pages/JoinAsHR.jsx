@@ -20,7 +20,7 @@ const JoinAsHR = () => {
     formState: { errors },
   } = useForm();
 
-  const [packageAmount, setPackageAmount] = useState(0);
+  // const [packageAmount, setPackage] = useState(0);
 
   const onSubmit = async (data) => {
     try {
@@ -55,11 +55,13 @@ const JoinAsHR = () => {
         fullName: data.fullName,
         userPhoto: userPhotoUrl,
         companyName: data.companyName,
-        companyLogo: companyLogoUrl, // Save the URL of the uploaded logo
+        companyLogo: companyLogoUrl,
         email: data.email,
         password: data.password,
         dateOfBirth: data.dob,
-        package: data.package,
+        packageLimit: parseInt(data.package.split("for")[0], 10),
+        packageAmount: parseInt(data.package.split("for")[1], 10),
+        role: "hr",
       };
 
       // Call userRegistration
@@ -261,15 +263,17 @@ const JoinAsHR = () => {
           <select
             id="package"
             {...register("package", { required: "Please select a package" })}
-            onChange={(e) => setPackageAmount(Number(e.target.value))}
+            // onChange={(e) =>
+            //   setPackage(Number(e.target.value))
+            // }
             className={`w-full mt-1 px-4 py-2 border rounded-md ${
               errors.package ? "border-red-500" : "border-gray-300"
             }`}
           >
             <option value="">Select a package</option>
-            <option value="5">5 Members for $5</option>
-            <option value="8">10 Members for $8</option>
-            <option value="15">20 Members for $15</option>
+            <option value="5for5">5 Members for $5</option>
+            <option value="10for8">10 Members for $8</option>
+            <option value="20for15">20 Members for $15</option>
           </select>
           {errors.package && (
             <p className="text-red-500 text-sm mt-1">

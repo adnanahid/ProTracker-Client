@@ -12,15 +12,14 @@ const AssetList = () => {
   };
 
   const handleDelete = (asset) => {
-    console.log(`Delete item with ID: ${asset}`);
-    axiosSecure.delete(`/delete-asset/${asset._id}`).then((res) => {
+    axiosSecure.delete(`/delete-asset/${asset._id}`).then(() => {
       refetch();
       toast.success(`${asset.productName} is deleted`);
     });
   };
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen pt-28">
+    <div className="p-6 min-h-screen pt-28">
       <h1 className="text-2xl font-bold mb-12 text-center">Asset List</h1>
 
       <div className="overflow-x-auto max-w-screen-lg mx-auto">

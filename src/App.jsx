@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import Navbar from "./Pages/HomePage/Components/Navbar";
 import { Outlet, useLocation } from "react-router-dom";
+import { AuthContext } from "./Provider/AuthProvider";
 
 const App = () => {
+  const { user, loading } = useContext(AuthContext);
+  // if (loading) return <div>loading...</div>;
   const location = useLocation();
   return (
     <div>

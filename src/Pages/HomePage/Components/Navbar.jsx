@@ -2,11 +2,12 @@ import React, { useContext } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider";
-import useHr from "../../../CustomHooks/useHr";
+import useCheckRole from "../../../CustomHooks/useCheckRole";
 
 const Navbar = () => {
   const { user, userLogOut } = useContext(AuthContext);
-  const [isHR] = useHr();
+  const { clientDetails } = useCheckRole();
+
   return (
     <div className="navbar fixed z-10 bg-black text-white">
       <div className="navbar-start">
@@ -21,7 +22,7 @@ const Navbar = () => {
               <NavLink to="/join-as-hr">Join as HR Manager</NavLink>
             </div>
           )}
-          {user && !isHR && (
+          {clientDetails?.role === "employee" && (
             <div className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
               <NavLink to="/">Home</NavLink>
               <NavLink to="/join-as-employee">My Assets</NavLink>
@@ -30,18 +31,24 @@ const Navbar = () => {
               <NavLink to="/join-as-hr">Profile</NavLink>
             </div>
           )}
-          {user && isHR && (
+          {clientDetails?.role === "hr" && (
             <div className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
               <NavLink to="/">Home</NavLink>
               <NavLink to="/all-asset">Asset List</NavLink>
               <NavLink to="/add-asset">Add an Asset</NavLink>
               <NavLink to="/join-as-hr">All Request</NavLink>
-              <NavLink to="/join-as-hr">Add an Employee</NavLink>
+              <NavLink to="/all-employees">Add an Employee</NavLink>
               <NavLink to="/join-as-hr">Profile</NavLink>
             </div>
           )}
         </div>
-        <a className="btn btn-ghost text-xl">ProTracker</a>
+        {clientDetails ? (
+          <a className="btn btn-ghost text-xl">
+            {clientDetails?.companyName}
+          </a>
+        ) : (
+          <a className="btn btn-ghost text-xl">ProTracker</a>
+        )}
       </div>
       <div className="navbar-center hidden lg:flex">
         {!user && (
@@ -51,7 +58,8 @@ const Navbar = () => {
             <NavLink to="/join-as-hr">Join as HR Manager</NavLink>
           </div>
         )}
-        {user && !isHR && (
+
+        {clientDetails?.role === "employee" && (
           <div className="space-x-5">
             <NavLink to="/">Home</NavLink>
             <NavLink to="/join-as-employee">My Assets</NavLink>
@@ -60,13 +68,13 @@ const Navbar = () => {
             <NavLink to="/join-as-hr">Profile</NavLink>
           </div>
         )}
-        {user && isHR && (
+        {clientDetails?.role === "hr" && (
           <div className="space-x-5">
             <NavLink to="/">Home</NavLink>
             <NavLink to="/all-asset">Asset List</NavLink>
             <NavLink to="/add-asset">Add an Asset</NavLink>
             <NavLink to="/all-asset">All Request</NavLink>
-            <NavLink to="/join-as-hr">Add an Employee</NavLink>
+            <NavLink to="/all-employees">Add an Employee</NavLink>
             <NavLink to="/join-as-hr">Profile</NavLink>
           </div>
         )}

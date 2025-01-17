@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-// import useAxiosPublic from "./UseAxiosPublic";
 import useAxiosSecure from "./useAxiosSecure";
 
 const useAllAssets = () => {
@@ -12,7 +11,7 @@ const useAllAssets = () => {
     error,
     refetch,
   } = useQuery({
-    queryKey: ["all-assets"], // Query key
+    queryKey: ["all-assets"],
     queryFn: async () => {
       const response = await axiosSecure.get("/all-asset");
       return response.data;

@@ -28,6 +28,7 @@ const AddAsset = () => {
         console.log(response.data);
         toast.success("Asset added successfully!");
         navigate("/all-asset");
+        reset();
       })
       .catch((error) => {
         console.error("Error adding asset:", error);
