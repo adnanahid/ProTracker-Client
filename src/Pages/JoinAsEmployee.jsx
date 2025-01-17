@@ -33,7 +33,7 @@ const JoinAsEmployee = () => {
           role: "employee",
         };
         axiosPublic
-          .post("/add-employee", employeeInfo)
+          .put("/add-new-employee", employeeInfo)
           .then((res) => {
             console.log(res.data);
           })
@@ -85,7 +85,7 @@ const JoinAsEmployee = () => {
         email: email,
         role: "employee",
       };
-      await axiosPublic.post("/add-employee", employeeInfo);
+      await axiosPublic.put("/add-new-employee", employeeInfo);
 
       // Set user in context and provide feedback
       setUser(user);

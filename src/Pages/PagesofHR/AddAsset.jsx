@@ -22,6 +22,18 @@ const AddAsset = () => {
     const HREmail = user?.email;
     const assetData = { ...data, addedDate, HREmail };
 
+    // axiosSecure
+    //   .post("/add-asset", assetData)
+    //   .then((response) => {
+    //     console.log(response.data);
+    //     toast.success("Asset added successfully!");
+    //     navigate("/all-asset");
+    //     reset();
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error adding asset:", error);
+    //     toast.error("Failed to add asset. Please try again.");
+    //   });
     axiosSecure
       .post("/add-asset", assetData)
       .then((response) => {
@@ -31,7 +43,10 @@ const AddAsset = () => {
         reset();
       })
       .catch((error) => {
-        console.error("Error adding asset:", error);
+        console.error(
+          "Error adding asset:",
+          error.response?.data || error.message
+        );
         toast.error("Failed to add asset. Please try again.");
       });
   };

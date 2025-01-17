@@ -15,7 +15,7 @@ const HRRoute = ({ children }) => {
     return <div>loading...</div>;
   }
 
-  return clientDetails.role === "hr" ? (
+  return clientDetails?.role === "hr" ? (
     children
   ) : (
     <Navigate state={{ from: location.pathname }} to="/login" />

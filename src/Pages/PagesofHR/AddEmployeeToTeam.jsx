@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import useAllEmployee from "../../CustomHooks/useAllEmployee";
-import useCheckRole from "../../CustomHooks/useCheckRole";
 
-const AddEmployee = () => {
+const AddEmployeeToTeam = () => {
   const { employees } = useAllEmployee();
   const [teamCount, setTeamCount] = useState(0);
-  const { clientDetails, isReloading, isError, error, refetch } = useCheckRole();
+  // const { clientDetails, isReloading, isError, error, refetch } = useCheckRole();
 
   // Filter employees not affiliated with any company
   const unAffiliatedEmployees = employees.filter((emp) => !emp.company);
@@ -59,4 +58,4 @@ const AddEmployee = () => {
   );
 };
 
-export default AddEmployee;
+export default AddEmployeeToTeam;
