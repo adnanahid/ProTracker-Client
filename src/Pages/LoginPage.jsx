@@ -22,7 +22,7 @@ const LoginPage = () => {
           name: displayName,
           photo: photoURL,
           email: email,
-          role: "employee",
+          role: "n/a",
         };
         axiosPublic
           .put("/add-new-employee", employeeInfo)

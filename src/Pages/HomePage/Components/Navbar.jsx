@@ -22,6 +22,11 @@ const Navbar = () => {
               <NavLink to="/join-as-hr">Join as HR Manager</NavLink>
             </div>
           )}
+          {clientDetails?.role === "n/a" && (
+            <div className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+              request pending
+            </div>
+          )}
           {clientDetails?.role === "employee" && (
             <div className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
               <NavLink to="/">Home</NavLink>

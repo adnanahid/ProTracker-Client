@@ -1,8 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "./useAxiosSecure";
+import useCheckRole from "./useCheckRole";
 
 const useAllAssets = () => {
   const axiosSecure = useAxiosSecure();
+  const { clientDetails } = useCheckRole();
 
   const {
     data: assets = [],
@@ -13,7 +15,9 @@ const useAllAssets = () => {
   } = useQuery({
     queryKey: ["all-assets"],
     queryFn: async () => {
-      const response = await axiosSecure.get("/all-asset");
+      const response = await axiosSecure.get(
+        `/all-asset/${clientDetails.email}`
+      );
       return response.data;
     },
   });

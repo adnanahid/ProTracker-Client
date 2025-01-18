@@ -11,11 +11,12 @@ const AddEmployeeToTeam = () => {
   // Handle adding an employee to the team
   const handleAddToTeam = (employee) => {
     axiosSecure
-      .post(`/add-to-team`, {
+      .patch(`/add-to-team`, {
         ...employee,
         hrEmail: clientDetails.email,
         companyName: clientDetails.companyName,
         companyLogo: clientDetails.companyLogo,
+        role: "employee"
       })
       .then((res) => {
         console.log(res.data);

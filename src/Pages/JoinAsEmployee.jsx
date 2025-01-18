@@ -30,7 +30,7 @@ const JoinAsEmployee = () => {
           name: displayName,
           photo: photoURL,
           email: email,
-          role: "employee",
+          role: "n/a",
         };
         axiosPublic
           .put("/add-new-employee", employeeInfo)
@@ -83,7 +83,7 @@ const JoinAsEmployee = () => {
         name: fullName,
         photo: userPhoto,
         email: email,
-        role: "employee",
+        role: "n/a",
       };
       await axiosPublic.put("/add-new-employee", employeeInfo);
 
