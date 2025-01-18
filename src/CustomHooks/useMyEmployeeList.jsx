@@ -11,13 +11,14 @@ const useMyEmployeeList = () => {
     isLoading: isMyEmployeeLoading,
     refetch: isMyEmployeeRefetch,
   } = useQuery({
-    queryKey: ["employeeList"],
+    queryKey: ["employeeList", clientDetails?.email],
     queryFn: async () => {
       const response = await axiosSecure.get(
         `/my-employees/${clientDetails?.email}`
       );
       return response.data;
     },
+    enabled: !!clientDetails?.email,
   });
   return { myEmployeeList, isMyEmployeeLoading, isMyEmployeeRefetch };
 };

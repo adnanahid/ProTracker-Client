@@ -27,6 +27,7 @@ const useCheckRole = () => {
         );
       }
     },
+    enabled: !!user?.email,
   });
 
   return { clientDetails, isReloading, isError, error, refetch };

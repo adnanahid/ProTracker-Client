@@ -8,7 +8,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
-import useAxiosPublic from "../CustomHooks/UseAxiosPublic";
+import useAxiosPublic from "../../CustomHooks/UseAxiosPublic";
 
 const stripePromise = loadStripe(import.meta.env.VITE_Publishable_Key);
 

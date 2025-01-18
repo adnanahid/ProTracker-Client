@@ -1,6 +1,6 @@
 import Lottie from 'lottie-react';
 import React from 'react';
-import error from "../../public/animation/404-Animation.json"
+import error from "../../../public/animation/404-Animation.json"
 
 const ErrorPage = () => {
     return (

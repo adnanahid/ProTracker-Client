@@ -13,8 +13,24 @@ const MyRequestedAssets = () => {
   const [filteredAssets, setFilteredAssets] = useState([]);
 
   // Filter and search logic
+  // useEffect(() => {
+  //   // Perform the filtering logic here
+  //   const filtered = myRequestedAssetList.filter((asset) => {
+  //     const matchesSearch = asset.AssetName.toLowerCase().includes(
+  //       searchQuery.toLowerCase()
+  //     );
+  //     const matchesStatus =
+  //       filters.status === "" || asset.RequestStatus === filters.status;
+  //     const matchesType =
+  //       filters.type === "" || asset.AssetType === filters.type;
+
+  //     return matchesSearch && matchesStatus && matchesType;
+  //   });
+
+  //   // Set the filtered assets
+  //   setFilteredAssets(filtered);
+  // }, [myRequestedAssetList, searchQuery, filters]);
   useEffect(() => {
-    // Perform the filtering logic here
     const filtered = myRequestedAssetList.filter((asset) => {
       const matchesSearch = asset.AssetName.toLowerCase().includes(
         searchQuery.toLowerCase()
@@ -27,8 +43,10 @@ const MyRequestedAssets = () => {
       return matchesSearch && matchesStatus && matchesType;
     });
 
-    // Set the filtered assets
-    setFilteredAssets(filtered);
+    // শুধুমাত্র যদি স্টেট পরিবর্তন প্রয়োজন হয় তখন সেট করুন
+    if (JSON.stringify(filtered) !== JSON.stringify(filteredAssets)) {
+      setFilteredAssets(filtered);
+    }
   }, [myRequestedAssetList, searchQuery, filters]);
 
   return (

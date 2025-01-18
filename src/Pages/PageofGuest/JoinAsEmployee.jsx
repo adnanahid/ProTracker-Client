@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
-import { AuthContext } from "../Provider/AuthProvider";
+import { AuthContext } from "../../Provider/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import useAxiosPublic from "../CustomHooks/UseAxiosPublic";
+import useAxiosPublic from "../../CustomHooks/UseAxiosPublic";
 
 const JoinAsEmployee = () => {
   const imageHostingKey = import.meta.env.VITE_ImgBB_Api;

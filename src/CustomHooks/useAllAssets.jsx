@@ -13,13 +13,14 @@ const useAllAssets = () => {
     error,
     refetch,
   } = useQuery({
-    queryKey: ["all-assets"],
+    queryKey: ["all-assets", clientDetails?.email],
     queryFn: async () => {
       const response = await axiosSecure.get(
         `/all-asset/${clientDetails.email}`
       );
       return response.data;
     },
+    enabled: !!clientDetails?.email,
   });
 
   return { assets, isLoading, isError, error, refetch };

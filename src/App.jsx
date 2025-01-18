@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import Navbar from "./Pages/HomePage/Components/Navbar";
+import Navbar from "./Pages/CommonPages/Components/Navbar";
 import { Outlet, useLocation } from "react-router-dom";
 import { AuthContext } from "./Provider/AuthProvider";
 

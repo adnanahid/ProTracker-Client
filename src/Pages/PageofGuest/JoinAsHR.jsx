@@ -2,8 +2,8 @@ import React, { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Navigate, useNavigate } from "react-router-dom";
-import { AuthContext } from "../Provider/AuthProvider";
-import useAxiosPublic from "../CustomHooks/UseAxiosPublic";
+import { AuthContext } from "../../Provider/AuthProvider";
+import useAxiosPublic from "../../CustomHooks/UseAxiosPublic";
 import { useState } from "react";
 
 const imageHostingKey = import.meta.env.VITE_ImgBB_Api;
@@ -20,8 +20,6 @@ const JoinAsHR = () => {
     formState: { errors },
   } = useForm();
 
-  // const [packageAmount, setPackage] = useState(0);
-
   const onSubmit = async (data) => {
     try {
       //for company logo
@@ -32,7 +30,6 @@ const JoinAsHR = () => {
           "content-type": "multipart/form-data",
         },
       });
-      // If the upload is successful, get the image URL
       const companyLogoUrl = logoResponse.data.data.url;
 
       //fot userPhoto
@@ -47,7 +44,6 @@ const JoinAsHR = () => {
           },
         }
       );
-      // If the upload is successful, get the image URL
       const userPhotoUrl = userPhotoResponse.data.data.url;
 
       // Proceed with user registration (after image upload)
@@ -68,7 +64,10 @@ const JoinAsHR = () => {
       userRegistration(data.email, data.password)
         .then((result) => {
           const user = result.user;
-          updateUserProfile({ displayName: data.name, photoURL: userPhotoUrl });
+          updateUserProfile({
+            displayName: data.fullName,
+            photoURL: userPhotoUrl,
+          });
           setUser(user);
           toast.success("Registration Successful!");
           navigate("/payment", { state: HRInfo });

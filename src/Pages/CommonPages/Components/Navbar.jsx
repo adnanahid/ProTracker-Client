@@ -32,10 +32,8 @@ const Navbar = () => {
               <NavLink to="/">Home</NavLink>
               <NavLink to="/myRequestedAssetList">My Requested Assets</NavLink>
               <NavLink to="/join-as-hr">My Team</NavLink>
-              <NavLink to="/request-for-an-assets">
-                Request for An Asset
-              </NavLink>
-              <NavLink to="/join-as-hr">Profile</NavLink>
+              <NavLink to="/request-for-an-assets">Request for Asset</NavLink>
+              <NavLink to="/profile">Profile</NavLink>
             </div>
           )}
           {clientDetails?.role === "hr" && (
@@ -46,7 +44,7 @@ const Navbar = () => {
               <NavLink to="/join-as-hr">All Request</NavLink>
               <NavLink to="/all-employees">Add an Employee</NavLink>
               <NavLink to="/my-employee-list">My Employee List</NavLink>
-              <NavLink to="/join-as-hr">Profile</NavLink>
+              <NavLink to="/profile">Profile</NavLink>
             </div>
           )}
         </div>
@@ -71,8 +69,9 @@ const Navbar = () => {
           </div>
         )}
         {clientDetails?.role === "n/a" && (
-          <div className="bg-white text-black px-10 py-1 rounded-3xl text-xl font-semibold">
-            request pending
+          <div className="space-x-5">
+            <h3>Request Pending</h3>
+            <NavLink to="/">Home</NavLink>
           </div>
         )}
         {clientDetails?.role === "employee" && (
@@ -80,8 +79,8 @@ const Navbar = () => {
             <NavLink to="/">Home</NavLink>
             <NavLink to="/myRequestedAssetList">My Requested Assets</NavLink>
             <NavLink to="/myTeamMembers">My Team</NavLink>
-            <NavLink to="/request-for-an-assets">Request for An Asset</NavLink>
-            <NavLink to="/join-as-hr">Profile</NavLink>
+            <NavLink to="/request-for-an-assets">Request for Asset</NavLink>
+            <NavLink to="/profile">Profile</NavLink>
           </div>
         )}
         {clientDetails?.role === "hr" && (
@@ -92,7 +91,7 @@ const Navbar = () => {
             <NavLink to="/all-asset">All Request</NavLink>
             <NavLink to="/all-employees">Add an Employee</NavLink>
             <NavLink to="/my-employee-list">My Employee List</NavLink>
-            <NavLink to="/join-as-hr">Profile</NavLink>
+            <NavLink to="/profile">Profile</NavLink>
           </div>
         )}
       </div>

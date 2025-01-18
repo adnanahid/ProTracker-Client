@@ -10,13 +10,14 @@ const useAssetsOfMyCompany = () => {
     isLoading: requestedAssetLoading,
     refetch: requestedAssetsRefetch,
   } = useQuery({
-    queryKey: ["requestedAssets"],
+    queryKey: ["requestedAssets", clientDetails?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(
         `/assets-of-company/${clientDetails.hrEmail}`
       );
       return res.data;
     },
+    enabled: !!clientDetails?.email,
   });
   return { requestedAssets, requestedAssetLoading, requestedAssetsRefetch };
 };

@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { AuthContext } from "../Provider/AuthProvider";
+import { AuthContext } from "../../Provider/AuthProvider";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import useAxiosPublic from "../CustomHooks/UseAxiosPublic";
+import useAxiosPublic from "../../CustomHooks/UseAxiosPublic";
 
 const LoginPage = () => {
   const { user, setUser, signInUser, signInWithGoogle } =
@@ -24,14 +24,6 @@ const LoginPage = () => {
           email: email,
           role: "n/a",
         };
-        // axiosPublic
-        //   .put("/add-new-employee", employeeInfo)
-        //   .then((res) => {
-        //     console.log(res.data);
-        //   })
-        //   .catch((error) => {
-        //     console.log(error);
-        //   });
         axiosPublic
           .post("/add-new-employee", employeeInfo)
           .then((res) => {
