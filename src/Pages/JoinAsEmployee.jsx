@@ -33,13 +33,21 @@ const JoinAsEmployee = () => {
           role: "n/a",
         };
         axiosPublic
-          .put("/add-new-employee", employeeInfo)
+          .post("/add-new-employee", employeeInfo)
           .then((res) => {
             console.log(res.data);
           })
           .catch((error) => {
             console.log(error);
           });
+        // axiosPublic
+        //   .put("/add-new-employee", employeeInfo)
+        //   .then((res) => {
+        //     console.log(res.data);
+        //   })
+        //   .catch((error) => {
+        //     console.log(error);
+        //   });
         setUser(user);
         toast.success("Login Successfully!");
         reset();
@@ -85,14 +93,21 @@ const JoinAsEmployee = () => {
         email: email,
         role: "n/a",
       };
-      await axiosPublic.put("/add-new-employee", employeeInfo);
+      // await axiosPublic.put("/add-new-employee", employeeInfo);
+      axiosPublic
+        .post("/add-new-employee", employeeInfo)
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
 
       // Set user in context and provide feedback
       setUser(user);
       console.log(user);
       toast.success("Registration Successful!");
       navigate("/");
-      
     } catch (error) {
       console.error(
         "Error during registration:",

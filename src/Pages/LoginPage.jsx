@@ -24,8 +24,16 @@ const LoginPage = () => {
           email: email,
           role: "n/a",
         };
+        // axiosPublic
+        //   .put("/add-new-employee", employeeInfo)
+        //   .then((res) => {
+        //     console.log(res.data);
+        //   })
+        //   .catch((error) => {
+        //     console.log(error);
+        //   });
         axiosPublic
-          .put("/add-new-employee", employeeInfo)
+          .post("/add-new-employee", employeeInfo)
           .then((res) => {
             console.log(res.data);
           })

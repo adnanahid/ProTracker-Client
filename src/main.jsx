@@ -17,6 +17,8 @@ import AssetList from "./Pages/PagesofHR/AssetList";
 import HRRoute from "./PrivateRoutes/HRRoute";
 import AddEmployeeToTeam from "./Pages/PagesofHR/AddEmployeeToTeam";
 import MyEmployeeList from "./Pages/PagesofHR/MyEmployeeList";
+import EmployeeRoutes from "./PrivateRoutes/EmployeeRoutes";
+import RequestForAnAsset from "./Pages/PageforEmployee.jsx/RequestForAnAsset";
 
 // Initialize QueryClient
 const queryClient = new QueryClient();
@@ -78,6 +80,16 @@ const router = createBrowserRouter([
           <HRRoute>
             <MyEmployeeList></MyEmployeeList>,
           </HRRoute>
+        ),
+      },
+
+      //for employee
+      {
+        path: "/request-for-an-assets",
+        element: (
+          <EmployeeRoutes>
+            <RequestForAnAsset></RequestForAnAsset>
+          </EmployeeRoutes>
         ),
       },
     ],

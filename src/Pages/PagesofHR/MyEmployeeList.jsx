@@ -29,7 +29,7 @@ const MyEmployeeList = () => {
           </thead>
           <tbody>
             {myEmployeeList.map((myEmployee, index) => (
-              <tr>
+              <tr key={index}>
                 <th>{index + 1}</th>
                 <td>
                   <div className="avatar">
@@ -46,7 +46,9 @@ const MyEmployeeList = () => {
                 </td>
                 <td>{myEmployee?.role}</td>
                 <th>
-                  <button className="btn btn-ghost btn-xs bg-red-600 text-white">Remove</button>
+                  <button className="btn btn-ghost btn-xs bg-red-600 text-white">
+                    Remove
+                  </button>
                 </th>
               </tr>
             ))}

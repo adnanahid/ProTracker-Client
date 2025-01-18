@@ -4,13 +4,16 @@ import { Navigate, useLocation } from "react-router-dom";
 
 const EmployeeRoutes = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
+  const location = useLocation(); // Always call hooks at the top
+
   if (loading) {
     return <div>loading...</div>;
   }
-  const location = useLocation();
-  if (user) return children;
-  else {
-    return <Navigate to="/login" state={location.pathname}></Navigate>;
+
+  if (user) {
+    return children;
+  } else {
+    return <Navigate to="/login" state={{ from: location.pathname }} />;
   }
 };
 

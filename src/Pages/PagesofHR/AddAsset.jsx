@@ -77,9 +77,8 @@ const AddAsset = () => {
             className="w-full border border-gray-300 rounded-md p-2"
           >
             <option value="">Select product type</option>
-            <option value="Electronics">Electronics</option>
-            <option value="Furniture">Furniture</option>
-            <option value="Stationery">Stationery</option>
+            <option value="Returnable">Returnable</option>
+            <option value="Non-returnable">Non-returnable</option>
           </select>
           {errors.productType && (
             <p className="text-red-600 text-sm mt-1">

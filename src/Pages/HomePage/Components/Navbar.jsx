@@ -7,6 +7,7 @@ import useCheckRole from "../../../CustomHooks/useCheckRole";
 const Navbar = () => {
   const { user, userLogOut } = useContext(AuthContext);
   const { clientDetails } = useCheckRole();
+  console.log(clientDetails);
 
   return (
     <div className="navbar fixed z-10 bg-black text-white">
@@ -32,7 +33,9 @@ const Navbar = () => {
               <NavLink to="/">Home</NavLink>
               <NavLink to="/join-as-employee">My Assets</NavLink>
               <NavLink to="/join-as-hr">My Team</NavLink>
-              <NavLink to="/join-as-hr">Request for An Asset</NavLink>
+              <NavLink to="/request-for-an-assets">
+                Request for An Asset
+              </NavLink>
               <NavLink to="/join-as-hr">Profile</NavLink>
             </div>
           )}
@@ -68,13 +71,17 @@ const Navbar = () => {
             <NavLink to="/join-as-hr">Join as HR Manager</NavLink>
           </div>
         )}
-
+        {clientDetails?.role === "n/a" && (
+          <div className="bg-white text-black px-10 py-1 rounded-3xl text-xl font-semibold">
+            request pending
+          </div>
+        )}
         {clientDetails?.role === "employee" && (
           <div className="space-x-5">
             <NavLink to="/">Home</NavLink>
             <NavLink to="/join-as-employee">My Assets</NavLink>
             <NavLink to="/join-as-hr">My Team</NavLink>
-            <NavLink to="/join-as-hr">Request for An Asset</NavLink>
+            <NavLink to="/request-for-an-assets">Request for An Asset</NavLink>
             <NavLink to="/join-as-hr">Profile</NavLink>
           </div>
         )}
