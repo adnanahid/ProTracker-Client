@@ -14,6 +14,7 @@ const MyRequestedAssets = () => {
 
   // Filter and search logic
   useEffect(() => {
+    // Perform the filtering logic here
     const filtered = myRequestedAssetList.filter((asset) => {
       const matchesSearch = asset.AssetName.toLowerCase().includes(
         searchQuery.toLowerCase()
@@ -26,6 +27,7 @@ const MyRequestedAssets = () => {
       return matchesSearch && matchesStatus && matchesType;
     });
 
+    // Set the filtered assets
     setFilteredAssets(filtered);
   }, [myRequestedAssetList, searchQuery, filters]);
 
