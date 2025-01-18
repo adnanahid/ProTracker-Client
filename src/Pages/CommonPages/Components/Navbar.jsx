@@ -41,7 +41,7 @@ const Navbar = () => {
               <NavLink to="/">Home</NavLink>
               <NavLink to="/all-asset">Asset List</NavLink>
               <NavLink to="/add-asset">Add an Asset</NavLink>
-              <NavLink to="/join-as-hr">All Request</NavLink>
+              <NavLink to="/assetRequests">All Assets Request</NavLink>
               <NavLink to="/all-employees">Add an Employee</NavLink>
               <NavLink to="/my-employee-list">My Employee List</NavLink>
               <NavLink to="/profile">Profile</NavLink>
@@ -88,7 +88,7 @@ const Navbar = () => {
             <NavLink to="/">Home</NavLink>
             <NavLink to="/all-asset">Asset List</NavLink>
             <NavLink to="/add-asset">Add an Asset</NavLink>
-            <NavLink to="/all-asset">All Request</NavLink>
+            <NavLink to="/assetRequests">All Assets Request</NavLink>
             <NavLink to="/all-employees">Add an Employee</NavLink>
             <NavLink to="/my-employee-list">My Employee List</NavLink>
             <NavLink to="/profile">Profile</NavLink>

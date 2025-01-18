@@ -8,7 +8,7 @@ import Home from "./Pages/CommonPages/Home";
 import JoinAsEmployee from "./Pages/PageofGuest/JoinAsEmployee";
 import JoinAsHR from "./Pages/PageofGuest/JoinAsHR";
 import Payment from "./Pages/PagesofHR/Payment";
-import LoginPage from "./Pages/PageforEmployee.jsx/LoginPage";
+import LoginPage from "./Pages/PageofGuest/LoginPage";
 import AddAsset from "./Pages/PagesofHR/AddAsset";
 import AssetList from "./Pages/PagesofHR/AssetList";
 import AddEmployeeToTeam from "./Pages/PagesofHR/AddEmployeeToTeam";
@@ -23,6 +23,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import Profile from "./Pages/CommonPages/Profile";
 import PrivateRoute from "./PrivateRoutes/PrivateRoute";
+import RequestedAssets from "./Pages/PagesofHR/RequestedAssets";
 
 // Initialize QueryClient
 const queryClient = new QueryClient();
@@ -61,6 +62,7 @@ const router = createBrowserRouter([
         path: "/login",
         element: <LoginPage></LoginPage>,
       },
+
       //for hr
       {
         path: "/add-asset",
@@ -91,6 +93,14 @@ const router = createBrowserRouter([
         element: (
           <HRRoute>
             <MyEmployeeList></MyEmployeeList>,
+          </HRRoute>
+        ),
+      },
+      {
+        path: "/assetRequests",
+        element: (
+          <HRRoute>
+            <RequestedAssets></RequestedAssets>,
           </HRRoute>
         ),
       },

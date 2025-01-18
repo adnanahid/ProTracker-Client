@@ -105,7 +105,6 @@ const JoinAsEmployee = () => {
 
       // Set user in context and provide feedback
       setUser(user);
-      console.log(user);
       toast.success("Registration Successful!");
       navigate("/");
     } catch (error) {

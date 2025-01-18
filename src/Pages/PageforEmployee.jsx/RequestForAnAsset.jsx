@@ -13,6 +13,7 @@ const RequestForAnAsset = () => {
     const assetsInfo = {
       RequestedBy: clientDetails.name,
       email: clientDetails.email,
+      hrEmail: clientDetails.hrEmail,
       AssetName: asset.productName,
       AssetType: asset.productType,
       RequestStatus: "Pending",
