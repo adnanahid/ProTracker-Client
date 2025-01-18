@@ -18,17 +18,24 @@ const RequestForAnAsset = () => {
       RequestStatus: "Pending",
       RequestedDate: new Date().toISOString().split("T")[0],
     };
+
     axiosSecure
       .post(`/assets-request-by-employee`, assetsInfo)
-      .then((res) => {
+      .then(() => {
         toast.success(`Request Sent for ${asset.productName}`);
       })
       .catch((error) => {
-        toast.error(
-          error.message || "An error occurred while sending the request"
-        );
+        if (error.response && error.response.status === 409) {
+          toast.error(`You have already requested ${asset.productName}.`);
+        } else {
+          toast.error(
+            error.message || "An error occurred while sending the request"
+          );
+        }
       });
+    requestedAssetsRefetch();
   };
+
   return (
     <div className="max-w-screen-xl mx-auto pt-28">
       <h1 className="text-4xl font-bold text-center pb-12">Asset List</h1>

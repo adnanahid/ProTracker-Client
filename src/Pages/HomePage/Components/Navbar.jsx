@@ -7,7 +7,6 @@ import useCheckRole from "../../../CustomHooks/useCheckRole";
 const Navbar = () => {
   const { user, userLogOut } = useContext(AuthContext);
   const { clientDetails } = useCheckRole();
-  console.log(clientDetails);
 
   return (
     <div className="navbar fixed z-10 bg-black text-white">
@@ -31,7 +30,7 @@ const Navbar = () => {
           {clientDetails?.role === "employee" && (
             <div className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
               <NavLink to="/">Home</NavLink>
-              <NavLink to="/join-as-employee">My Assets</NavLink>
+              <NavLink to="/myRequestedAssetList">My Requested Assets</NavLink>
               <NavLink to="/join-as-hr">My Team</NavLink>
               <NavLink to="/request-for-an-assets">
                 Request for An Asset
@@ -79,8 +78,8 @@ const Navbar = () => {
         {clientDetails?.role === "employee" && (
           <div className="space-x-5">
             <NavLink to="/">Home</NavLink>
-            <NavLink to="/join-as-employee">My Assets</NavLink>
-            <NavLink to="/join-as-hr">My Team</NavLink>
+            <NavLink to="/myRequestedAssetList">My Requested Assets</NavLink>
+            <NavLink to="/myTeamMembers">My Team</NavLink>
             <NavLink to="/request-for-an-assets">Request for An Asset</NavLink>
             <NavLink to="/join-as-hr">Profile</NavLink>
           </div>
