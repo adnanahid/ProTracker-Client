@@ -49,10 +49,16 @@ const Navbar = () => {
           )}
         </div>
         {clientDetails ? (
-          clientDetails?.companyName ? (
-            <a className="btn btn-ghost text-xl">
-              {clientDetails?.companyName}
-            </a>
+          clientDetails?.companyLogo ? (
+            <div className="avatar">
+              <div className="w-12 rounded-full object-cover">
+                <img
+                  referrerPolicy="no-referrer"
+                  src={clientDetails.companyLogo}
+                  alt={clientDetails.companyName}
+                />
+              </div>
+            </div>
           ) : (
             <a className="btn btn-ghost text-xl">Joining Request is Pending</a>
           )

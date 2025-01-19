@@ -4,7 +4,6 @@ import useMyTeamMember from "../../CustomHooks/useMyTeamMember";
 const MyTeamMembers = () => {
   const { myTeamMembers, isMyTeamMembersLoading, myTeamMembersRefetch } =
     useMyTeamMember();
-    console.log(myTeamMembers);
 
   return (
     <div className="max-w-screen-xl mx-auto pt-28">

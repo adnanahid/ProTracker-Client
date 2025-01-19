@@ -1,8 +1,6 @@
 import useAxiosSecure from "./useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import useCheckRole from "./useCheckRole";
-import { useContext } from "react";
-import { AuthContext } from "../Provider/AuthProvider";
 
 const useMyRequestedAssets = () => {
   const axiosSecure = useAxiosSecure();

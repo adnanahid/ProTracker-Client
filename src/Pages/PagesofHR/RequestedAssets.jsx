@@ -15,7 +15,8 @@ const RequestedAssets = () => {
   const handleApprove = async (id) => {
     try {
       await axiosSecure.put(`/handleRequest/${id}`, {
-        RequestStatus: "approved",
+        RequestStatus: "Approved",
+        ApprovalDate: new Date().toISOString().split("T")[0],
       });
       refetchAssetRequests();
       toast.success("Request approved successfully.");
@@ -49,7 +50,7 @@ const RequestedAssets = () => {
             <th>Requester Email</th>
             <th>Requester Name</th>
             <th>Request Date</th>
-            {/* <th>Additional Note</th> */}
+            <th>Additional Note</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
@@ -62,7 +63,7 @@ const RequestedAssets = () => {
               <td>{request.email}</td>
               <td>{request.RequestedBy}</td>
               <td>{request.RequestedDate}</td>
-              {/* <td>-</td>  */}
+              <td>{request.AdditionalNotes}</td>
               <td>{request.RequestStatus}</td>
               <td>
                 <button

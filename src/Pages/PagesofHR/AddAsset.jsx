@@ -20,7 +20,12 @@ const AddAsset = () => {
   const onSubmit = (data) => {
     const addedDate = new Date().toISOString().split("T")[0];
     const HREmail = user?.email;
-    const assetData = { ...data, addedDate, HREmail };
+    const assetData = {
+      ...data,
+      addedDate,
+      HREmail,
+      productQuantity: parseInt(data.productQuantity, 10),
+    };
     axiosSecure
       .post("/add-asset", assetData)
       .then((response) => {
