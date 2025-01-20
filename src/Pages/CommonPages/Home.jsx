@@ -19,16 +19,13 @@ const Home = () => {
           <PackagesSection></PackagesSection>
         </>
       )}
-
+      {user && clientDetails?.role === "n/a" && <div className="min-h-screen flex items-center justify-center">contact with your hr</div>}
 
       {clientDetails?.role === "employee" && (
         <HomePageForEmployee></HomePageForEmployee>
       )}
 
-
-      {clientDetails?.role === "hr" && (
-       <HomePageForHr></HomePageForHr>
-      )}
+      {clientDetails?.role === "hr" && <HomePageForHr></HomePageForHr>}
     </div>
   );
 };

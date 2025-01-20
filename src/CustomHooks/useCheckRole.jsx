@@ -12,7 +12,7 @@ const useCheckRole = () => {
     isLoading: isReloading,
     isError,
     error,
-    refetch,
+    refetch: clientDetailsRefetch,
   } = useQuery({
     queryKey: ["userRole", user?.email],
     enabled: !authLoading && !!user?.email,
@@ -27,10 +27,9 @@ const useCheckRole = () => {
         );
       }
     },
-    enabled: !!user?.email,
   });
 
-  return { clientDetails, isReloading, isError, error, refetch };
+  return { clientDetails, isReloading, isError, error, clientDetailsRefetch };
 };
 
 export default useCheckRole;

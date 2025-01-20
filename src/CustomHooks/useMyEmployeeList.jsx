@@ -9,7 +9,7 @@ const useMyEmployeeList = () => {
   const {
     data: myEmployeeList = [],
     isLoading: isMyEmployeeLoading,
-    refetch: isMyEmployeeRefetch,
+    refetch: RefetchMyEmployee,
   } = useQuery({
     queryKey: ["employeeList", clientDetails?.email],
     queryFn: async () => {
@@ -20,7 +20,7 @@ const useMyEmployeeList = () => {
     },
     enabled: !!clientDetails?.email,
   });
-  return { myEmployeeList, isMyEmployeeLoading, isMyEmployeeRefetch };
+  return { myEmployeeList, isMyEmployeeLoading, RefetchMyEmployee };
 };
 
 export default useMyEmployeeList;

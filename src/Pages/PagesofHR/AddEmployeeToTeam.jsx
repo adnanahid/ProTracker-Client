@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import useAllEmployee from "../../CustomHooks/useAllEmployee";
 import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
 import useCheckRole from "../../CustomHooks/useCheckRole";
+import useMyEmployeeList from "../../CustomHooks/useMyEmployeeList";
 
 const AddEmployeeToTeam = () => {
   const { employees, refetch } = useAllEmployee();
   const axiosSecure = useAxiosSecure();
-  const { clientDetails, isReloading, isError, error } = useCheckRole();
+  const { clientDetails, isReloading, isError, error, clientDetailsRefetch } =
+    useCheckRole();
+  const { myEmployeeList, RefetchMyEmployee } = useMyEmployeeList();
 
   // Handle adding an employee to the team
   const handleAddToTeam = (employee) => {
@@ -16,20 +19,28 @@ const AddEmployeeToTeam = () => {
         hrEmail: clientDetails.email,
         companyName: clientDetails.companyName,
         companyLogo: clientDetails.companyLogo,
-        role: "employee"
+        role: "employee",
       })
       .then((res) => {
-        console.log(res.data);
         refetch();
+        clientDetailsRefetch();
+        RefetchMyEmployee();
       });
   };
 
   return (
     <div className="max-w-screen-xl mx-auto">
       <h1 className="text-4xl font-bold text-center pt-28">Add an Employee</h1>
-      <p className="text-center mt-4 text-lg">
-        Team Members Count: <span className="font-semibold">{}</span>
-      </p>
+      <div className="flex justify-around">
+        <p className="text-center mt-4 text-lg">
+          Team Members Count:
+          <span className="font-semibold">{myEmployeeList.length}</span>
+        </p>
+        <p className="text-center mt-4 text-lg">
+          Team Members Limit:
+          <span className="font-semibold">{clientDetails.packageLimit}</span>
+        </p>
+      </div>
       <div className="mt-10 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
         {employees.map((employee) => (
           <div
@@ -53,6 +64,7 @@ const AddEmployeeToTeam = () => {
             <button
               onClick={() => handleAddToTeam(employee)}
               className="bg-black text-white py-2 px-4 rounded mt-4 hover:bg-gray-800"
+              disabled={clientDetails?.packageLimit <= myEmployeeList?.length}
             >
               Add to the Team
             </button>

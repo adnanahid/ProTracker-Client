@@ -1,5 +1,5 @@
 import React from "react";
-import useAssetRequests from "../../CustomHooks/useAllAssetRequest";
+import useAssetRequests from "../../CustomHooks/useAssetRequest";
 import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
 import toast from "react-hot-toast";
 

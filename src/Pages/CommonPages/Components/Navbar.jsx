@@ -76,8 +76,8 @@ const Navbar = () => {
         )}
         {clientDetails?.role === "n/a" && (
           <div className="space-x-5">
-            <h3>Request Pending</h3>
             <NavLink to="/">Home</NavLink>
+            <NavLink to="/profile">Profile</NavLink>
           </div>
         )}
         {clientDetails?.role === "employee" && (

@@ -47,6 +47,10 @@ const router = createBrowserRouter([
         element: <JoinAsHR></JoinAsHR>,
       },
       {
+        path: "/profile",
+        element: <Profile></Profile>,
+      },
+      {
         path: "/payment",
         element: <Payment></Payment>,
       },
