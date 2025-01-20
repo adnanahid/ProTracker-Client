@@ -25,7 +25,7 @@ const RequestForAnAsset = () => {
     setAdditionalNotes("");
   };
 
-  const handleRequest = async () => {
+  const handleRequest = async (id) => {
     if (!selectedAsset) return;
 
     const assetsInfo = {
@@ -40,7 +40,7 @@ const RequestForAnAsset = () => {
     };
 
     try {
-      await axiosSecure.post(`/assets-request-by-employee`, assetsInfo);
+      await axiosSecure.post(`/assets-request-by-employee/${id}`, assetsInfo);
       toast.success(`Request sent for ${selectedAsset.productName}`);
       requestedAssetsRefetch();
       closeModal();
@@ -82,7 +82,7 @@ const RequestForAnAsset = () => {
           <div className="flex justify-end gap-4">
             <button
               className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-              onClick={handleRequest}
+              onClick={()=>handleRequest(selectedAsset._id)}
             >
               Submit Request
             </button>

@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import useAssetRequests from "../../CustomHooks/useAssetRequest";
 import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
 import toast from "react-hot-toast";
 
 const RequestedAssets = () => {
-  const { assetRequests, isAssetRequestsLoading, refetchAssetRequests } =
-    useAssetRequests();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const {
+    assetRequests,
+    totalCount,
+    isAssetRequestsLoading,
+    refetchAssetRequests,
+  } = useAssetRequests(currentPage, itemsPerPage);
   const axiosSecure = useAxiosSecure();
 
   if (isAssetRequestsLoading) {
@@ -39,6 +45,12 @@ const RequestedAssets = () => {
     }
   };
 
+  const numberOfPages = Math.ceil(totalCount / itemsPerPage);
+  const pages = [...Array(numberOfPages).keys()];
+  console.log(assetRequests.length);
+  console.log(numberOfPages);
+  console.log(numberOfPages);
+
   return (
     <div className="request-list-section pt-28">
       <h2 className="text-4xl font-bold text-center mb-12">Request List</h2>
@@ -63,7 +75,9 @@ const RequestedAssets = () => {
               <td>{request.email}</td>
               <td>{request.RequestedBy}</td>
               <td>{request.RequestedDate}</td>
-              <td>{request.AdditionalNotes}</td>
+              <td>
+                {request.AdditionalNotes ? request.AdditionalNotes : "n/a"}
+              </td>
               <td>{request.RequestStatus}</td>
               <td>
                 <button
@@ -83,6 +97,58 @@ const RequestedAssets = () => {
           ))}
         </tbody>
       </table>
+
+      {/*pagination */}
+      <div className="text-center">
+        <p>currentPage: {currentPage}</p>
+        <div className="join p-10 text-center">
+          <button
+            className="btn btn-sm mx-1"
+            onClick={() => {
+              if (currentPage > 1) {
+                setCurrentPage(currentPage - 1);
+              }
+            }}
+          >
+            Prev
+          </button>
+          {pages.map((page) => (
+            <button
+              key={page}
+              className={`btn btn-sm mx-1 ${
+                currentPage === page + 1 ? "bg-blue-500 text-white" : ""
+              }`}
+              onClick={() => setCurrentPage(page + 1)}
+            >
+              {page + 1}
+            </button>
+          ))}
+          <button
+            className="btn btn-sm mx-1"
+            onClick={() => {
+              if (currentPage < pages.length) {
+                setCurrentPage(currentPage + 1);
+              }
+            }}
+          >
+            Next
+          </button>
+        </div>
+        <label htmlFor="">Item Per Page</label>
+        <select
+          id="itemsPerPage"
+          value={itemsPerPage}
+          onChange={(e) => {
+            setItemsPerPage(Number(e.target.value));
+            setCurrentPage(1);
+          }}
+          className="p-1 border rounded-xl mx-1"
+        >
+          <option value={10}>10</option>
+          <option value={20}>20</option>
+          <option value={50}>50</option>
+        </select>
+      </div>
     </div>
   );
 };
