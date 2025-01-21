@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "./useAxiosSecure";
 import useCheckRole from "./useCheckRole";
 
-const useAllAssets = (currentPage, itemsPerPage, filterBy) => {
+const useAllAssets = (currentPage, itemsPerPage, filterBy, sortBy) => {
   const axiosSecure = useAxiosSecure();
   const { clientDetails } = useCheckRole();
 
@@ -19,10 +19,11 @@ const useAllAssets = (currentPage, itemsPerPage, filterBy) => {
       currentPage,
       itemsPerPage,
       filterBy,
+      sortBy,
     ],
     queryFn: async () => {
       const response = await axiosSecure.get(
-        `/all-assets/${clientDetails.email}?page=${currentPage}&limit=${itemsPerPage}&filterBy=${filterBy}`
+        `/all-assets/${clientDetails.email}?page=${currentPage}&limit=${itemsPerPage}&filterBy=${filterBy}&sortBy=${sortBy}`
       );
       return response.data;
     },

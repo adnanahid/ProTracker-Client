@@ -6,8 +6,9 @@ const AssetList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [filterBy, setFilterBy] = useState("");
+  const [sortBy, setSortBy] = useState("");
   const { assets, totalCount, isLoading, isError, error, refetch } =
-    useAllAssets(currentPage, itemsPerPage, filterBy);
+    useAllAssets(currentPage, itemsPerPage, filterBy, sortBy);
 
   if (isLoading) return <div>Loading assets...</div>;
 
@@ -28,11 +29,11 @@ const AssetList = () => {
         {/* Search Section */}
         <label className="input input-bordered flex items-center gap-2 col-span-12 sm:col-span-8">
           <input type="text" className="grow" placeholder="Search" />
-          <FaSearch></FaSearch>
+          <FaSearch />
         </label>
 
         {/* Filter Section */}
-        <div className="col-span-12 sm:col-span-4 flex flex-col sm:flex-row sm:items-center gap-2">
+        <div className="col-span-12 sm:col-span-4 flex gap-4">
           <select
             className="input input-bordered w-full"
             onChange={(e) => setFilterBy(e.target.value)}
@@ -42,6 +43,15 @@ const AssetList = () => {
             <option value="Out-of-stock">Out-of-stock</option>
             <option value="Returnable">Returnable</option>
             <option value="Non-returnable">Non-returnable</option>
+          </select>
+
+          <select
+            className="input input-bordered w-full"
+            onChange={(e) => setSortBy(e.target.value)}
+          >
+            <option value="">Sort By Price</option>
+            <option value="Ascending">Ascending</option>
+            <option value="Descending">Descending</option>
           </select>
         </div>
       </div>
@@ -128,7 +138,6 @@ const AssetList = () => {
             </button>
           </div>
 
-          {/* Items per page selector */}
           <label htmlFor="itemsPerPage">Items Per Page</label>
           <select
             id="itemsPerPage"

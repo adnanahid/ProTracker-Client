@@ -11,7 +11,12 @@ const useAssetRequests = (currentPage, itemsPerPage) => {
     isLoading: isAssetRequestsLoading,
     refetch: refetchAssetRequests,
   } = useQuery({
-    queryKey: ["assetRequests", clientDetails?.email, currentPage, itemsPerPage],
+    queryKey: [
+      "assetRequests",
+      clientDetails?.email,
+      currentPage,
+      itemsPerPage,
+    ],
     queryFn: async () => {
       const response = await axiosSecure.get(
         `/assetRequests/${clientDetails?.email}?page=${currentPage}&limit=${itemsPerPage}`

@@ -55,7 +55,6 @@ const AddEmployeeToTeam = () => {
   }
   const numberOfPages = Math.ceil(totalCount / itemsPerPage);
   const pages = [...Array(numberOfPages).keys()];
-  
 
   return (
     <div className="max-w-screen-xl mx-auto">
@@ -101,59 +100,58 @@ const AddEmployeeToTeam = () => {
             </button>
           </div>
         ))}
-
       </div>
-        {/* Pagination */}
-        <div className="text-center">
-          <div className="join p-10 text-center">
-            <button
-              className="btn btn-sm mx-1"
-              onClick={() => {
-                if (currentPage > 1) {
-                  setCurrentPage(currentPage - 1);
-                }
-              }}
-            >
-              Prev
-            </button>
-            {pages.map((page) => (
-              <button
-                key={page}
-                className={`btn btn-sm mx-1 ${
-                  currentPage === page + 1 ? "bg-blue-500 text-white" : ""
-                }`}
-                onClick={() => setCurrentPage(page + 1)}
-              >
-                {page + 1}
-              </button>
-            ))}
-            <button
-              className="btn btn-sm mx-1"
-              onClick={() => {
-                if (currentPage < pages.length) {
-                  setCurrentPage(currentPage + 1);
-                }
-              }}
-            >
-              Next
-            </button>
-          </div>
-
-          <label htmlFor="itemsPerPage">Items Per Page</label>
-          <select
-            id="itemsPerPage"
-            value={itemsPerPage}
-            onChange={(e) => {
-              setItemsPerPage(Number(e.target.value));
-              setCurrentPage(1);
+      {/* Pagination */}
+      <div className="text-center">
+        <div className="join p-10 text-center">
+          <button
+            className="btn btn-sm mx-1"
+            onClick={() => {
+              if (currentPage > 1) {
+                setCurrentPage(currentPage - 1);
+              }
             }}
-            className="p-1 border rounded-xl mx-1"
           >
-            <option value={10}>10</option>
-            <option value={20}>20</option>
-            <option value={50}>50</option>
-          </select>
+            Prev
+          </button>
+          {pages.map((page) => (
+            <button
+              key={page}
+              className={`btn btn-sm mx-1 ${
+                currentPage === page + 1 ? "bg-blue-500 text-white" : ""
+              }`}
+              onClick={() => setCurrentPage(page + 1)}
+            >
+              {page + 1}
+            </button>
+          ))}
+          <button
+            className="btn btn-sm mx-1"
+            onClick={() => {
+              if (currentPage < pages.length) {
+                setCurrentPage(currentPage + 1);
+              }
+            }}
+          >
+            Next
+          </button>
         </div>
+
+        <label htmlFor="itemsPerPage">Items Per Page</label>
+        <select
+          id="itemsPerPage"
+          value={itemsPerPage}
+          onChange={(e) => {
+            setItemsPerPage(Number(e.target.value));
+            setCurrentPage(1);
+          }}
+          className="p-1 border rounded-xl mx-1"
+        >
+          <option value={10}>10</option>
+          <option value={20}>20</option>
+          <option value={50}>50</option>
+        </select>
+      </div>
     </div>
   );
 };
