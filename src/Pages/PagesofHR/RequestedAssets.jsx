@@ -3,6 +3,7 @@ import useAssetRequests from "../../CustomHooks/useAssetRequest";
 import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import { FaSearch } from "react-icons/fa";
+import { Helmet } from "react-helmet-async";
 
 const RequestedAssets = () => {
   const [search, setSearch] = useState("");
@@ -49,6 +50,9 @@ const RequestedAssets = () => {
 
   return (
     <div className="request-list-section pt-28 max-w-screen-lg mx-auto">
+            <Helmet>
+              <title>Requested Assets - ProTracker</title>
+            </Helmet>
       <h2 className="text-4xl font-bold text-center mb-12">Request List</h2>
       <div className="text-center mb-12 w-6/12 mx-auto">
         <input

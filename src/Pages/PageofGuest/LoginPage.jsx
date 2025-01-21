@@ -4,6 +4,7 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../CustomHooks/UseAxiosPublic";
+import { Helmet } from "react-helmet-async";
 
 const LoginPage = () => {
   const { user, setUser, signInUser, signInWithGoogle } =
@@ -60,6 +61,9 @@ const LoginPage = () => {
 
   return (
     <div className="flex min-h-screen items-center justify-center">
+      <Helmet>
+        <title>Login - ProTracker</title>
+      </Helmet>
       <div className="w-full max-w-sm p-6">
         <h2 className="text-2xl font-bold text-center pb-8">
           Log in to Your Account

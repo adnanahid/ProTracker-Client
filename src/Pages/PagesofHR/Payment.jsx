@@ -9,6 +9,7 @@ import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../CustomHooks/UseAxiosPublic";
+import { Helmet } from "react-helmet-async";
 
 const stripePromise = loadStripe(import.meta.env.VITE_Publishable_Key);
 
@@ -125,9 +126,11 @@ const CheckoutForm = () => {
 const Payment = () => {
   return (
     <div className="p-24">
+      <Helmet>
+        <title>Payment - ProTracker</title>
+      </Helmet>
       <h1 className="text-4xl font-bold text-center text-black">Payment</h1>
       <div>
-        {/* Wrap the CheckoutForm inside the Elements provider */}
         <Elements stripe={stripePromise}>
           <CheckoutForm />
         </Elements>

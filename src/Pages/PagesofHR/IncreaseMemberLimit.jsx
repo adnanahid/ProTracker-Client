@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet-async";
 
 const IncreaseMemberLimit = () => {
   const packageData = [
@@ -8,6 +9,9 @@ const IncreaseMemberLimit = () => {
   ];
   return (
     <div className="max-w-screen-lg mx-auto py-28">
+      <Helmet>
+        <title>Increase Member - ProTracker</title>
+      </Helmet>
       <h1 className="text-4xl font-bold text-center mb-12">Our Packages</h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-6">
         {packageData.map((pkg, index) => (

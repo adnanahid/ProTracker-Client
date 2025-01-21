@@ -4,6 +4,7 @@ import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
 import useCheckRole from "../../CustomHooks/useCheckRole";
 import useMyEmployeeList from "../../CustomHooks/useMyEmployeeList";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const AddEmployeeToTeam = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -59,6 +60,9 @@ const AddEmployeeToTeam = () => {
 
   return (
     <div className="max-w-screen-xl mx-auto">
+      <Helmet>
+        <title>Add Employee to Team - ProTracker</title>
+      </Helmet>
       <h1 className="text-4xl font-bold text-center pt-28">Add an Employee</h1>
       <div className="flex justify-around my-12">
         <p className="text-center mt-4 text-lg">

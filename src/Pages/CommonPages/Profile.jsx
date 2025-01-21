@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
+import { Helmet } from "react-helmet-async";
 
 const Profile = () => {
   const { user, updateUserProfile } = useContext(AuthContext);
@@ -8,7 +9,10 @@ const Profile = () => {
   const [newPhotoURL, setNewPhotoURL] = useState(user?.photoURL || "");
 
   const handleUpdate = () => {
-    if (newDisplayName !== user?.displayName || newPhotoURL !== user?.photoURL) {
+    if (
+      newDisplayName !== user?.displayName ||
+      newPhotoURL !== user?.photoURL
+    ) {
       updateUserProfile({ displayName: newDisplayName, photoURL: newPhotoURL })
         .then(() => {
           setUpdate(false);
@@ -21,12 +25,16 @@ const Profile = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
+      <Helmet>
+        <title>Profile - ProTracker</title>
+      </Helmet>
       <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
         {/* Profile Image */}
         <div className="flex justify-center">
           <img
-            src={newPhotoURL || "https://via.placeholder.com/150"}
+            src={newPhotoURL}
             alt="Profile"
+            referrerPolicy="no-referrer"
             className="w-24 h-24 rounded-full border-4 object-cover"
           />
         </div>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import useAllAssets from "../../CustomHooks/useAllAssets";
+import { Helmet } from "react-helmet-async";
 
 const AssetList = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,6 +22,9 @@ const AssetList = () => {
 
   return (
     <div className="p-6 min-h-screen pt-28 max-w-screen-lg mx-auto">
+            <Helmet>
+              <title>Asset List - ProTracker</title>
+            </Helmet>
       <h1 className="text-2xl font-bold mb-12 text-center">Asset List</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 p-4 mb-12 w-8/12 mx-auto">

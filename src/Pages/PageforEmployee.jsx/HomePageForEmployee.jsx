@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import useMyRequestedAssets from "../../CustomHooks/useMyRequestedAssets";
 import { AuthContext } from "../../Provider/AuthProvider";
+import { Helmet } from "react-helmet-async";
 
 const HomePageForEmployee = () => {
   const { myRequestedAssetList } = useMyRequestedAssets("", "", 1, 10);
@@ -30,6 +31,9 @@ const HomePageForEmployee = () => {
 
   return (
     <div className="max-w-screen-xl mx-auto pt-28">
+      <Helmet>
+        <title>Home - ProTracker</title>
+      </Helmet>
       {/* Pending Requests Section */}
       <section className="mt-12">
         <h2 className="text-2xl font-semibold text-center">Pending Requests</h2>

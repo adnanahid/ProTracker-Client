@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const AddAsset = () => {
   const { user } = useContext(AuthContext);
@@ -45,6 +46,9 @@ const AddAsset = () => {
 
   return (
     <div className="p-8 pt-28">
+      <Helmet>
+        <title>Add an Asset - ProTracker</title>
+      </Helmet>
       <h1 className="text-4xl font-bold text-center mb-8">Add New Asset</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useMyEmployeeList from "../../CustomHooks/useMyEmployeeList";
 import useCheckRole from "../../CustomHooks/useCheckRole";
+import { Helmet } from "react-helmet-async";
 
 const MyEmployeeList = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,6 +27,9 @@ const MyEmployeeList = () => {
 
   return (
     <div className="employee-list pt-28">
+            <Helmet>
+              <title>My Employee List- ProTracker</title>
+            </Helmet>
       <h2 className="text-4xl font-bold mb-4 text-center pb-12">
         Team Members
       </h2>

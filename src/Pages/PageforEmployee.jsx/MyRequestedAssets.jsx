@@ -3,6 +3,7 @@ import useMyRequestedAssets from "../../CustomHooks/useMyRequestedAssets";
 import { PDFDownloadLink, Document, Page, Text } from "@react-pdf/renderer";
 import useCheckRole from "../../CustomHooks/useCheckRole";
 import { AuthContext } from "../../Provider/AuthProvider";
+import { Helmet } from "react-helmet-async";
 
 const MyRequestedAssets = () => {
   const [search, setSearch] = useState("");
@@ -56,6 +57,7 @@ const MyRequestedAssets = () => {
 
   return (
     <div className="max-w-screen-xl mx-auto pt-28">
+      <Helmet><title>My Requested Assets - ProTracker</title></Helmet>
       <h1 className="text-4xl font-bold text-center pb-12">
         My Requested Assets
       </h1>

@@ -6,6 +6,7 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import useCheckRole from "../../CustomHooks/useCheckRole";
 import HomePageForEmployee from "../PageforEmployee.jsx/HomePageForEmployee";
 import HomePageForHr from "../PagesofHR/HomePageForHr";
+import { Helmet } from "react-helmet-async";
 
 const Home = () => {
   const { user } = useContext(AuthContext);
@@ -13,6 +14,7 @@ const Home = () => {
   console.log(clientDetails);
   return (
     <div>
+      <Helmet><title>ProTracker</title></Helmet>
       {!user && (
         <>
           <Banner></Banner>

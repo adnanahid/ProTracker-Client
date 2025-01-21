@@ -5,6 +5,7 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../../CustomHooks/UseAxiosPublic";
+import { Helmet } from "react-helmet-async";
 
 const JoinAsEmployee = () => {
   const imageHostingKey = import.meta.env.VITE_ImgBB_Api;
@@ -118,6 +119,9 @@ const JoinAsEmployee = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Join as Employee - ProTracker</title>
+      </Helmet>
       <section className="max-w-screen-xl mx-auto md:py-36">
         <div className="px-6 md:px-12 lg:px-24">
           <div className="rounded-lg p-8">

@@ -25,6 +25,7 @@ import Profile from "./Pages/CommonPages/Profile";
 import PrivateRoute from "./PrivateRoutes/PrivateRoute";
 import RequestedAssets from "./Pages/PagesofHR/RequestedAssets";
 import IncreaseMemberLimit from "./Pages/PagesofHR/IncreaseMemberLimit";
+import { HelmetProvider } from "react-helmet-async";
 
 // Initialize QueryClient
 const queryClient = new QueryClient();
@@ -151,7 +152,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
+        <HelmetProvider>
+          <RouterProvider router={router} />
+        </HelmetProvider>
       </QueryClientProvider>
     </AuthProvider>
     <Toaster></Toaster>

@@ -3,6 +3,7 @@ import React from "react";
 import { PieChart, Pie, Legend, Tooltip, ResponsiveContainer } from "recharts";
 import useAssetRequests from "../../CustomHooks/useAssetRequest";
 import useAllAssets from "../../CustomHooks/useAllAssets";
+import { Helmet } from "react-helmet-async";
 
 const HomePageForHr = () => {
   const { assetRequests } = useAssetRequests(1, 10, "");
@@ -30,6 +31,9 @@ const HomePageForHr = () => {
 
   return (
     <div className="max-w-screen-xl mx-auto">
+            <Helmet>
+              <title>Home - ProTracker</title>
+            </Helmet>
       <h1 className="pt-28 text-4xl font-bold text-center">
         Pending Asset Requests
       </h1>

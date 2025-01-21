@@ -5,6 +5,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import useAxiosPublic from "../../CustomHooks/UseAxiosPublic";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 const imageHostingKey = import.meta.env.VITE_ImgBB_Api;
 const imageHostingApi = `https://api.imgbb.com/1/upload?key=${imageHostingKey}`;
@@ -83,6 +84,9 @@ const JoinAsHR = () => {
 
   return (
     <div className="max-w-screen-md mx-auto py-10 px-6 pt-32">
+      <Helmet>
+        <title>Join as HR - ProTracker</title>
+      </Helmet>
       <h2 className="text-3xl font-bold text-center mb-8">Join As HR</h2>
       <form
         onSubmit={handleSubmit(onSubmit)}

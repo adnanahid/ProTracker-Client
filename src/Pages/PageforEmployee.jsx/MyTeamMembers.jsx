@@ -1,5 +1,6 @@
 import React from "react";
 import useMyTeamMember from "../../CustomHooks/useMyTeamMember";
+import { Helmet } from "react-helmet-async";
 
 const MyTeamMembers = () => {
   const { myTeamMembers, isMyTeamMembersLoading, myTeamMembersRefetch } =
@@ -7,6 +8,9 @@ const MyTeamMembers = () => {
 
   return (
     <div className="max-w-screen-xl mx-auto pt-28">
+      <Helmet>
+        <title>My Team Members - ProTracker</title>
+      </Helmet>
       <h1 className="text-4xl font-bold text-center pb-12">My Team Members</h1>
 
       {/* Loading State */}

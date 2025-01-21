@@ -4,6 +4,7 @@ import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
 import useCheckRole from "../../CustomHooks/useCheckRole";
 import toast from "react-hot-toast";
 import Modal from "react-modal";
+import { Helmet } from "react-helmet-async";
 
 const RequestForAnAsset = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -67,6 +68,9 @@ const RequestForAnAsset = () => {
   return (
     <div className="max-w-screen-xl mx-auto pt-28">
       {/* Modal */}
+      <Helmet>
+        <title>Request for an Assets - ProTracker</title>
+      </Helmet>
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
