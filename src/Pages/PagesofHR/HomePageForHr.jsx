@@ -1,12 +1,14 @@
 import React from "react";
+
+import { PieChart, Pie, Legend, Tooltip, ResponsiveContainer } from "recharts";
 import useAssetRequests from "../../CustomHooks/useAssetRequest";
 import useAllAssets from "../../CustomHooks/useAllAssets";
-import { PieChart, Pie, Legend, Tooltip, ResponsiveContainer } from "recharts";
 
 const HomePageForHr = () => {
-  const { assetRequests } = useAssetRequests();
-  const { assets } = useAllAssets();
-
+  const { assetRequests } = useAssetRequests(1, 10, "");
+  const { assets } = useAllAssets(1, 10, "", "", "");
+  console.log(assetRequests);
+  console.log(assets);
   const PendingAssets = assetRequests
     ?.filter((asset) => asset.RequestStatus === "Pending")
     .slice(-5);
@@ -52,8 +54,13 @@ const HomePageForHr = () => {
       <h1 className="pt-28 text-4xl font-bold text-center">Limited Stock</h1>
       <section className="grid grid-cols-1 md:grid-cols-5 gap-6 p-6">
         {limitedStock?.map((asset, index) => (
-          <div key={index} className="border rounded-lg shadow-md p-4 bg-white flex-col">
-            <h2 className="text-xl font-semibold mb-2 flex-grow">{asset.productName}</h2>
+          <div
+            key={index}
+            className="border rounded-lg shadow-md p-4 bg-white flex-col"
+          >
+            <h2 className="text-xl font-semibold mb-2 flex-grow">
+              {asset.productName}
+            </h2>
             <h2 className="text-lg font-semibold mb-2">
               AvailAble: {asset.productQuantity}
             </h2>

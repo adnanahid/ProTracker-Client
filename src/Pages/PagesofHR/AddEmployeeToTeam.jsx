@@ -3,6 +3,7 @@ import useAllEmployee from "../../CustomHooks/useAllEmployee";
 import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
 import useCheckRole from "../../CustomHooks/useCheckRole";
 import useMyEmployeeList from "../../CustomHooks/useMyEmployeeList";
+import { Link } from "react-router-dom";
 
 const AddEmployeeToTeam = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -59,7 +60,7 @@ const AddEmployeeToTeam = () => {
   return (
     <div className="max-w-screen-xl mx-auto">
       <h1 className="text-4xl font-bold text-center pt-28">Add an Employee</h1>
-      <div className="flex justify-around">
+      <div className="flex justify-around my-12">
         <p className="text-center mt-4 text-lg">
           Team Members Count:
           <span className="font-semibold">{myEmployeeList.length}</span>
@@ -68,6 +69,11 @@ const AddEmployeeToTeam = () => {
           Team Members Limit:
           <span className="font-semibold">{clientDetails.packageLimit}</span>
         </p>
+        <Link to="/increaseLimit">
+          <button className="btn text-white bg-black">
+            Increase Member Limit
+          </button>
+        </Link>
       </div>
       <div className="mt-10 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
         {allEmployees.map((employee) => (

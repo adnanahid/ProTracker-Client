@@ -3,7 +3,7 @@ import useMyRequestedAssets from "../../CustomHooks/useMyRequestedAssets";
 import { AuthContext } from "../../Provider/AuthProvider";
 
 const HomePageForEmployee = () => {
-  const { myRequestedAssetList } = useMyRequestedAssets();
+  const { myRequestedAssetList } = useMyRequestedAssets("", "", 1, 10);
   const { loading } = useContext(AuthContext);
 
   // Filter pending requests

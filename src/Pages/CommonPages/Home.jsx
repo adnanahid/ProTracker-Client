@@ -10,6 +10,7 @@ import HomePageForHr from "../PagesofHR/HomePageForHr";
 const Home = () => {
   const { user } = useContext(AuthContext);
   const { clientDetails } = useCheckRole();
+  console.log(clientDetails);
   return (
     <div>
       {!user && (

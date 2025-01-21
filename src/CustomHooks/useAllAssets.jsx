@@ -30,7 +30,6 @@ const useAllAssets = (currentPage, itemsPerPage, search, filterBy, sortBy) => {
     },
     enabled: !!clientDetails?.email,
   });
-  console.log(search);
   return { assets, totalCount, isLoading, isError, error, refetch };
 };
 

@@ -24,6 +24,7 @@ import { Toaster } from "react-hot-toast";
 import Profile from "./Pages/CommonPages/Profile";
 import PrivateRoute from "./PrivateRoutes/PrivateRoute";
 import RequestedAssets from "./Pages/PagesofHR/RequestedAssets";
+import IncreaseMemberLimit from "./Pages/PagesofHR/IncreaseMemberLimit";
 
 // Initialize QueryClient
 const queryClient = new QueryClient();
@@ -105,6 +106,14 @@ const router = createBrowserRouter([
         element: (
           <HRRoute>
             <RequestedAssets></RequestedAssets>,
+          </HRRoute>
+        ),
+      },
+      {
+        path: "/increaseLimit",
+        element: (
+          <HRRoute>
+            <IncreaseMemberLimit></IncreaseMemberLimit>,
           </HRRoute>
         ),
       },

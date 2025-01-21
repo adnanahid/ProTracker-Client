@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import useAllAssets from "../../CustomHooks/useAllAssets";
-import { FaSearch } from "react-icons/fa";
 
 const AssetList = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,7 +23,7 @@ const AssetList = () => {
     <div className="p-6 min-h-screen pt-28 max-w-screen-lg mx-auto">
       <h1 className="text-2xl font-bold mb-12 text-center">Asset List</h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 p-4 mb-12">
+      <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 p-4 mb-12 w-8/12 mx-auto">
         {/* Search Section */}
         <div className="col-span-8 flex items-center gap-2">
           <input
