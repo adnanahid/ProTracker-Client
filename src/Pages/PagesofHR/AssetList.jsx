@@ -17,16 +17,9 @@ const AssetList = () => {
     setSearch(searchValue);
   };
 
-  if (isLoading) return <div>Loading assets...</div>;
-
-  if (isError) {
-    return <div>Error: {error?.message || "Something went wrong!"}</div>;
-  }
-
   const numberOfPages = Math.ceil(totalCount / itemsPerPage);
   const pages = [...Array(numberOfPages).keys()];
 
-  console.log(search);
   return (
     <div className="p-6 min-h-screen pt-28 max-w-screen-lg mx-auto">
       <h1 className="text-2xl font-bold mb-12 text-center">Asset List</h1>
@@ -34,27 +27,14 @@ const AssetList = () => {
       <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 p-4 mb-12">
         {/* Search Section */}
         <div className="col-span-8 flex items-center gap-2">
-          {/* <input
+          <input
+            onChange={(e) => setSearch(e.target.value)}
+            defaultValue={search}
             type="text"
-            placeholder="Type here"
+            name="search"
+            placeholder="search assets by it’s names"
             className="input input-bordered w-full"
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                setSearch(e.target.value);
-              }
-            }}
-          /> */}
-          <form onSubmit={handleSearch} className="flex w-full">
-            <input
-              type="text"
-              name="search"
-              placeholder="Type here"
-              className="input input-bordered w-full"
-            />
-            <button type="submit" className="btn">
-              <FaSearch></FaSearch>
-            </button>
-          </form>
+          />
         </div>
 
         {/* Filter Section */}

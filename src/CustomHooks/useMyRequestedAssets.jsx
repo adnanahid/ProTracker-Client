@@ -2,19 +2,19 @@ import useAxiosSecure from "./useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import useCheckRole from "./useCheckRole";
 
-const useMyRequestedAssets = () => {
+const useMyRequestedAssets = (search, filters, currentPage, itemsPerPage) => {
   const axiosSecure = useAxiosSecure();
   const { clientDetails } = useCheckRole();
 
   const {
-    data: myRequestedAssetList = [],
+    data: { myRequestedAssetList = [], totalCount = 0 } = {},
     isLoading: isMyRequestedAssetListLoading,
     refetch: myRequestedAssetListRefetch,
   } = useQuery({
-    queryKey: ["myRequestedAssetList", clientDetails?.email],
+    queryKey: ["myRequestedAssetList", clientDetails?.email, search, filters, currentPage, itemsPerPage],
     queryFn: async () => {
       const response = await axiosSecure.get(
-        `/myRequestedAssetList/${clientDetails?.email}`
+        `/myRequestedAssetList/${clientDetails?.email}?search=${search}&filter=${filters}&page=${currentPage}&limit=${itemsPerPage}`
       );
       return response.data;
     },
@@ -22,6 +22,7 @@ const useMyRequestedAssets = () => {
   });
   return {
     myRequestedAssetList,
+    totalCount,
     isMyRequestedAssetListLoading,
     myRequestedAssetListRefetch,
   };

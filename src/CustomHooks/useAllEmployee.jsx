@@ -8,7 +8,7 @@ const useAllEmployee = (currentPage, itemsPerPage) => {
   const { clientDetails } = useCheckRole();
 
   const {
-    data: { allEmployees = [], totalCount } = {},
+    data: { allEmployees = [], totalCount = 0 } = {},
     isLoading: employeeLoading,
     isError: ErrorEmployee,
     refetch: RefetchEmployee,

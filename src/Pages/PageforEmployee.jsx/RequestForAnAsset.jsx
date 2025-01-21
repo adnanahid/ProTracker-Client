@@ -6,8 +6,16 @@ import toast from "react-hot-toast";
 import Modal from "react-modal";
 
 const RequestForAnAsset = () => {
-  const { requestedAssets, requestedAssetLoading, requestedAssetsRefetch } =
-    useAssetsOfMyCompany();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [search, setSearch] = useState("");
+  const [filterBy, setFilterBy] = useState("");
+  const {
+    requestedAssets,
+    totalCount,
+    requestedAssetLoading,
+    requestedAssetsRefetch,
+  } = useAssetsOfMyCompany(currentPage, itemsPerPage, search, filterBy);
   const { clientDetails } = useCheckRole();
   const axiosSecure = useAxiosSecure();
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -53,6 +61,9 @@ const RequestForAnAsset = () => {
     }
   };
 
+  const numberOfPages = Math.ceil(totalCount / itemsPerPage);
+  const pages = [...Array(numberOfPages).keys()];
+
   return (
     <div className="max-w-screen-xl mx-auto pt-28">
       {/* Modal */}
@@ -82,7 +93,7 @@ const RequestForAnAsset = () => {
           <div className="flex justify-end gap-4">
             <button
               className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-              onClick={()=>handleRequest(selectedAsset._id)}
+              onClick={() => handleRequest(selectedAsset._id)}
             >
               Submit Request
             </button>
@@ -100,7 +111,29 @@ const RequestForAnAsset = () => {
       <h1 className="text-4xl font-bold text-center pb-12 text-gray-800">
         Asset List
       </h1>
-
+      <div className="flex justify-center gap-4 mb-6 w-6/12 mx-auto">
+        <input
+          defaultValue={search}
+          onChange={(e) => {
+            setSearch(e.target.value);
+          }}
+          type="text"
+          name="search"
+          placeholder="search by requester name or email."
+          className="input input-bordered w-full"
+        />
+        <select
+          className="select select-bordered"
+          value={filterBy}
+          onChange={(e) => setFilterBy(e.target.value)}
+        >
+          <option value="">Filter by</option>
+          <option value="Available">Available</option>
+          <option value="Out-of-stock">Out-of-stock</option>
+          <option value="Returnable">Returnable</option>
+          <option value="Non-returnable">Non-returnable</option>
+        </select>
+      </div>
       {/* Asset List Table */}
       <div className="overflow-x-auto">
         <table className="table md:w-10/12 mx-auto">
@@ -138,6 +171,60 @@ const RequestForAnAsset = () => {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Pagination */}
+      <div className="text-center">
+        <div className="join p-10 text-center">
+          <button
+            className="btn btn-sm mx-1"
+            disabled={currentPage === 1}
+            onClick={() => {
+              if (currentPage > 1) {
+                setCurrentPage(currentPage - 1);
+              }
+            }}
+          >
+            Prev
+          </button>
+          {pages.map((page) => (
+            <button
+              key={page}
+              className={`btn btn-sm mx-1 ${
+                currentPage === page + 1 ? "bg-blue-500 text-white" : ""
+              }`}
+              onClick={() => setCurrentPage(page + 1)}
+            >
+              {page + 1}
+            </button>
+          ))}
+          <button
+            className="btn btn-sm mx-1"
+            disabled={currentPage === pages.length}
+            onClick={() => {
+              if (currentPage < pages.length) {
+                setCurrentPage(currentPage + 1);
+              }
+            }}
+          >
+            Next
+          </button>
+        </div>
+
+        <label htmlFor="itemsPerPage">Items Per Page</label>
+        <select
+          id="itemsPerPage"
+          value={itemsPerPage}
+          onChange={(e) => {
+            setItemsPerPage(Number(e.target.value));
+            setCurrentPage(1);
+          }}
+          className="p-1 border rounded-xl mx-1"
+        >
+          <option value={10}>10</option>
+          <option value={20}>20</option>
+          <option value={50}>50</option>
+        </select>
       </div>
     </div>
   );

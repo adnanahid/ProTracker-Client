@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import useAssetRequests from "../../CustomHooks/useAssetRequest";
 import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import { FaSearch } from "react-icons/fa";
 
 const RequestedAssets = () => {
+  const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const {
@@ -11,12 +13,9 @@ const RequestedAssets = () => {
     totalCount,
     isAssetRequestsLoading,
     refetchAssetRequests,
-  } = useAssetRequests(currentPage, itemsPerPage);
-  const axiosSecure = useAxiosSecure();
+  } = useAssetRequests(currentPage, itemsPerPage, search);
 
-  if (isAssetRequestsLoading) {
-    return <div>Loading requests...</div>;
-  }
+  const axiosSecure = useAxiosSecure();
 
   const handleApprove = async (id) => {
     try {
@@ -49,9 +48,19 @@ const RequestedAssets = () => {
   const pages = [...Array(numberOfPages).keys()];
 
   return (
-    <div className="request-list-section pt-28">
+    <div className="request-list-section pt-28 max-w-screen-lg mx-auto">
       <h2 className="text-4xl font-bold text-center mb-12">Request List</h2>
-      <table className="table max-w-screen-lg mx-auto">
+      <div className="text-center mb-12">
+        <input
+          onChange={(e) => setSearch(e.target.value)}
+          defaultValue={search}
+          type="text"
+          name="search"
+          placeholder="search by requester name or email."
+          className="input input-bordered w-full"
+        />
+      </div>
+      <table className="table ">
         <thead>
           <tr>
             <th>Asset Name</th>

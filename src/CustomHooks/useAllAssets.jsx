@@ -7,7 +7,7 @@ const useAllAssets = (currentPage, itemsPerPage, search, filterBy, sortBy) => {
   const { clientDetails } = useCheckRole();
 
   const {
-    data: { assets = [], totalCount } = {},
+    data: { assets = [], totalCount = 0 } = {},
     isLoading,
     isError,
     error,
