@@ -5,10 +5,17 @@ import { FaSearch } from "react-icons/fa";
 const AssetList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [search, setSearch] = useState("");
   const [filterBy, setFilterBy] = useState("");
   const [sortBy, setSortBy] = useState("");
   const { assets, totalCount, isLoading, isError, error, refetch } =
-    useAllAssets(currentPage, itemsPerPage, filterBy, sortBy);
+    useAllAssets(currentPage, itemsPerPage, search, filterBy, sortBy);
+
+  const handleSearch = (e) => {
+    const searchValue = e.target.search.value;
+    e.preventDefault();
+    setSearch(searchValue);
+  };
 
   if (isLoading) return <div>Loading assets...</div>;
 
@@ -19,18 +26,36 @@ const AssetList = () => {
   const numberOfPages = Math.ceil(totalCount / itemsPerPage);
   const pages = [...Array(numberOfPages).keys()];
 
-  console.log(filterBy);
-
+  console.log(search);
   return (
     <div className="p-6 min-h-screen pt-28 max-w-screen-lg mx-auto">
       <h1 className="text-2xl font-bold mb-12 text-center">Asset List</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 p-4 mb-12">
         {/* Search Section */}
-        <label className="input input-bordered flex items-center gap-2 col-span-12 sm:col-span-8">
-          <input type="text" className="grow" placeholder="Search" />
-          <FaSearch />
-        </label>
+        <div className="col-span-8 flex items-center gap-2">
+          {/* <input
+            type="text"
+            placeholder="Type here"
+            className="input input-bordered w-full"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setSearch(e.target.value);
+              }
+            }}
+          /> */}
+          <form onSubmit={handleSearch} className="flex w-full">
+            <input
+              type="text"
+              name="search"
+              placeholder="Type here"
+              className="input input-bordered w-full"
+            />
+            <button type="submit" className="btn">
+              <FaSearch></FaSearch>
+            </button>
+          </form>
+        </div>
 
         {/* Filter Section */}
         <div className="col-span-12 sm:col-span-4 flex gap-4">
@@ -56,7 +81,7 @@ const AssetList = () => {
         </div>
       </div>
 
-      <div className="overflow-x-auto ">
+      <div className="overflow-x-auto">
         {assets && assets.length > 0 ? (
           <table className="table w-full">
             {/* Table Head */}
@@ -80,13 +105,13 @@ const AssetList = () => {
                   <td>{asset.addedDate}</td>
                   <td className="flex gap-2">
                     <button
-                      className="btn btn-sm bg-green-600 text-white"
+                      className="btn btn-sm bg-green-400 text-white"
                       onClick={() => handleUpdate(asset)}
                     >
                       Update
                     </button>
                     <button
-                      className="btn btn-sm bg-red-600 text-white"
+                      className="btn btn-sm bg-red-400 text-white"
                       onClick={() => handleDelete(asset)}
                     >
                       Delete
