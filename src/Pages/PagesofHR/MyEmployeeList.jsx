@@ -1,14 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import useMyEmployeeList from "../../CustomHooks/useMyEmployeeList";
 import useCheckRole from "../../CustomHooks/useCheckRole";
 
 const MyEmployeeList = () => {
-  const { myEmployeeList } = useMyEmployeeList();
-  console.log(myEmployeeList);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const {
+    myEmployeeList,
+    totalCount,
+    MyEmployeeLoading,
+    RefetchMyEmployeeList,
+    MyEmployeeError,
+  } = useMyEmployeeList();
 
   const handleRemoveEmployee = (id) => {
     console.log(id);
   };
+
+  if (MyEmployeeLoading) {
+    return <div>loading...</div>;
+  }
+
+  const numberOfPages = Math.ceil(totalCount / itemsPerPage);
+  const pages = [...Array(numberOfPages).keys()];
 
   return (
     <div className="employee-list pt-28">
@@ -54,6 +68,56 @@ const MyEmployeeList = () => {
             ))}
           </tbody>
         </table>
+        {/*pagination */}
+        <div className="text-center">
+          <div className="join p-10 text-center">
+            <button
+              className="btn btn-sm mx-1"
+              onClick={() => {
+                if (currentPage > 1) {
+                  setCurrentPage(currentPage - 1);
+                }
+              }}
+            >
+              Prev
+            </button>
+            {pages.map((page) => (
+              <button
+                key={page}
+                className={`btn btn-sm mx-1 ${
+                  currentPage === page + 1 ? "bg-blue-500 text-white" : ""
+                }`}
+                onClick={() => setCurrentPage(page + 1)}
+              >
+                {page + 1}
+              </button>
+            ))}
+            <button
+              className="btn btn-sm mx-1"
+              onClick={() => {
+                if (currentPage < pages.length) {
+                  setCurrentPage(currentPage + 1);
+                }
+              }}
+            >
+              Next
+            </button>
+          </div>
+          <label htmlFor="itemsPerPage">Item Per Page</label>
+          <select
+            id="itemsPerPage"
+            value={itemsPerPage}
+            onChange={(e) => {
+              setItemsPerPage(Number(e.target.value));
+              setCurrentPage(1);
+            }}
+            className="p-1 border rounded-xl mx-1"
+          >
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+            <option value={50}>50</option>
+          </select>
+        </div>
       </div>
     </div>
   );

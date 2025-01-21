@@ -2,28 +2,34 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "./useAxiosSecure";
 import useCheckRole from "./useCheckRole";
 
-const useAllAssets = () => {
+const useAllAssets = (currentPage, itemsPerPage, filterBy) => {
   const axiosSecure = useAxiosSecure();
   const { clientDetails } = useCheckRole();
 
   const {
-    data: assets = [],
+    data: { assets = [], totalCount } = {},
     isLoading,
     isError,
     error,
     refetch,
   } = useQuery({
-    queryKey: ["all-assets", clientDetails?.email],
+    queryKey: [
+      "all-assets",
+      clientDetails?.email,
+      currentPage,
+      itemsPerPage,
+      filterBy,
+    ],
     queryFn: async () => {
       const response = await axiosSecure.get(
-        `/all-asset/${clientDetails.email}`
+        `/all-assets/${clientDetails.email}?page=${currentPage}&limit=${itemsPerPage}&filterBy=${filterBy}`
       );
       return response.data;
     },
     enabled: !!clientDetails?.email,
   });
-
-  return { assets, isLoading, isError, error, refetch };
+  console.log(filterBy);
+  return { assets, totalCount, isLoading, isError, error, refetch };
 };
 
 export default useAllAssets;

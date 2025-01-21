@@ -47,9 +47,6 @@ const RequestedAssets = () => {
 
   const numberOfPages = Math.ceil(totalCount / itemsPerPage);
   const pages = [...Array(numberOfPages).keys()];
-  console.log(assetRequests.length);
-  console.log(numberOfPages);
-  console.log(numberOfPages);
 
   return (
     <div className="request-list-section pt-28">
@@ -100,7 +97,6 @@ const RequestedAssets = () => {
 
       {/*pagination */}
       <div className="text-center">
-        <p>currentPage: {currentPage}</p>
         <div className="join p-10 text-center">
           <button
             className="btn btn-sm mx-1"
@@ -134,7 +130,7 @@ const RequestedAssets = () => {
             Next
           </button>
         </div>
-        <label htmlFor="">Item Per Page</label>
+        <label htmlFor="itemsPerPage">Item Per Page</label>
         <select
           id="itemsPerPage"
           value={itemsPerPage}
