@@ -3,12 +3,12 @@ import useAllEmployee from "../../CustomHooks/useAllEmployee";
 import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
 import useCheckRole from "../../CustomHooks/useCheckRole";
 import useMyEmployeeList from "../../CustomHooks/useMyEmployeeList";
-import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import toast from "react-hot-toast";
 
 const AddEmployeeToTeam = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [selectedEmployees, setSelectedEmployees] = useState([]);
   const {
     allEmployees,
     totalCount,
@@ -26,44 +26,68 @@ const AddEmployeeToTeam = () => {
     MyEmployeeError,
   } = useMyEmployeeList();
 
-  // Handle adding an employee to the team
-  const handleAddToTeam = (employee) => {
-    axiosSecure
-      .patch(`/add-to-team`, {
-        ...employee,
-        hrEmail: clientDetails.email,
-        companyName: clientDetails.companyName,
-        companyLogo: clientDetails.companyLogo,
-        role: "employee",
-      })
-      .then((res) => {
-        RefetchEmployee();
-        clientDetailsRefetch();
-        RefetchMyEmployeeList();
-      })
-      .catch((err) => {
-        alert("Error adding employee to the team. Please try again.");
+  // Handle adding selected employees to the team
+  const handleAddToTeam = async (employee = null) => {
+    const employeesToAdd = employee
+      ? [...selectedEmployees, employee]
+      : selectedEmployees;
+
+    if (employeesToAdd.length === 0) {
+      toast.error("Please select at least one employee.");
+      return;
+    }
+
+    try {
+      await axiosSecure.patch(`/add-selected-to-team`, {
+        employees: employeesToAdd.map((e) => ({
+          email: e.email,
+          role: "employee",
+          hrEmail: clientDetails.email,
+          companyName: clientDetails.companyName,
+          companyLogo: clientDetails.companyLogo,
+        })),
       });
+
+      toast.success(
+        employee
+          ? `${employee.name} has been added to the team.`
+          : "Selected employees have been added to the team."
+      );
+
+      setSelectedEmployees([]);
+      RefetchEmployee();
+      clientDetailsRefetch();
+      RefetchMyEmployeeList();
+    } catch (err) {
+      toast.error("Error adding employees to the team. Please try again.");
+      console.error(err);
+    }
   };
 
-  // Handling loading state
+  // Handle checkbox toggle
+  const handleCheckboxToggle = (employee) => {
+    setSelectedEmployees((prev) =>
+      prev.some((selected) => selected._id === employee._id)
+        ? prev.filter((selected) => selected._id !== employee._id)
+        : [...prev, employee]
+    );
+  };
+
+  // Handle loading and error states
   if (employeeLoading || MyEmployeeLoading || isReloading) {
     return <div>Loading...</div>;
   }
 
-  // Error handling
   if (isError || ErrorEmployee || MyEmployeeError) {
     return <div>Error: {error?.message || "Something went wrong!"}</div>;
   }
+
   const numberOfPages = Math.ceil(totalCount / itemsPerPage);
   const pages = [...Array(numberOfPages).keys()];
 
   return (
-    <div className="max-w-screen-xl mx-auto">
-      <Helmet>
-        <title>Add Employee to Team - ProTracker</title>
-      </Helmet>
-      <h1 className="text-4xl font-bold text-center pt-28">Add an Employee</h1>
+    <div className="container mx-auto">
+      <h1 className="text-4xl font-bold text-center pt-28">Add Employees</h1>
       <div className="flex justify-around my-12">
         <p className="text-center mt-4 text-lg">
           Team Members Count:
@@ -73,12 +97,11 @@ const AddEmployeeToTeam = () => {
           Team Members Limit:
           <span className="font-semibold">{clientDetails.packageLimit}</span>
         </p>
-        <Link to="/increaseLimit">
-          <button className="btn text-white bg-black">
-            Increase Member Limit
-          </button>
-        </Link>
+        <button className="btn text-white bg-black">
+          Increase Member Limit
+        </button>
       </div>
+
       <div className="mt-10 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
         {allEmployees.map((employee) => (
           <div
@@ -87,40 +110,51 @@ const AddEmployeeToTeam = () => {
           >
             <div className="mt-4">
               <img
-                src={employee.photo}
+                src={employee.photo || "https://via.placeholder.com/150"}
                 alt={employee.name}
                 className="w-20 h-20 rounded-full mx-auto"
               />
             </div>
             <input
               type="checkbox"
-              id={`employee-${employee._id}`}
               className="mr-2"
+              checked={selectedEmployees.some(
+                (selected) => selected._id === employee._id
+              )}
+              onChange={() => handleCheckboxToggle(employee)}
             />
             <p className="font-medium">{employee.name}</p>
             <p className="font-medium">{employee.email}</p>
             <button
               onClick={() => handleAddToTeam(employee)}
               className="bg-black text-white py-2 px-4 rounded mt-4 hover:bg-gray-800"
-              disabled={clientDetails?.packageLimit <= myEmployeeList?.length}
+              disabled={clientDetails.packageLimit <= myEmployeeList.length}
             >
-              {clientDetails?.packageLimit <= myEmployeeList?.length
-                ? "Limit Reached"
-                : "Add to the Team"}
+              Add to Team
             </button>
           </div>
         ))}
       </div>
+
+      <div className="text-center mt-8">
+        <button
+          onClick={() => handleAddToTeam()}
+          className="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700"
+          disabled={
+            clientDetails.packageLimit <= myEmployeeList.length ||
+            selectedEmployees.length === 0
+          }
+        >
+          Add Selected Members to the Team
+        </button>
+      </div>
+
       {/* Pagination */}
-      <div className="text-center">
-        <div className="join p-10 text-center">
+      <div className="text-center mt-12">
+        <div className="join">
           <button
             className="btn btn-sm mx-1"
-            onClick={() => {
-              if (currentPage > 1) {
-                setCurrentPage(currentPage - 1);
-              }
-            }}
+            onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)}
           >
             Prev
           </button>
@@ -137,17 +171,17 @@ const AddEmployeeToTeam = () => {
           ))}
           <button
             className="btn btn-sm mx-1"
-            onClick={() => {
-              if (currentPage < pages.length) {
-                setCurrentPage(currentPage + 1);
-              }
-            }}
+            onClick={() =>
+              currentPage < pages.length && setCurrentPage(currentPage + 1)
+            }
           >
             Next
           </button>
         </div>
 
-        <label htmlFor="itemsPerPage">Items Per Page</label>
+        <label htmlFor="itemsPerPage" className="mt-4">
+          Items Per Page
+        </label>
         <select
           id="itemsPerPage"
           value={itemsPerPage}

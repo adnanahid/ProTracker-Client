@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet-async";
 
 const ErrorPage = () => {
   return (
-    <div className="min-h-screen max-w-screen-xl mx-auto">
+    <div className="min-h-screen container mx-auto">
       <Helmet>
         <title>error - ProTracker</title>
       </Helmet>

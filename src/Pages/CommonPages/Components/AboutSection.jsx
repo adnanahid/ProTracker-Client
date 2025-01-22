@@ -4,9 +4,9 @@ import aboutAnimation from "../../../../public/animation/aboutAnimation.json";
 
 const AboutSection = () => {
   return (
-    <section className="w-full py-12 my-12">
+    <section className="py-12 my-12">
       <div className="container mx-auto px-6 md:px-12 lg:px-24">
-        <div className="max-w-screen-xl mx-auto flex flex-col-reverse lg:flex-row items-center">
+        <div className="flex flex-col-reverse lg:flex-row items-center">
           {/* Animation */}
           <div className="flex-1 mb-6 lg:mb-0">
             <Lottie
