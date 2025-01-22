@@ -28,8 +28,7 @@ const Profile = () => {
       <Helmet>
         <title>Profile - ProTracker</title>
       </Helmet>
-      <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
-        {/* Profile Image */}
+      <div className="shadow-lg rounded-lg p-6 w-full max-w-md">
         <div className="flex justify-center">
           <img
             src={newPhotoURL}
@@ -38,7 +37,6 @@ const Profile = () => {
             className="w-24 h-24 rounded-full border-4 object-cover"
           />
         </div>
-        {/* User Details */}
         <div className="text-center mt-4">
           {update ? (
             <>
@@ -63,19 +61,18 @@ const Profile = () => {
 
           <p className="text-gray-600">{user?.email || "No Email Available"}</p>
         </div>
-        {/* Additional Details (Optional) */}
         <div className="mt-6">
           {update ? (
             <button
               onClick={handleUpdate}
-              className="w-full py-2 px-4 bg-black text-white rounded-md hover:bg-indigo-600"
+              className="w-full py-2 px-4 bg-[#191919] text-white rounded-md hover:bg-indigo-600"
             >
               Update Profile
             </button>
           ) : (
             <button
               onClick={() => setUpdate(true)}
-              className="w-full py-2 px-4 bg-black text-white rounded-md hover:bg-indigo-600"
+              className="w-full py-2 px-4 bg-[#191919] text-white rounded-md hover:bg-indigo-600"
             >
               Edit Profile
             </button>

@@ -10,6 +10,14 @@ const AssetList = () => {
   const [search, setSearch] = useState("");
   const [filterBy, setFilterBy] = useState("");
   const [sortBy, setSortBy] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedAsset, setSelectedAsset] = useState(null);
+  const [updatedAsset, setUpdatedAsset] = useState({
+    productName: "",
+    productQuantity: "",
+    productType: "",
+  });
+
   const { assets, totalCount, isLoading, isError, error, RefetchAllAssets } =
     useAllAssets(currentPage, itemsPerPage, search, filterBy, sortBy);
 
@@ -19,7 +27,6 @@ const AssetList = () => {
     axiosSecure
       .delete(`/delete-asset-from-assets/${asset._id}`)
       .then((res) => {
-        console.log(res);
         if (res.data.deletedCount === 1) {
           RefetchAllAssets();
           toast.success("Asset deleted successfully.");
@@ -27,10 +34,41 @@ const AssetList = () => {
           toast.error("Failed to delete the asset.");
         }
       })
-      .catch((error) => {
-        toast.error(
-          "An error occurred while deleting the asset. Please try again."
-        );
+      .catch(() => {
+        toast.error("An error occurred while deleting the asset. Please try again.");
+      });
+  };
+
+  const handleUpdate = (asset) => {
+    setSelectedAsset(asset);
+    setUpdatedAsset({
+      productName: asset.productName,
+      productQuantity: asset.productQuantity,
+      productType: asset.productType,
+    });
+    setModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setModalOpen(false);
+    setSelectedAsset(null);
+    setUpdatedAsset({ productName: "", productQuantity: "", productType: "" });
+  };
+
+  const handleModalSave = () => {
+    axiosSecure
+      .patch(`/update-asset/${selectedAsset._id}`, updatedAsset)
+      .then((res) => {
+        if (res.data.modifiedCount === 1) {
+          RefetchAllAssets();
+          toast.success("Asset updated successfully.");
+          handleModalClose();
+        } else {
+          toast.error("Failed to update the asset.");
+        }
+      })
+      .catch(() => {
+        toast.error("An error occurred while updating the asset. Please try again.");
       });
   };
 
@@ -38,80 +76,44 @@ const AssetList = () => {
   const pages = [...Array(numberOfPages).keys()];
 
   return (
-    <div className="p-6 min-h-screen pt-28 max-w-screen-lg mx-auto">
+    <div className="p-4 sm:p-6 min-h-screen pt-28 max-w-screen-xl mx-auto">
       <Helmet>
         <title>Asset List - ProTracker</title>
       </Helmet>
-      <h1 className="text-2xl font-bold mb-12 text-center">Asset List</h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 p-4 mb-12 w-8/12 mx-auto">
-        {/* Search Section */}
-        <div className="col-span-8 flex items-center gap-2">
-          <input
-            onChange={(e) => setSearch(e.target.value)}
-            defaultValue={search}
-            type="text"
-            name="search"
-            placeholder="search assets by it’s names"
-            className="input input-bordered w-full"
-          />
-        </div>
+      <h1 className="md:text-4xl text-3xl font-bold mb-8 text-center text-gray-800 pt-28">
+        Asset List
+      </h1>
 
-        {/* Filter Section */}
-        <div className="col-span-12 sm:col-span-4 flex gap-4">
-          <select
-            className="input input-bordered w-full"
-            onChange={(e) => setFilterBy(e.target.value)}
-          >
-            <option value="">Filter By</option>
-            <option value="Available">Available</option>
-            <option value="Out-of-stock">Out-of-stock</option>
-            <option value="Returnable">Returnable</option>
-            <option value="Non-returnable">Non-returnable</option>
-          </select>
-
-          <select
-            className="input input-bordered w-full"
-            onChange={(e) => setSortBy(e.target.value)}
-          >
-            <option value="">Sort By Price</option>
-            <option value="Ascending">Ascending</option>
-            <option value="Descending">Descending</option>
-          </select>
-        </div>
-      </div>
-
-      <div className="overflow-x-auto">
+      {/* Table and Pagination */}
+      <div className="overflow-x-auto shadow-lg rounded-lg">
         {assets && assets.length > 0 ? (
           <table className="table w-full">
-            {/* Table Head */}
-            <thead>
+            <thead className="bg-[#323232] text-white">
               <tr>
-                <th>Product Name</th>
-                <th>Type</th>
-                <th>Quantity</th>
-                <th>Date Added</th>
-                <th>Actions</th>
+                <th className="text-center">Product Name</th>
+                <th className="text-center">Type</th>
+                <th className="text-center">Quantity</th>
+                <th className="text-center">Date Added</th>
+                <th className="text-center">Actions</th>
               </tr>
             </thead>
-
-            {/* Table Body */}
             <tbody>
               {assets.map((asset) => (
-                <tr key={asset._id}>
-                  <td>{asset.productName}</td>
-                  <td>{asset.productType}</td>
-                  <td>{asset.productQuantity}</td>
-                  <td>{asset.addedDate}</td>
-                  <td className="flex gap-2">
+                <tr key={asset._id} className="border-b hover:bg-gray-100">
+                  <td className="text-center p-4 text-gray-700">{asset.productName}</td>
+                  <td className="text-center p-4 text-gray-700">{asset.productType}</td>
+                  <td className="text-center p-4 text-gray-700">{asset.productQuantity}</td>
+                  <td className="text-center p-4 text-gray-700">{asset.addedDate}</td>
+                  <td className="text-center p-4 flex justify-center gap-2">
                     <button
-                      className="btn btn-sm bg-green-400 text-white"
+                      className="btn btn-sm bg-[#323232] hover:bg-[#191919] text-white"
                       onClick={() => handleUpdate(asset)}
                     >
                       Update
                     </button>
                     <button
-                      className="btn btn-sm bg-red-400 text-white"
+                      className="btn btn-sm bg-[#323232] hover:bg-[#191919] text-white"
                       onClick={() => handleDelete(asset)}
                     >
                       Delete
@@ -122,63 +124,58 @@ const AssetList = () => {
             </tbody>
           </table>
         ) : (
-          <p className="text-center text-gray-500">No assets found.</p>
+          <p className="text-center text-gray-500 py-6">No assets found.</p>
         )}
-
-        {/* Pagination */}
-        <div className="text-center">
-          <div className="join p-10 text-center">
-            <button
-              className="btn btn-sm mx-1"
-              disabled={currentPage === 1}
-              onClick={() => {
-                if (currentPage > 1) {
-                  setCurrentPage(currentPage - 1);
-                }
-              }}
-            >
-              Prev
-            </button>
-            {pages.map((page) => (
-              <button
-                key={page}
-                className={`btn btn-sm mx-1 ${
-                  currentPage === page + 1 ? "bg-blue-500 text-white" : ""
-                }`}
-                onClick={() => setCurrentPage(page + 1)}
-              >
-                {page + 1}
-              </button>
-            ))}
-            <button
-              className="btn btn-sm mx-1"
-              disabled={currentPage === pages.length}
-              onClick={() => {
-                if (currentPage < pages.length) {
-                  setCurrentPage(currentPage + 1);
-                }
-              }}
-            >
-              Next
-            </button>
-          </div>
-
-          <label htmlFor="itemsPerPage">Items Per Page</label>
-          <select
-            id="itemsPerPage"
-            value={itemsPerPage}
-            onChange={(e) => {
-              setItemsPerPage(Number(e.target.value));
-              setCurrentPage(1);
-            }}
-            className="p-1 border rounded-xl mx-1"
-          >
-            <option value={10}>10</option>
-            <option value={20}>20</option>
-            <option value={50}>50</option>
-          </select>
-        </div>
       </div>
+
+      {/* Modal */}
+      {modalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h2 className="text-lg font-bold mb-4">Update Asset</h2>
+            <label className="block mb-2">Asset Name</label>
+            <input
+              type="text"
+              value={updatedAsset.productName}
+              onChange={(e) =>
+                setUpdatedAsset({ ...updatedAsset, productName: e.target.value })
+              }
+              className="input input-bordered w-full mb-4"
+            />
+            <label className="block mb-2">Quantity</label>
+            <input
+              type="number"
+              value={updatedAsset.productQuantity}
+              onChange={(e) =>
+                setUpdatedAsset({ ...updatedAsset, productQuantity: e.target.value })
+              }
+              className="input input-bordered w-full mb-4"
+            />
+            <label className="block mb-2">Type</label>
+            <select
+              value={updatedAsset.productType}
+              onChange={(e) =>
+                setUpdatedAsset({ ...updatedAsset, productType: e.target.value })
+              }
+              className="input input-bordered w-full mb-4"
+            >
+              <option value="returnable">Returnable</option>
+              <option value="non-returnable">Non-Returnable</option>
+            </select>
+            <div className="flex justify-end gap-4">
+              <button className="btn btn-sm bg-gray-300" onClick={handleModalClose}>
+                Cancel
+              </button>
+              <button
+                className="btn btn-sm bg-[#323232] text-white"
+                onClick={handleModalSave}
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

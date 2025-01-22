@@ -107,7 +107,7 @@ const AddEmployeeToTeam = () => {
           <span className="font-semibold">{clientDetails.packageLimit}</span>
         </p>
         <Link to="/increaseLimit">
-          <button className="btn text-white bg-black">
+          <button className="btn text-white bg-[#191919]">
             Increase Member Limit
           </button>
         </Link>
@@ -138,10 +138,7 @@ const AddEmployeeToTeam = () => {
             <p className="font-medium">{employee.email}</p>
             <button
               onClick={() => handleAddToTeam(employee)}
-              className="bg-black text-white py-2 px-4 rounded mt-4 hover:bg-gray-800"
-              // disabled={
-              //   clientDetails.packageLimit <= clientDetails.teamMembersLength
-              // }
+              className="bg-[#191919] btn btn-sm w-full text-white py-2 px-4 rounded mt-4 hover:bg-gray-800"
             >
               Add to Team
             </button>
@@ -152,11 +149,7 @@ const AddEmployeeToTeam = () => {
       <div className="text-center mt-8">
         <button
           onClick={() => handleAddToTeam()}
-          className="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700"
-          // disabled={
-          //   clientDetails.packageLimit <= clientDetails.teamMembersLength ||
-          //   selectedEmployees.length === 0
-          // }
+          className="bg-[#191919] btn text-white py-2 px-6 rounded hover:bg-gray-700"
         >
           Add Selected Members to the Team
         </button>
@@ -175,7 +168,7 @@ const AddEmployeeToTeam = () => {
             <button
               key={page}
               className={`btn btn-sm mx-1 ${
-                currentPage === page + 1 ? "bg-blue-500 text-white" : ""
+                currentPage === page + 1 ? "bg-[#191919] text-white" : ""
               }`}
               onClick={() => setCurrentPage(page + 1)}
             >

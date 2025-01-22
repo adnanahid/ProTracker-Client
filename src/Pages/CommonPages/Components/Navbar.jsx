@@ -9,26 +9,26 @@ const Navbar = () => {
   const { clientDetails } = useCheckRole();
 
   return (
-    <div className="navbar fixed z-10 bg-black text-white">
+    <div className="navbar fixed z-10 bg-[#191919] text-white">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <RxHamburgerMenu />
           </div>
           {!user && (
-            <div className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+            <div className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow bg-[#191919]">
               <NavLink to="/">Home</NavLink>
               <NavLink to="/join-as-employee">Join as Employee</NavLink>
               <NavLink to="/join-as-hr">Join as HR Manager</NavLink>
             </div>
           )}
           {clientDetails?.role === "n/a" && (
-            <div className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+            <div className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow bg-[#191919]">
               request pending
             </div>
           )}
           {clientDetails?.role === "employee" && (
-            <div className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+            <div className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow bg-[#191919]">
               <NavLink to="/">Home</NavLink>
               <NavLink to="/myRequestedAssetList">My Requested Assets</NavLink>
               <NavLink to="/join-as-hr">My Team</NavLink>
@@ -37,7 +37,7 @@ const Navbar = () => {
             </div>
           )}
           {clientDetails?.role === "hr" && (
-            <div className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+            <div className="menu menu-sm dropdown-content bg-[#191919] rounded-box z-[1] mt-3 w-52 p-2 shadow">
               <NavLink to="/">Home</NavLink>
               <NavLink to="/all-asset">Asset List</NavLink>
               <NavLink to="/add-asset">Add an Asset</NavLink>
@@ -51,7 +51,7 @@ const Navbar = () => {
         {clientDetails ? (
           clientDetails?.companyLogo ? (
             <div className="avatar">
-              <div className="w-12 rounded-full object-cover">
+              <div className="w-10 rounded-full object-cover">
                 <img
                   referrerPolicy="no-referrer"
                   src={clientDetails.companyLogo}
@@ -110,7 +110,7 @@ const Navbar = () => {
             >
               Log Out
             </button>
-            <div className="text-center">
+            <div className="flex items-center gap-5">
               <div className="avatar">
                 <div className="w-8 rounded-full">
                   <img
@@ -120,7 +120,7 @@ const Navbar = () => {
                   />
                 </div>
               </div>
-              <p>{user.displayName}</p>
+              {/* <p className="text-sm">{user.displayName}</p> */}
             </div>
           </div>
         ) : (

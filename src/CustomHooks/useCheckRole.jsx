@@ -4,7 +4,7 @@ import useAxiosPublic from "./UseAxiosPublic";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const useCheckRole = () => {
-  const { user, loading: authLoading } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
 
   const {
@@ -15,7 +15,7 @@ const useCheckRole = () => {
     refetch: clientDetailsRefetch,
   } = useQuery({
     queryKey: ["userRole", user?.email],
-    enabled: !authLoading && !!user?.email,
+    enabled: !loading && !!user?.email,
     queryFn: async () => {
       try {
         const res = await axiosPublic.get(`/detailsOf/${user.email}`);

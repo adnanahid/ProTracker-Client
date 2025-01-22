@@ -102,7 +102,7 @@ const LoginPage = () => {
           {/* Login Button */}
           <button
             type="submit"
-            className="w-full text-white px-4 py-2 bg-black rounded-md hover:bg-white border focus:outline-none focus:ring-2 focus:ring-black hover:text-black hover:border"
+            className="btn w-full text-white px-4 bg-black rounded-md hover:bg-white border focus:outline-none focus:ring-2 focus:ring-black hover:text-black hover:border"
           >
             Continue
           </button>
@@ -116,7 +116,7 @@ const LoginPage = () => {
           {/* Google Login */}
           <button
             onClick={handleGoogleLogin}
-            className="flex items-center justify-center w-full px-4 py-2 rounded-md border gap-3"
+            className="bg-white hover:bg-base-200 btn flex items-center justify-center w-full px-4 py-2 rounded-md border gap-3"
           >
             <FcGoogle className="text-2xl" />
             Continue with Google

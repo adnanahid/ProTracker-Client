@@ -86,8 +86,8 @@ const AddAsset = () => {
             className="w-full border border-gray-300 rounded-md p-2"
           >
             <option value="">Select product type</option>
-            <option value="Returnable">Returnable</option>
-            <option value="Non-returnable">Non-returnable</option>
+            <option value="returnable">Returnable</option>
+            <option value="non-returnable">Non-Returnable</option>
           </select>
           {errors.productType && (
             <p className="text-red-600 text-sm mt-1">
@@ -124,7 +124,7 @@ const AddAsset = () => {
         <div className="text-center">
           <button
             type="submit"
-            className="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800"
+            className="bg-[#191919] text-white px-4 py-2 rounded-md hover:bg-gray-800"
           >
             Add Asset
           </button>

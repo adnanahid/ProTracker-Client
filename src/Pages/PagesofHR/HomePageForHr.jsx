@@ -17,11 +17,11 @@ const HomePageForHr = () => {
   const limitedStock = assets?.filter((asset) => asset.productQuantity < 10);
 
   const returnableCount =
-    assetRequests?.filter((asset) => asset.AssetType === "Returnable").length ||
+    assetRequests?.filter((asset) => asset.AssetType === "returnable").length ||
     0;
 
   const nonReturnableCount =
-    assetRequests?.filter((asset) => asset.AssetType === "Non-returnable")
+    assetRequests?.filter((asset) => asset.AssetType === "non-returnable")
       .length || 0;
 
   const data01 = [
@@ -31,9 +31,9 @@ const HomePageForHr = () => {
 
   return (
     <div className="max-w-screen-xl mx-auto">
-            <Helmet>
-              <title>Home - ProTracker</title>
-            </Helmet>
+      <Helmet>
+        <title>Home - ProTracker</title>
+      </Helmet>
       <h1 className="pt-28 text-4xl font-bold text-center">
         Pending Asset Requests
       </h1>
@@ -86,7 +86,7 @@ const HomePageForHr = () => {
                 cx="50%"
                 cy="50%"
                 outerRadius={150}
-                fill="#000000"
+                fill="#393E46"
                 label={(entry) => `${entry.name}: ${entry.value}`}
               />
               <Tooltip />

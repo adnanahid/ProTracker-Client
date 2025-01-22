@@ -54,72 +54,83 @@ const RequestedAssets = () => {
         <title>Requested Assets - ProTracker</title>
       </Helmet>
       <h2 className="text-4xl font-bold text-center mb-12">Request List</h2>
+
       <div className="text-center mb-12 w-6/12 mx-auto">
         <input
           onChange={(e) => setSearch(e.target.value)}
           defaultValue={search}
           type="text"
           name="search"
-          placeholder="search by requester name or email"
+          placeholder="Search by requester name or email"
           className="input input-bordered w-full"
         />
       </div>
-      <table className="table ">
-        <thead>
-          <tr>
-            <th>Asset Name</th>
-            <th>Asset Type</th>
-            <th>Requester Email</th>
-            <th>Requester Name</th>
-            <th>Request Date</th>
-            <th>Additional Note</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {assetRequests.map((request) => (
-            <tr key={request._id}>
-              <td>{request.AssetName}</td>
-              <td>{request.AssetType}</td>
-              <td>{request.email}</td>
-              <td>{request.RequestedBy}</td>
-              <td>{request.RequestedDate}</td>
-              <td>
-                {request.AdditionalNotes ? request.AdditionalNotes : "n/a"}
-              </td>
-              <td>{request.RequestStatus}</td>
-              <td>
-                {request.RequestStatus === "Approved" ||
-                request.RequestStatus === "canceled" ? (
-                  ""
-                ) : (
-                  <div className="flex">
-                    <button
-                      onClick={() => handleApprove(request._id)}
-                      className="btn-xs rounded-3xl text-white w-16 bg-green-500 mb-1"
-                    >
-                      Approve
-                    </button>
-                    <button
-                      onClick={() => handleReject(request._id)}
-                      className="btn-xs rounded-3xl text-white w-16 bg-red-500"
-                    >
-                      Reject
-                    </button>
-                  </div>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
 
-      {/*pagination */}
-      <div className="text-center">
-        <div className="join p-10 text-center">
+      <div className="overflow-x-auto rounded-md shadow-xl">
+        <table className="table w-full rounded-xl shadow-lg">
+          <thead className="bg-[#323232] text-white">
+            <tr>
+              <th className="text-center">Asset Name</th>
+              <th className="text-center">Asset Type</th>
+              <th className="text-center">Requester Email</th>
+              <th className="text-center">Requester Name</th>
+              <th className="text-center">Request Date</th>
+              <th className="text-center">Additional Note</th>
+              <th className="text-center">Status</th>
+              <th className="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {assetRequests.length > 0 ? (
+              assetRequests.map((request) => (
+                <tr key={request._id}>
+                  <td className="text-center">{request.AssetName}</td>
+                  <td className="text-center">{request.AssetType}</td>
+                  <td className="text-center">{request.email}</td>
+                  <td className="text-center">{request.RequestedBy}</td>
+                  <td className="text-center">{request.RequestedDate}</td>
+                  <td className="text-center">
+                    {request.AdditionalNotes ? request.AdditionalNotes : "n/a"}
+                  </td>
+                  <td className="text-center">{request.RequestStatus}</td>
+                  <td className="text-center">
+                    {request.RequestStatus === "Approved" ||
+                    request.RequestStatus === "canceled" ? null : (
+                      <div className="flex justify-center gap-2">
+                        <button
+                          onClick={() => handleApprove(request._id)}
+                          className="btn btn-xs rounded-md text-white w-16 bg-[#323232] hover:bg-[#4b4b4b]"
+                        >
+                          Approve
+                        </button>
+                        <button
+                          onClick={() => handleReject(request._id)}
+                          className="btn btn-xs rounded-md text-white w-16 bg-[#323232] hover:bg-[#4b4b4b]"
+                        >
+                          Reject
+                        </button>
+                      </div>
+                    )}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="8" className="text-center text-gray-500">
+                  No requests found.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Pagination Section */}
+      <div className="text-center mt-6">
+        <div className="join p-4 text-center">
           <button
             className="btn btn-sm mx-1"
+            disabled={currentPage === 1}
             onClick={() => {
               if (currentPage > 1) {
                 setCurrentPage(currentPage - 1);
@@ -132,7 +143,7 @@ const RequestedAssets = () => {
             <button
               key={page}
               className={`btn btn-sm mx-1 ${
-                currentPage === page + 1 ? "bg-blue-500 text-white" : ""
+                currentPage === page + 1 ? "bg-[#323232] text-white" : ""
               }`}
               onClick={() => setCurrentPage(page + 1)}
             >
@@ -141,6 +152,7 @@ const RequestedAssets = () => {
           ))}
           <button
             className="btn btn-sm mx-1"
+            disabled={currentPage === pages.length}
             onClick={() => {
               if (currentPage < pages.length) {
                 setCurrentPage(currentPage + 1);
@@ -150,7 +162,8 @@ const RequestedAssets = () => {
             Next
           </button>
         </div>
-        <label htmlFor="itemsPerPage">Item Per Page</label>
+
+        <label htmlFor="itemsPerPage">Items Per Page:</label>
         <select
           id="itemsPerPage"
           value={itemsPerPage}
@@ -158,7 +171,7 @@ const RequestedAssets = () => {
             setItemsPerPage(Number(e.target.value));
             setCurrentPage(1);
           }}
-          className="p-1 border rounded-xl mx-1"
+          className="p-2 border rounded-xl mx-2"
         >
           <option value={10}>10</option>
           <option value={20}>20</option>

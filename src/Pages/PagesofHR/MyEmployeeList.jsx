@@ -42,55 +42,38 @@ const MyEmployeeList = () => {
   const pages = [...Array(numberOfPages).keys()];
 
   return (
-    <div className="employee-list pt-28">
+    <div className="employee-list pt-28 min-h-screen">
       <Helmet>
         <title>My Employee List- ProTracker</title>
       </Helmet>
       <h2 className="text-4xl font-bold mb-4 text-center pb-12">
         Team Members
       </h2>
-      <div className="overflow-x-auto">
-        <table className="table max-w-screen-lg mx-auto">
-          {/* head */}
-          <thead>
-            <tr>
-              <th>index</th>
-              <th>Photo</th>
-              <th>Name</th>
-              <th>role</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {myEmployeeList.map((myEmployee, index) => (
-              <tr key={index}>
-                <th>{index + 1}</th>
-                <td>
-                  <div className="avatar">
-                    <div className="mask mask-squircle h-12 w-12">
-                      <img
-                        src={myEmployee?.photo}
-                        alt="Avatar Tailwind CSS Component"
-                      />
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <p>{myEmployee?.name}</p>
-                </td>
-                <td>{myEmployee?.role}</td>
-                <th>
-                  <button
-                    onClick={() => handleRemoveEmployee(myEmployee)}
-                    className="btn btn-ghost btn-xs bg-red-600 text-white"
-                  >
-                    Remove
-                  </button>
-                </th>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="my-24 max-w-screen-lg mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
+          {myEmployeeList.map((employee) => (
+            <div className="relative flex flex-col items-center p-4 rounded-lg shadow-md w-48 mb-36 mx-auto pt-16">
+              <div className="absolute -top-20  w-36 h-36 rounded-full border-4 overflow-hidden">
+                <img
+                  src={employee?.photo}
+                  alt={employee?.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h2 className="text-black text-lg font-bold mt-4">
+                {employee?.name}
+              </h2>
+              <h3 className="text-gray-500 text-sm mb-5">{employee?.role}</h3>
+              <button
+                onClick={() => handleRemoveEmployee(employee)}
+                className="btn bg-[#191919] btn-sm text-white hover:text-black"
+              >
+                Remove From Team
+              </button>
+            </div>
+          ))}
+        </div>
+
         {/*pagination */}
         <div className="text-center">
           <div className="join p-10 text-center">
@@ -108,7 +91,7 @@ const MyEmployeeList = () => {
               <button
                 key={page}
                 className={`btn btn-sm mx-1 ${
-                  currentPage === page + 1 ? "bg-blue-500 text-white" : ""
+                  currentPage === page + 1 ? "bg-[#191919] text-white" : ""
                 }`}
                 onClick={() => setCurrentPage(page + 1)}
               >
