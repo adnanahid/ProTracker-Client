@@ -4,13 +4,14 @@ import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
 import useCheckRole from "../../CustomHooks/useCheckRole";
 import useMyEmployeeList from "../../CustomHooks/useMyEmployeeList";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const AddEmployeeToTeam = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [selectedEmployees, setSelectedEmployees] = useState([]);
   const axiosSecure = useAxiosSecure();
-  
+
   const {
     allEmployees,
     totalCount,
@@ -18,16 +19,23 @@ const AddEmployeeToTeam = () => {
     employeeLoading,
     ErrorEmployee,
   } = useAllEmployee(currentPage, itemsPerPage);
-  
 
   const { clientDetails, isReloading, isError, error, clientDetailsRefetch } =
     useCheckRole();
 
   const handleAddToTeam = async (employee = null) => {
-    console.log(clientDetails);
-    if (clientDetails.teamMembersLength === clientDetails.packageLimit) {
-      return toast.error("Team limit reached to add member please buy package");
+    if (clientDetails.teamMembersLength >= clientDetails.packageLimit) {
+      toast.error("Team limit reached to add member please buy package");
+      return;
     }
+
+    if (selectedEmployees.length > clientDetails.packageLimit) {
+      toast.error(
+        `you can add only ${clientDetails.packageLimit} members in your team`
+      );
+      return;
+    }
+
     const employeesToAdd = employee
       ? [...selectedEmployees, employee]
       : selectedEmployees;
@@ -98,9 +106,11 @@ const AddEmployeeToTeam = () => {
           Team Members Limit:
           <span className="font-semibold">{clientDetails.packageLimit}</span>
         </p>
-        <button className="btn text-white bg-black">
-          Increase Member Limit
-        </button>
+        <Link to="/increaseLimit">
+          <button className="btn text-white bg-black">
+            Increase Member Limit
+          </button>
+        </Link>
       </div>
 
       <div className="mt-10 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">

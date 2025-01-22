@@ -5,28 +5,30 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import { useLocation, useNavigate } from "react-router-dom";
-import useAxiosPublic from "../../CustomHooks/UseAxiosPublic";
 import { Helmet } from "react-helmet-async";
+import { useLocation, useNavigate } from "react-router-dom";
+import useCheckRole from "../../CustomHooks/useCheckRole";
+import { useEffect, useState } from "react";
+import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 const stripePromise = loadStripe(import.meta.env.VITE_Publishable_Key);
 
 const CheckoutForm = () => {
+  const { clientDetails } = useCheckRole();
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const stripe = useStripe();
   const elements = useElements();
   const location = useLocation();
-  const HRInfo = location.state;
-  const amount = parseInt(HRInfo.packageAmount);
-  const axiosPublic = useAxiosPublic();
+  const membersLimit = location.state.pkg.membersLimit;
+  const price = location.state.pkg.price;
+  const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
 
   useEffect(() => {
-    axiosPublic
-      .post("/create-payment-intent", { amount: amount })
+    axiosSecure
+      .post("/create-payment-intent-two", { price })
       .then((res) => {
         setClientSecret(res.data.clientSecret);
         console.log("Client secret:", res.data.clientSecret);
@@ -34,13 +36,12 @@ const CheckoutForm = () => {
       .catch((error) => {
         console.error("Error fetching client secret:", error);
       });
-  }, [axiosPublic, amount]);
+  }, [axiosSecure, price]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!stripe || !elements) {
-      console.error("Stripe.js has not loaded yet.");
+      console.error("Stripe. js has not loaded yet");
       return;
     }
 
@@ -50,30 +51,40 @@ const CheckoutForm = () => {
       return;
     }
 
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card,
+    });
+
+    if (error) {
+      console.log("[error]", error);
+      setError(error.message);
+    } else {
+      console.log("[PaymentMethod]", paymentMethod);
+      setError("  ");
+    }
+
     const { error: confirmError, paymentIntent } =
       await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           card: card,
           billing_details: {
-            email: HRInfo.email,
-            name: HRInfo.fullName,
+            email: clientDetails.email,
+            name: clientDetails.fullname,
           },
         },
       });
-
     if (confirmError) {
-      console.error("Error confirming payment:", confirmError);
+      console.log("Error confirm Payment:", confirmError);
       setError(confirmError.message);
     } else {
-      console.log("Payment successful:", paymentIntent);
+      console.log("payment Successful:", paymentIntent);
       if (paymentIntent.status === "succeeded") {
-        const updatedHRInfo = {
-          ...HRInfo,
-          transactionId: paymentIntent.id,
-          paymentStatus: paymentIntent.status,
-        };
-        axiosPublic
-          .post("/add-hr", updatedHRInfo)
+        axiosSecure
+          .patch("/increase-limit", {
+            membersLimit,
+            email: clientDetails.email,
+          })
           .then((res) => {
             console.log(res.data);
           })
@@ -83,7 +94,7 @@ const CheckoutForm = () => {
         toast.success(
           `Payment successful! Transaction ID: ${paymentIntent.id}`
         );
-        navigate("/");
+        navigate("/all-employees");
       }
       setError("");
     }
@@ -121,7 +132,7 @@ const CheckoutForm = () => {
   );
 };
 
-const Payment = () => {
+const PaymentForIncreaseLimit = () => {
   return (
     <div className="p-24">
       <Helmet>
@@ -137,4 +148,4 @@ const Payment = () => {
   );
 };
 
-export default Payment;
+export default PaymentForIncreaseLimit;

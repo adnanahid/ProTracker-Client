@@ -110,14 +110,17 @@ const Navbar = () => {
             >
               Log Out
             </button>
-            <div className="avatar">
-              <div className="w-8 rounded-full">
-                <img
-                  referrerPolicy="no-referrer"
-                  src={user?.photoURL}
-                  alt={user?.displayName}
-                />
+            <div className="text-center">
+              <div className="avatar">
+                <div className="w-8 rounded-full">
+                  <img
+                    referrerPolicy="no-referrer"
+                    src={user?.photoURL}
+                    alt={user?.displayName}
+                  />
+                </div>
               </div>
+              <p>{user.displayName}</p>
             </div>
           </div>
         ) : (

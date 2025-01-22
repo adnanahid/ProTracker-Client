@@ -26,6 +26,7 @@ import PrivateRoute from "./PrivateRoutes/PrivateRoute";
 import RequestedAssets from "./Pages/PagesofHR/RequestedAssets";
 import IncreaseMemberLimit from "./Pages/PagesofHR/IncreaseMemberLimit";
 import { HelmetProvider } from "react-helmet-async";
+import PaymentForIncreaseLimit from "./Pages/PagesofHR/PaymentForIncreaseLimit";
 
 // Initialize QueryClient
 const queryClient = new QueryClient();
@@ -115,6 +116,14 @@ const router = createBrowserRouter([
         element: (
           <HRRoute>
             <IncreaseMemberLimit></IncreaseMemberLimit>,
+          </HRRoute>
+        ),
+      },
+      {
+        path: "/paymentForIncreaseLimit",
+        element: (
+          <HRRoute>
+            <PaymentForIncreaseLimit></PaymentForIncreaseLimit>,
           </HRRoute>
         ),
       },
