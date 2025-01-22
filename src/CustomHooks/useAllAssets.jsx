@@ -11,7 +11,7 @@ const useAllAssets = (currentPage, itemsPerPage, search, filterBy, sortBy) => {
     isLoading,
     isError,
     error,
-    refetch,
+    refetch: RefetchAllAssets,
   } = useQuery({
     queryKey: [
       "all-assets",
@@ -30,7 +30,7 @@ const useAllAssets = (currentPage, itemsPerPage, search, filterBy, sortBy) => {
     },
     enabled: !!clientDetails?.email,
   });
-  return { assets, totalCount, isLoading, isError, error, refetch };
+  return { assets, totalCount, isLoading, isError, error, RefetchAllAssets };
 };
 
 export default useAllAssets;

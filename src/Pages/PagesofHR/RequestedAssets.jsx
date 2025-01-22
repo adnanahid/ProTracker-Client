@@ -50,9 +50,9 @@ const RequestedAssets = () => {
 
   return (
     <div className="request-list-section pt-28 max-w-screen-lg mx-auto">
-            <Helmet>
-              <title>Requested Assets - ProTracker</title>
-            </Helmet>
+      <Helmet>
+        <title>Requested Assets - ProTracker</title>
+      </Helmet>
       <h2 className="text-4xl font-bold text-center mb-12">Request List</h2>
       <div className="text-center mb-12 w-6/12 mx-auto">
         <input
@@ -90,18 +90,25 @@ const RequestedAssets = () => {
               </td>
               <td>{request.RequestStatus}</td>
               <td>
-                <button
-                  onClick={() => handleApprove(request._id)}
-                  className="btn-xs rounded-3xl text-white w-16 bg-green-500 mb-1"
-                >
-                  Approve
-                </button>
-                <button
-                  onClick={() => handleReject(request._id)}
-                  className="btn-xs rounded-3xl text-white w-16 bg-red-500"
-                >
-                  Reject
-                </button>
+                {request.RequestStatus === "Approved" ||
+                request.RequestStatus === "canceled" ? (
+                  ""
+                ) : (
+                  <div className="flex">
+                    <button
+                      onClick={() => handleApprove(request._id)}
+                      className="btn-xs rounded-3xl text-white w-16 bg-green-500 mb-1"
+                    >
+                      Approve
+                    </button>
+                    <button
+                      onClick={() => handleReject(request._id)}
+                      className="btn-xs rounded-3xl text-white w-16 bg-red-500"
+                    >
+                      Reject
+                    </button>
+                  </div>
+                )}
               </td>
             </tr>
           ))}

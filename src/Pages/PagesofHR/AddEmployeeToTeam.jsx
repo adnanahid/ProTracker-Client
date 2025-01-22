@@ -9,6 +9,8 @@ const AddEmployeeToTeam = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [selectedEmployees, setSelectedEmployees] = useState([]);
+  const axiosSecure = useAxiosSecure();
+  
   const {
     allEmployees,
     totalCount,
@@ -16,18 +18,16 @@ const AddEmployeeToTeam = () => {
     employeeLoading,
     ErrorEmployee,
   } = useAllEmployee(currentPage, itemsPerPage);
-  const axiosSecure = useAxiosSecure();
+  
+
   const { clientDetails, isReloading, isError, error, clientDetailsRefetch } =
     useCheckRole();
-  const {
-    myEmployeeList,
-    MyEmployeeLoading,
-    RefetchMyEmployeeList,
-    MyEmployeeError,
-  } = useMyEmployeeList();
 
-  // Handle adding selected employees to the team
   const handleAddToTeam = async (employee = null) => {
+    console.log(clientDetails);
+    if (clientDetails.teamMembersLength === clientDetails.packageLimit) {
+      return toast.error("Team limit reached to add member please buy package");
+    }
     const employeesToAdd = employee
       ? [...selectedEmployees, employee]
       : selectedEmployees;
@@ -57,7 +57,6 @@ const AddEmployeeToTeam = () => {
       setSelectedEmployees([]);
       RefetchEmployee();
       clientDetailsRefetch();
-      RefetchMyEmployeeList();
     } catch (err) {
       toast.error("Error adding employees to the team. Please try again.");
       console.error(err);
@@ -74,11 +73,11 @@ const AddEmployeeToTeam = () => {
   };
 
   // Handle loading and error states
-  if (employeeLoading || MyEmployeeLoading || isReloading) {
+  if (employeeLoading || isReloading) {
     return <div>Loading...</div>;
   }
 
-  if (isError || ErrorEmployee || MyEmployeeError) {
+  if (isError || ErrorEmployee) {
     return <div>Error: {error?.message || "Something went wrong!"}</div>;
   }
 
@@ -91,7 +90,9 @@ const AddEmployeeToTeam = () => {
       <div className="flex justify-around my-12">
         <p className="text-center mt-4 text-lg">
           Team Members Count:
-          <span className="font-semibold">{myEmployeeList.length}</span>
+          <span className="font-semibold">
+            {clientDetails.teamMembersLength || 0}
+          </span>
         </p>
         <p className="text-center mt-4 text-lg">
           Team Members Limit:
@@ -128,7 +129,9 @@ const AddEmployeeToTeam = () => {
             <button
               onClick={() => handleAddToTeam(employee)}
               className="bg-black text-white py-2 px-4 rounded mt-4 hover:bg-gray-800"
-              disabled={clientDetails.packageLimit <= myEmployeeList.length}
+              // disabled={
+              //   clientDetails.packageLimit <= clientDetails.teamMembersLength
+              // }
             >
               Add to Team
             </button>
@@ -140,10 +143,10 @@ const AddEmployeeToTeam = () => {
         <button
           onClick={() => handleAddToTeam()}
           className="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700"
-          disabled={
-            clientDetails.packageLimit <= myEmployeeList.length ||
-            selectedEmployees.length === 0
-          }
+          // disabled={
+          //   clientDetails.packageLimit <= clientDetails.teamMembersLength ||
+          //   selectedEmployees.length === 0
+          // }
         >
           Add Selected Members to the Team
         </button>

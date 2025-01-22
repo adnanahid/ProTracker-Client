@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import useMyEmployeeList from "../../CustomHooks/useMyEmployeeList";
 import useCheckRole from "../../CustomHooks/useCheckRole";
 import { Helmet } from "react-helmet-async";
+import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 const MyEmployeeList = () => {
+  const axiosSecure = useAxiosSecure();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const {
@@ -14,8 +17,21 @@ const MyEmployeeList = () => {
     MyEmployeeError,
   } = useMyEmployeeList();
 
-  const handleRemoveEmployee = (id) => {
-    console.log(id);
+  const handleRemoveEmployee = (myEmployee) => {
+    axiosSecure
+      .patch(`/remove-employee/${myEmployee._id}`, myEmployee)
+      .then((res) => {
+        if (res.data.modifiedCount === 1) {
+          toast.success("Employee removed successfully");
+          RefetchMyEmployeeList();
+        } else {
+          console.log(res.data);
+          toast.error("Failed to remove employee");
+        }
+      })
+      .catch((error) => {
+        toast.error("An error occurred while removing the employee");
+      });
   };
 
   if (MyEmployeeLoading) {
@@ -27,9 +43,9 @@ const MyEmployeeList = () => {
 
   return (
     <div className="employee-list pt-28">
-            <Helmet>
-              <title>My Employee List- ProTracker</title>
-            </Helmet>
+      <Helmet>
+        <title>My Employee List- ProTracker</title>
+      </Helmet>
       <h2 className="text-4xl font-bold mb-4 text-center pb-12">
         Team Members
       </h2>
@@ -64,7 +80,10 @@ const MyEmployeeList = () => {
                 </td>
                 <td>{myEmployee?.role}</td>
                 <th>
-                  <button className="btn btn-ghost btn-xs bg-red-600 text-white">
+                  <button
+                    onClick={() => handleRemoveEmployee(myEmployee)}
+                    className="btn btn-ghost btn-xs bg-red-600 text-white"
+                  >
                     Remove
                   </button>
                 </th>

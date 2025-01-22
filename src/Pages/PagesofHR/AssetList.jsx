@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import useAllAssets from "../../CustomHooks/useAllAssets";
 import { Helmet } from "react-helmet-async";
+import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 const AssetList = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -8,13 +10,28 @@ const AssetList = () => {
   const [search, setSearch] = useState("");
   const [filterBy, setFilterBy] = useState("");
   const [sortBy, setSortBy] = useState("");
-  const { assets, totalCount, isLoading, isError, error, refetch } =
+  const { assets, totalCount, isLoading, isError, error, RefetchAllAssets } =
     useAllAssets(currentPage, itemsPerPage, search, filterBy, sortBy);
 
-  const handleSearch = (e) => {
-    const searchValue = e.target.search.value;
-    e.preventDefault();
-    setSearch(searchValue);
+  const axiosSecure = useAxiosSecure();
+
+  const handleDelete = (asset) => {
+    axiosSecure
+      .delete(`/delete-asset-from-assets/${asset._id}`)
+      .then((res) => {
+        console.log(res);
+        if (res.data.deletedCount === 1) {
+          RefetchAllAssets();
+          toast.success("Asset deleted successfully.");
+        } else {
+          toast.error("Failed to delete the asset.");
+        }
+      })
+      .catch((error) => {
+        toast.error(
+          "An error occurred while deleting the asset. Please try again."
+        );
+      });
   };
 
   const numberOfPages = Math.ceil(totalCount / itemsPerPage);
@@ -22,9 +39,9 @@ const AssetList = () => {
 
   return (
     <div className="p-6 min-h-screen pt-28 max-w-screen-lg mx-auto">
-            <Helmet>
-              <title>Asset List - ProTracker</title>
-            </Helmet>
+      <Helmet>
+        <title>Asset List - ProTracker</title>
+      </Helmet>
       <h1 className="text-2xl font-bold mb-12 text-center">Asset List</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 p-4 mb-12 w-8/12 mx-auto">
