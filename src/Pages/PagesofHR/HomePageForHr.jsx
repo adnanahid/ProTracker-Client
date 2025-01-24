@@ -54,7 +54,7 @@ const HomePageForHr = () => {
       <h1 className="pt-28 text-4xl font-bold text-center">
         Pending Asset Requests
       </h1>
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 p-6">
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 p-6">
         {PendingAssets && PendingAssets.length > 0 ? (
           PendingAssets.map((asset, index) => (
             <div
@@ -79,7 +79,7 @@ const HomePageForHr = () => {
 
       {/* Limited Stock Section */}
       <h1 className="pt-28 text-4xl font-bold text-center">Limited Stock</h1>
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 p-6">
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 p-6">
         {limitedStock && limitedStock.length > 0 ? (
           limitedStock.map((asset, index) => (
             <div
@@ -108,7 +108,7 @@ const HomePageForHr = () => {
       <h1 className="pt-28 text-4xl font-bold text-center">
         Top Requested Assets
       </h1>
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 p-6">
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 p-6">
         {topAssets && topAssets.length > 0 ? (
           topAssets.map((asset, index) => (
             <div
@@ -132,15 +132,17 @@ const HomePageForHr = () => {
       </section>
 
       {/* Asset Type Distribution */}
-      <section className="grid grid-cols-2 md:grid-cols-12">
-        <div className="col-span-1 md:col-span-8">
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="md:col-span-2">
           <h1 className="pt-28 text-4xl font-bold text-center">
             Asset Type Distribution
           </h1>
           <div className="flex justify-center p-6">
             {data01.length > 0 &&
             (data01[0].value > 0 || data01[1].value > 0) ? (
-              <div style={{ width: "100%", maxWidth: "600px", height: 400 }}>
+              <div
+                className="w-full max-w-[600px] h-[400px]"
+              >
                 <ResponsiveContainer>
                   <PieChart>
                     <Pie
@@ -167,18 +169,10 @@ const HomePageForHr = () => {
         </div>
 
         {/* Calendar Section */}
-        <div className="col-span-1 md:col-span-4">
+        <div>
           <h1 className="pt-28 text-4xl font-bold text-center">Calendar</h1>
           <div className="flex justify-center p-6">
             <Calendar onChange={setSelectedDate} value={selectedDate} />
-          </div>
-          <div className="text-center mt-4">
-            <p>
-              Selected Date:{" "}
-              <span className="font-semibold">
-                {selectedDate.toDateString()}
-              </span>
-            </p>
           </div>
         </div>
       </section>

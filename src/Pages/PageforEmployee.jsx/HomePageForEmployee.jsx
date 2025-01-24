@@ -103,7 +103,7 @@ const HomePageForEmployee = () => {
                 ))
               ) : (
                 <p className="text-center text-lg text-gray-500 col-span-full">
-                  You have no pending requests! Enjoy your day 🎉.
+                  You have no pending requests! Enjoy your day.
                 </p>
               )}
             </div>
@@ -111,11 +111,11 @@ const HomePageForEmployee = () => {
 
           {/* Calendar Section */}
           <div className="md:col-span-3">
-            <div className="rounded-lg shadow-lg">
+            <div className="rounded-lg">
               <Calendar
                 onChange={setSelectedDate}
                 value={selectedDate}
-                className="w-full"
+                className="mx-auto"
               />
             </div>
           </div>
@@ -159,7 +159,7 @@ const HomePageForEmployee = () => {
       </section>
 
       {/* Events Section */}
-      <div>
+      <div className="mt-12">
         <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">
           Upcoming Events
         </h2>

@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import useAssetRequests from "../../CustomHooks/useAssetRequest";
 import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
 import toast from "react-hot-toast";
-import { FaSearch } from "react-icons/fa";
 import { Helmet } from "react-helmet-async";
 
 const RequestedAssets = () => {
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+
   const {
     assetRequests,
     totalCount,
@@ -32,10 +32,11 @@ const RequestedAssets = () => {
     }
   };
 
-  const handleReject = async (id) => {
+  const handleReject = async (request) => {
     try {
-      await axiosSecure.put(`/handleRequest/${id}`, {
+      await axiosSecure.put(`/handleRequest/${request._id}`, {
         RequestStatus: "canceled",
+        productName: request.AssetName,
       });
       refetchAssetRequests();
       toast.success("Request rejected successfully.");
@@ -49,63 +50,70 @@ const RequestedAssets = () => {
   const pages = [...Array(numberOfPages).keys()];
 
   return (
-    <div className="request-list-section pt-28 max-w-screen-lg mx-auto">
+    <div className="request-list-section pt-28 px-4 max-w-screen-xl mx-auto">
       <Helmet>
         <title>Requested Assets - ProTracker</title>
       </Helmet>
-      <h2 className="text-4xl font-bold text-center mb-12">Request List</h2>
+      <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
+        Request List
+      </h2>
 
-      <div className="text-center mb-12 w-6/12 mx-auto">
-        <input
-          onChange={(e) => setSearch(e.target.value)}
-          defaultValue={search}
-          type="text"
-          name="search"
-          placeholder="Search by requester name or email"
-          className="input input-bordered w-full"
-        />
+      {/* Search Bar */}
+      <div className="mb-6 flex justify-center">
+        <div className="w-full sm:w-6/12">
+          <input
+            type="text"
+            name="search"
+            placeholder="Search by requester name or email"
+            className="input input-bordered w-full pl-4 pr-12"
+            onChange={(e) => setSearch(e.target.value)}
+            defaultValue={search}
+          />
+        </div>
       </div>
 
-      <div className="overflow-x-auto rounded-md shadow-xl">
-        <table className="table w-full rounded-xl shadow-lg">
+      {/* Table */}
+      <div className="overflow-x-auto rounded-lg shadow-md bg-white">
+        <table className="table w-full text-sm md:text-base">
           <thead className="bg-[#323232] text-white">
             <tr>
-              <th className="text-center">Asset Name</th>
-              <th className="text-center">Asset Type</th>
-              <th className="text-center">Requester Email</th>
-              <th className="text-center">Requester Name</th>
-              <th className="text-center">Request Date</th>
-              <th className="text-center">Additional Note</th>
-              <th className="text-center">Status</th>
-              <th className="text-center">Actions</th>
+              <th className="text-center p-4">Asset Name</th>
+              <th className="text-center p-4">Type</th>
+              <th className="text-center p-4">Requester Email</th>
+              <th className="text-center p-4">Requester Name</th>
+              <th className="text-center p-4">Request Date</th>
+              <th className="text-center p-4">Additional Notes</th>
+              <th className="text-center p-4">Status</th>
+              <th className="text-center p-4">Actions</th>
             </tr>
           </thead>
           <tbody>
             {assetRequests.length > 0 ? (
               assetRequests.map((request) => (
-                <tr key={request._id}>
-                  <td className="text-center">{request.AssetName}</td>
-                  <td className="text-center">{request.AssetType}</td>
-                  <td className="text-center">{request.email}</td>
-                  <td className="text-center">{request.RequestedBy}</td>
-                  <td className="text-center">{request.RequestedDate}</td>
-                  <td className="text-center">
-                    {request.AdditionalNotes ? request.AdditionalNotes : "n/a"}
+                <tr key={request._id} className="hover:bg-gray-100">
+                  <td className="text-center p-3">{request.AssetName}</td>
+                  <td className="text-center p-3">{request.AssetType}</td>
+                  <td className="text-center p-3">{request.email}</td>
+                  <td className="text-center p-3">{request.RequestedBy}</td>
+                  <td className="text-center p-3">{request.RequestedDate}</td>
+                  <td className="text-center p-3">
+                    {request.AdditionalNotes || "n/a"}
                   </td>
-                  <td className="text-center">{request.RequestStatus}</td>
-                  <td className="text-center">
+                  <td className="text-center p-3">{request.RequestStatus}</td>
+                  <td className="text-center p-3">
                     {request.RequestStatus === "Approved" ||
-                    request.RequestStatus === "canceled" || request.RequestStatus === "Returned" ? null : (
+                    request.RequestStatus === "canceled" ||
+                    request.RequestStatus === "Returned" ? null : (
                       <div className="flex justify-center gap-2">
                         <button
                           onClick={() => handleApprove(request._id)}
-                          className="btn btn-xs rounded-md text-white w-16 bg-[#323232] hover:bg-[#4b4b4b]"
+                          className="btn btn-sm rounded-md bg-green-500 hover:bg-green-600 text-white"
                         >
                           Approve
                         </button>
                         <button
-                          onClick={() => handleReject(request._id)}
-                          className="btn btn-xs rounded-md text-white w-16 bg-[#323232] hover:bg-[#4b4b4b]"
+                          onClick={() => handleReject(request)}
+                          className="btn btn-sm rounded-md bg-red-500 hover:bg-red-600 text-white"
                         >
                           Reject
                         </button>
@@ -116,7 +124,7 @@ const RequestedAssets = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="8" className="text-center text-gray-500">
+                <td colSpan="8" className="text-center text-gray-500 p-4">
                   No requests found.
                 </td>
               </tr>
@@ -125,24 +133,39 @@ const RequestedAssets = () => {
         </table>
       </div>
 
-      {/* Pagination Section */}
-      <div className="text-center mt-6">
-        <div className="join p-4 text-center">
-          <button
-            className="btn btn-sm mx-1"
-            disabled={currentPage === 1}
-            onClick={() => {
-              if (currentPage > 1) {
-                setCurrentPage(currentPage - 1);
-              }
+      {/* Pagination */}
+      <div className="flex flex-col sm:flex-row justify-between items-center mt-8">
+        <div className="flex items-center gap-2 mb-4 sm:mb-0">
+          <label htmlFor="itemsPerPage" className="text-gray-600">
+            Items Per Page:
+          </label>
+          <select
+            id="itemsPerPage"
+            value={itemsPerPage}
+            onChange={(e) => {
+              setItemsPerPage(Number(e.target.value));
+              setCurrentPage(1);
             }}
+            className="select select-bordered w-20"
+          >
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+            <option value={50}>50</option>
+          </select>
+        </div>
+
+        <div className="flex gap-1">
+          <button
+            className="btn btn-sm"
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           >
             Prev
           </button>
           {pages.map((page) => (
             <button
               key={page}
-              className={`btn btn-sm mx-1 ${
+              className={`btn btn-sm ${
                 currentPage === page + 1 ? "bg-[#323232] text-white" : ""
               }`}
               onClick={() => setCurrentPage(page + 1)}
@@ -151,32 +174,15 @@ const RequestedAssets = () => {
             </button>
           ))}
           <button
-            className="btn btn-sm mx-1"
+            className="btn btn-sm"
             disabled={currentPage === pages.length}
-            onClick={() => {
-              if (currentPage < pages.length) {
-                setCurrentPage(currentPage + 1);
-              }
-            }}
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, pages.length))
+            }
           >
             Next
           </button>
         </div>
-
-        <label htmlFor="itemsPerPage">Items Per Page:</label>
-        <select
-          id="itemsPerPage"
-          value={itemsPerPage}
-          onChange={(e) => {
-            setItemsPerPage(Number(e.target.value));
-            setCurrentPage(1);
-          }}
-          className="p-2 border rounded-xl mx-2"
-        >
-          <option value={10}>10</option>
-          <option value={20}>20</option>
-          <option value={50}>50</option>
-        </select>
       </div>
     </div>
   );

@@ -85,12 +85,12 @@ const AssetList = () => {
         <title>Asset List - ProTracker</title>
       </Helmet>
 
-      <h1 className="md:text-4xl text-3xl font-bold mb-8 text-center text-gray-800 pt-28">
+      <h1 className="md:text-4xl text-3xl font-bold mb-8 text-center text-gray-800">
         Asset List
       </h1>
 
-      {/* search */}
-      <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6 max-w-screen-md mx-auto ">
+      {/* Search & Filters */}
+      <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6 max-w-screen-md mx-auto">
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -111,7 +111,7 @@ const AssetList = () => {
         </select>
         <select
           className="select select-bordered w-full sm:w-1/4"
-          value={filterBy}
+          value={sortBy}
           onChange={(e) => setSortBy(e.target.value)}
         >
           <option value="">Sort by</option>
@@ -119,6 +119,7 @@ const AssetList = () => {
           <option value="Descending">Descending</option>
         </select>
       </div>
+
       {/* Table */}
       <div className="overflow-x-auto shadow-lg rounded-lg">
         {assets && assets.length > 0 ? (
@@ -170,9 +171,9 @@ const AssetList = () => {
         )}
       </div>
 
-      {/* pagination */}
+      {/* Pagination */}
       <div className="text-center py-6">
-        <div className="join">
+        <div className="join flex flex-wrap justify-center">
           <button
             className="btn btn-sm mx-1 bg-[#323232] text-white"
             disabled={currentPage === 1}
@@ -224,7 +225,7 @@ const AssetList = () => {
       {/* Modal */}
       {modalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-md">
             <h2 className="text-lg font-bold mb-4">Update Asset</h2>
             <label className="block mb-2">Asset Name</label>
             <input

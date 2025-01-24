@@ -24,7 +24,7 @@ const MyRequestedAssets = () => {
 
   const cancelRequest = (asset) => {
     axiosSecure
-      .delete(`/cancel-asset-request/${asset._id}`, asset)
+      .delete(`/cancel-asset-request/${asset._id}?AssetName=${asset.AssetName}`, asset)
       .then((res) => {
         toast.success("Request Canceled");
         myRequestedAssetListRefetch();

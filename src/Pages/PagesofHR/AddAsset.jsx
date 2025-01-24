@@ -36,11 +36,13 @@ const AddAsset = () => {
         reset();
       })
       .catch((error) => {
-        console.error(
-          "Error adding asset:",
-          error.response?.data || error.message
+        const errorMessage = error.response?.data?.message || error.message;
+        console.error("Error adding asset:", errorMessage);
+        toast.error(
+          error.response?.status === 400
+            ? "Asset already exists."
+            : "Failed to add asset. Please try again."
         );
-        toast.error("Failed to add asset. Please try again.");
       });
   };
 

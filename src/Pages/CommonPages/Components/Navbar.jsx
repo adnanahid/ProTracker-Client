@@ -16,7 +16,7 @@ const Navbar = () => {
             <RxHamburgerMenu />
           </div>
           {!user && (
-            <div className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow">
+            <div className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow bg-white">
               <NavLink className="font-semibold text-lg" to="/">
                 Home
               </NavLink>
@@ -29,7 +29,7 @@ const Navbar = () => {
             </div>
           )}
           {clientDetails?.role === "n/a" && (
-            <div className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow">
+            <div className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow bg-white">
               <NavLink className="font-semibold text-lg" to="/">
                 Home
               </NavLink>
@@ -39,7 +39,7 @@ const Navbar = () => {
             </div>
           )}
           {clientDetails?.role === "employee" && (
-            <div className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow">
+            <div className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow bg-white">
               <NavLink className="font-semibold text-lg" to="/">
                 Home
               </NavLink>
@@ -49,14 +49,14 @@ const Navbar = () => {
               >
                 My Requested Assets
               </NavLink>
-              <NavLink className="font-semibold text-lg" to="/myTeamMembers">
-                My Team
-              </NavLink>
               <NavLink
                 className="font-semibold text-lg"
                 to="/request-for-an-assets"
               >
                 Request for Asset
+              </NavLink>
+              <NavLink className="font-semibold text-lg" to="/myTeamMembers">
+                My Team
               </NavLink>
               <NavLink className="font-semibold text-lg" to="/profile">
                 Profile
@@ -64,7 +64,7 @@ const Navbar = () => {
             </div>
           )}
           {clientDetails?.role === "hr" && (
-            <div className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow">
+            <div className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow bg-white">
               <NavLink className="font-semibold text-lg" to="/">
                 Home
               </NavLink>
@@ -142,14 +142,14 @@ const Navbar = () => {
             >
               My Requested Assets
             </NavLink>
-            <NavLink className="font-semibold text-lg" to="/myTeamMembers">
-              My Team
-            </NavLink>
             <NavLink
               className="font-semibold text-lg"
               to="/request-for-an-assets"
             >
               Request for Asset
+            </NavLink>
+            <NavLink className="font-semibold text-lg" to="/myTeamMembers">
+              My Team
             </NavLink>
             <NavLink className="font-semibold text-lg" to="/profile">
               Profile
@@ -187,7 +187,7 @@ const Navbar = () => {
           <div className="flex items-center space-x-5">
             <button
               onClick={() => userLogOut()}
-              className="btn btn-sm rounded-3xl"
+              className="btn bg-black text-white btn-sm rounded-lg"
             >
               Log Out
             </button>
@@ -205,7 +205,7 @@ const Navbar = () => {
             </div>
           </div>
         ) : (
-          <Link to="/login" className="btn btn-sm rounded-3xl">
+          <Link to="/login" className="btn bg-black text-white btn-sm rounded-lg">
             Log in
           </Link>
         )}

@@ -81,31 +81,24 @@ const RequestForAnAsset = () => {
         ariaHideApp={false}
       >
         <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-          <h2 className="text-2xl font-bold mb-4 text-gray-800">Request Asset</h2>
-          <p className="mb-2">
-            <strong>Asset Name:</strong> {selectedAsset?.productName}
-          </p>
-          <p className="mb-4">
-            <strong>Asset Type:</strong> {selectedAsset?.productType}
-          </p>
           <textarea
             className="w-full border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Additional notes (optional)"
+            placeholder={`Additional notes for ${selectedAsset?.productName} (optional)`}
             value={additionalNotes}
             onChange={(e) => setAdditionalNotes(e.target.value)}
           />
           <div className="flex justify-end gap-4">
             <button
-              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-              onClick={() => handleRequest(selectedAsset._id)}
-            >
-              Submit Request
-            </button>
-            <button
-              className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+              className="px-4 py-2 bg-gray-100 text-black rounded btn btn-sm"
               onClick={closeModal}
             >
               Cancel
+            </button>
+            <button
+              className="px-4 py-2 bg-black text-white rounded btn btn-sm"
+              onClick={() => handleRequest(selectedAsset._id)}
+            >
+              Submit Request
             </button>
           </div>
         </div>
@@ -145,7 +138,7 @@ const RequestForAnAsset = () => {
       <div className="overflow-x-auto md:w-10/12 mx-auto rounded-md shadow-lg">
         <table className="table w-full mx-auto border-collapse border border-gray-200">
           <thead>
-            <tr className="bg-gray-100">
+            <tr className="bg-[#323232] text-white">
               <th className="text-center px-4 py-2">Product Name</th>
               <th className="text-center px-4 py-2">Type</th>
               <th className="text-center px-4 py-2">Availability</th>
@@ -169,7 +162,10 @@ const RequestForAnAsset = () => {
                       Request
                     </button>
                   ) : (
-                    <button disabled className="btn btn-xs bg-gray-400 text-white rounded">
+                    <button
+                      disabled
+                      className="btn btn-xs bg-gray-400 text-white rounded"
+                    >
                       Request
                     </button>
                   )}
@@ -204,7 +200,9 @@ const RequestForAnAsset = () => {
           <button
             className="btn btn-sm mx-1"
             disabled={currentPage === pages.length}
-            onClick={() => currentPage < pages.length && setCurrentPage(currentPage + 1)}
+            onClick={() =>
+              currentPage < pages.length && setCurrentPage(currentPage + 1)
+            }
           >
             Next
           </button>
