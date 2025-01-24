@@ -15,7 +15,7 @@ import toast from "react-hot-toast";
 const stripePromise = loadStripe(import.meta.env.VITE_Publishable_Key);
 
 const CheckoutForm = () => {
-  const { clientDetails } = useCheckRole();
+  const { clientDetails, clientDetailsRefetch } = useCheckRole();
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const stripe = useStripe();
@@ -87,6 +87,7 @@ const CheckoutForm = () => {
           })
           .then((res) => {
             console.log(res.data);
+            clientDetailsRefetch();
           })
           .catch((error) => {
             console.log(error);

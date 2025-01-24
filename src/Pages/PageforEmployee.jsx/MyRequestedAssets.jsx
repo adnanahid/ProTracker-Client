@@ -22,16 +22,24 @@ const MyRequestedAssets = () => {
 
   const { clientDetails } = useCheckRole();
 
-  const cancelRequest = (id) => {
-    console.log("Cancel request for ID:", id);
-    myRequestedAssetListRefetch();
+  const cancelRequest = (asset) => {
+    axiosSecure
+      .delete(`/cancel-asset-request/${asset._id}`, asset)
+      .then((res) => {
+        toast.success("Request Canceled");
+        myRequestedAssetListRefetch();
+      })
+      .catch((error) => {
+        console.error("Error while returning the asset:", error); // Handle errors
+      });
   };
 
-  const returnAsset = (id) => {
+  const returnAsset = (asset) => {
     axiosSecure
-      .delete(`/return-asset/${id}`)
+      .patch(`/return-asset/${asset._id}`, asset)
       .then((res) => {
-        toast.success("Return successful")
+        toast.success("Return successful");
+        myRequestedAssetListRefetch();
       })
       .catch((error) => {
         console.error("Error while returning the asset:", error); // Handle errors
@@ -111,7 +119,7 @@ const MyRequestedAssets = () => {
                   {asset.RequestStatus === "Pending" && (
                     <button
                       className="btn btn-xs bg-red-600 text-white"
-                      onClick={() => cancelRequest(asset._id)}
+                      onClick={() => cancelRequest(asset)}
                     >
                       Cancel Request
                     </button>
@@ -129,7 +137,7 @@ const MyRequestedAssets = () => {
                       {asset.AssetType === "returnable" && (
                         <button
                           className="btn btn-xs bg-[#323232] text-white"
-                          onClick={() => returnAsset(asset._id)}
+                          onClick={() => returnAsset(asset)}
                         >
                           Return
                         </button>
@@ -142,6 +150,8 @@ const MyRequestedAssets = () => {
           </tbody>
         </table>
       </div>
+
+      {/* pagination */}
       <div className="text-center py-6">
         <div className="join">
           <button

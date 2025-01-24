@@ -105,7 +105,7 @@ const AddEmployeeToTeam = () => {
           </span>
         </p>
         <p className="text-center mt-4 text-lg">
-          Team Members Limit:
+          Package Limit:
           <span className="font-semibold">{clientDetails.packageLimit}</span>
         </p>
         <Link to="/increaseLimit">

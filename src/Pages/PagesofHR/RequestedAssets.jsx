@@ -95,7 +95,7 @@ const RequestedAssets = () => {
                   <td className="text-center">{request.RequestStatus}</td>
                   <td className="text-center">
                     {request.RequestStatus === "Approved" ||
-                    request.RequestStatus === "canceled" ? null : (
+                    request.RequestStatus === "canceled" || request.RequestStatus === "Returned" ? null : (
                       <div className="flex justify-center gap-2">
                         <button
                           onClick={() => handleApprove(request._id)}
