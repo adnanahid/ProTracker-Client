@@ -8,7 +8,7 @@ const AboutSection = () => {
       <div className="container mx-auto px-6 md:px-12 lg:px-24">
         <div className="flex flex-col-reverse lg:flex-row items-center">
           {/* Animation */}
-          <div className="flex-1 mb-6 lg:mb-0">
+          <div className="hidden md:flex flex-1 mb-6 lg:mb-0">
             <Lottie
               animationData={aboutAnimation}
               className="w-full h-72 lg:w-96 lg:h-auto mx-auto"

@@ -9,42 +9,43 @@ const Navbar = () => {
   const { clientDetails } = useCheckRole();
 
   return (
-    <div className="navbar fixed z-10 bg-[#191919] text-white">
-      <div className="navbar-start">
+    <div className="navbar fixed z-10 text-[#191919] bg-white px-5">
+      <div className="navbar-start z-20">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <RxHamburgerMenu />
           </div>
           {!user && (
-            <div className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow bg-[#191919]">
-              <NavLink to="/">Home</NavLink>
-              <NavLink to="/join-as-employee">Join as Employee</NavLink>
-              <NavLink to="/join-as-hr">Join as HR Manager</NavLink>
+            <div className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow">
+              <NavLink className="font-semibold text-lg" to="/">Home</NavLink>
+              <NavLink className="font-semibold text-lg" to="/join-as-employee">Join as Employee</NavLink>
+              <NavLink className="font-semibold text-lg" to="/join-as-hr">Join as HR Manager</NavLink>
             </div>
           )}
           {clientDetails?.role === "n/a" && (
-            <div className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow bg-[#191919]">
-              request pending
+            <div className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow">
+              <NavLink className="font-semibold text-lg" to="/">Home</NavLink>
+              <NavLink className="font-semibold text-lg" to="/profile">Profile</NavLink>
             </div>
           )}
           {clientDetails?.role === "employee" && (
-            <div className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow bg-[#191919]">
-              <NavLink to="/">Home</NavLink>
-              <NavLink to="/myRequestedAssetList">My Requested Assets</NavLink>
-              <NavLink to="/join-as-hr">My Team</NavLink>
-              <NavLink to="/request-for-an-assets">Request for Asset</NavLink>
-              <NavLink to="/profile">Profile</NavLink>
+            <div className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow">
+              <NavLink className="font-semibold text-lg" to="/">Home</NavLink>
+              <NavLink className="font-semibold text-lg" to="/myRequestedAssetList">My Requested Assets</NavLink>
+              <NavLink className="font-semibold text-lg" to="/myTeamMembers">My Team</NavLink>
+              <NavLink className="font-semibold text-lg" to="/request-for-an-assets">Request for Asset</NavLink>
+              <NavLink className="font-semibold text-lg" to="/profile">Profile</NavLink>
             </div>
           )}
           {clientDetails?.role === "hr" && (
-            <div className="menu menu-sm dropdown-content bg-[#191919] rounded-box z-[1] mt-3 w-52 p-2 shadow">
-              <NavLink to="/">Home</NavLink>
-              <NavLink to="/all-asset">Asset List</NavLink>
-              <NavLink to="/add-asset">Add an Asset</NavLink>
-              <NavLink to="/assetRequests">All Assets Request</NavLink>
-              <NavLink to="/all-employees">Add an Employee</NavLink>
-              <NavLink to="/my-employee-list">My Employee List</NavLink>
-              <NavLink to="/profile">Profile</NavLink>
+            <div className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow">
+              <NavLink className="font-semibold text-lg" to="/">Home</NavLink>
+              <NavLink className="font-semibold text-lg" to="/all-asset">Asset List</NavLink>
+              <NavLink className="font-semibold text-lg" to="/add-asset">Add an Asset</NavLink>
+              <NavLink className="font-semibold text-lg" to="/assetRequests">All Assets Request</NavLink>
+              <NavLink className="font-semibold text-lg" to="/all-employees">Add an Employee</NavLink>
+              <NavLink className="font-semibold text-lg" to="/my-employee-list">My Employee List</NavLink>
+              <NavLink className="font-semibold text-lg" to="/profile">Profile</NavLink>
             </div>
           )}
         </div>
@@ -63,41 +64,41 @@ const Navbar = () => {
             <a className="btn btn-ghost text-xl">Joining Request is Pending</a>
           )
         ) : (
-          <a className="btn btn-ghost text-xl">ProTracker</a>
+          <a className="text-2xl font-semibold">ProTracker</a>
         )}
       </div>
       <div className="navbar-center hidden lg:flex">
         {!user && (
           <div className="space-x-5">
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/join-as-employee">Join as Employee</NavLink>
-            <NavLink to="/join-as-hr">Join as HR Manager</NavLink>
+            <NavLink className="font-semibold text-lg" to="/">Home</NavLink>
+            <NavLink className="font-semibold text-lg" to="/join-as-employee">Join as Employee</NavLink>
+            <NavLink className="font-semibold text-lg" to="/join-as-hr">Join as HR Manager</NavLink>
           </div>
         )}
         {clientDetails?.role === "n/a" && (
           <div className="space-x-5">
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/profile">Profile</NavLink>
+            <NavLink className="font-semibold text-lg" to="/">Home</NavLink>
+            <NavLink className="font-semibold text-lg" to="/profile">Profile</NavLink>
           </div>
         )}
         {clientDetails?.role === "employee" && (
           <div className="space-x-5">
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/myRequestedAssetList">My Requested Assets</NavLink>
-            <NavLink to="/myTeamMembers">My Team</NavLink>
-            <NavLink to="/request-for-an-assets">Request for Asset</NavLink>
-            <NavLink to="/profile">Profile</NavLink>
+            <NavLink className="font-semibold text-lg" to="/">Home</NavLink>
+            <NavLink className="font-semibold text-lg" to="/myRequestedAssetList">My Requested Assets</NavLink>
+            <NavLink className="font-semibold text-lg" to="/myTeamMembers">My Team</NavLink>
+            <NavLink className="font-semibold text-lg" to="/request-for-an-assets">Request for Asset</NavLink>
+            <NavLink className="font-semibold text-lg" to="/profile">Profile</NavLink>
           </div>
         )}
         {clientDetails?.role === "hr" && (
           <div className="space-x-5">
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/all-asset">Asset List</NavLink>
-            <NavLink to="/add-asset">Add an Asset</NavLink>
-            <NavLink to="/assetRequests">All Assets Request</NavLink>
-            <NavLink to="/all-employees">Add an Employee</NavLink>
-            <NavLink to="/my-employee-list">My Employee List</NavLink>
-            <NavLink to="/profile">Profile</NavLink>
+            <NavLink className="font-semibold text-lg" to="/">Home</NavLink>
+            <NavLink className="font-semibold text-lg" to="/all-asset">Asset List</NavLink>
+            <NavLink className="font-semibold text-lg" to="/add-asset">Add an Asset</NavLink>
+            <NavLink className="font-semibold text-lg" to="/assetRequests">All Assets Request</NavLink>
+            <NavLink className="font-semibold text-lg" to="/all-employees">Add an Employee</NavLink>
+            <NavLink className="font-semibold text-lg" to="/my-employee-list">My Employee List</NavLink>
+            <NavLink className="font-semibold text-lg" to="/profile">Profile</NavLink>
           </div>
         )}
       </div>

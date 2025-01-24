@@ -142,7 +142,7 @@ const RequestForAnAsset = () => {
       </div>
 
       {/* Asset List Table */}
-      <div className="overflow-x-auto w-10/12 mx-auto rounded-md shadow-lg">
+      <div className="overflow-x-auto md:w-10/12 mx-auto rounded-md shadow-lg">
         <table className="table w-full mx-auto border-collapse border border-gray-200">
           <thead>
             <tr className="bg-gray-100">

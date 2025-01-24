@@ -50,7 +50,9 @@ const AddEmployeeToTeam = () => {
         employees: employeesToAdd.map((e) => ({
           email: e.email,
           role: "employee",
+          hrName: clientDetails.fullName,
           hrEmail: clientDetails.email,
+          hrPhoto: clientDetails.userPhoto,
           companyName: clientDetails.companyName,
           companyLogo: clientDetails.companyLogo,
         })),

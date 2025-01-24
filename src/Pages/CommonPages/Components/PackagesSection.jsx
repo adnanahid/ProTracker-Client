@@ -20,10 +20,10 @@ const PackagesSection = () => {
   ];
 
   return (
-    <section className="w-full py-12 bg-white text-gray-800">
-      <div className="container mx-auto px-6 md:px-12 lg:px-24">
+    <section className="w-full py-12 text-gray-800">
+      <div className="container mx-auto px-6 md:px-12 lg:px-24 bg-[#F5F5F5] py-12 rounded-lg">
         <div className="text-center mb-10">
-          <h2 className="text-4xl font-bold">Our Packages</h2>
+          <h2 className="text-4xl font-bold pb-2">Our Packages</h2>
           <p className="text-lg text-gray-600">
             Choose the package that best fits your team's needs.
           </p>
@@ -32,9 +32,9 @@ const PackagesSection = () => {
           {packages.map((pkg, index) => (
             <div
               key={index}
-              className="w-full bg-gray-100 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+              className="w-full p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white"
             >
-              <h3 className="text-2xl font-bold mb-4 text-blue-500">
+              <h3 className="text-2xl font-bold mb-4 text-gray-600">
                 {pkg.title}
               </h3>
               <p className="text-lg text-gray-700 mb-6">{pkg.description}</p>

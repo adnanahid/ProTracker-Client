@@ -3,12 +3,15 @@ import useMyRequestedAssets from "../../CustomHooks/useMyRequestedAssets";
 import { PDFDownloadLink, Document, Page, Text } from "@react-pdf/renderer";
 import useCheckRole from "../../CustomHooks/useCheckRole";
 import { Helmet } from "react-helmet-async";
+import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 const MyRequestedAssets = () => {
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  const axiosSecure = useAxiosSecure();
 
   const {
     myRequestedAssetList,
@@ -25,8 +28,14 @@ const MyRequestedAssets = () => {
   };
 
   const returnAsset = (id) => {
-    console.log("Return asset for ID:", id);
-    myRequestedAssetListRefetch();
+    axiosSecure
+      .delete(`/return-asset/${id}`)
+      .then((res) => {
+        toast.success("Return successful")
+      })
+      .catch((error) => {
+        console.error("Error while returning the asset:", error); // Handle errors
+      });
   };
 
   const AssetPrintDocument = ({ asset }) => (
