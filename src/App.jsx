@@ -13,6 +13,14 @@ const App = () => {
         location.pathname !== "/join-as-hr" &&
         location.pathname !== "/join-as-employee" && <Navbar />}
       <Outlet></Outlet>
+      {/* <footer className="footer footer-center bg-[#191919] text-white p-4">
+        <aside>
+          <p>
+            Copyright © {new Date().getFullYear()} - All right reserved by ACME
+            Industries Ltd
+          </p>
+        </aside>
+      </footer> */}
     </div>
   );
 };

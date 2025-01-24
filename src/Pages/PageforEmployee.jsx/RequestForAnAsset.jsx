@@ -156,7 +156,7 @@ const RequestForAnAsset = () => {
                 <td className="text-center px-4 py-2">
                   {asset.productQuantity > 0 ? (
                     <button
-                      className="btn btn-xs bg-green-600 text-white rounded hover:bg-green-700"
+                      className="btn btn-xs bg-[#323232] text-white rounded hover:bg-gray-500"
                       onClick={() => openModal(asset)}
                     >
                       Request
