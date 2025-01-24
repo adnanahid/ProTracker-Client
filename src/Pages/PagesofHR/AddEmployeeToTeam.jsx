@@ -24,14 +24,21 @@ const AddEmployeeToTeam = () => {
     useCheckRole();
 
   const handleAddToTeam = async (employee = null) => {
-    if (clientDetails.teamMembersLength >= clientDetails.packageLimit) {
-      toast.error("Team limit reached to add member please buy package");
+    if (clientDetails.packageLimit - clientDetails.teamMembersLength <= 0) {
+      toast.error(
+        "Team limit reached. Please upgrade your package to add more members."
+      );
       return;
     }
 
-    if (selectedEmployees.length > clientDetails.packageLimit) {
+    if (
+      selectedEmployees.length >
+      clientDetails.packageLimit - clientDetails.teamMembersLength
+    ) {
       toast.error(
-        `you can add only ${clientDetails.packageLimit} members in your team`
+        `you can add only ${
+          clientDetails.packageLimit - clientDetails.teamMembersLength
+        } members in your team`
       );
       return;
     }
@@ -99,7 +106,7 @@ const AddEmployeeToTeam = () => {
       <h1 className="text-4xl font-bold text-center pt-28">Add Employees</h1>
       <div className="flex justify-around my-12">
         <p className="text-center mt-4 text-lg">
-          Team Members Count:
+          Team Members:
           <span className="font-semibold">
             {clientDetails.teamMembersLength || 0}
           </span>

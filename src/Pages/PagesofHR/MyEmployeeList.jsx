@@ -16,7 +16,7 @@ const MyEmployeeList = () => {
     RefetchMyEmployeeList,
     MyEmployeeError,
   } = useMyEmployeeList();
-
+  const { clientDetails } = useCheckRole();
   const handleRemoveEmployee = (myEmployee) => {
     axiosSecure
       .patch(`/remove-employee/${myEmployee._id}`, myEmployee)
@@ -50,9 +50,28 @@ const MyEmployeeList = () => {
         Team Members
       </h2>
       <div className="my-24 max-w-screen-lg mx-auto">
+        <div
+          key={clientDetails._id}
+          className="relative flex flex-col items-center p-4 rounded-lg shadow-md w-48 mb-36 mx-auto pt-16"
+        >
+          <div className="absolute -top-20  w-36 h-36 rounded-full border-4 overflow-hidden">
+            <img
+              src={clientDetails?.userPhoto}
+              alt={clientDetails?.fullName}
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <h2 className="text-black text-lg font-bold mt-4">
+            {clientDetails?.fullName}
+          </h2>
+          <h3 className="text-xl font-semibold text-gray-800 mb-5">HR</h3>
+        </div>
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
           {myEmployeeList.map((employee) => (
-            <div key={employee._id} className="relative flex flex-col items-center p-4 rounded-lg shadow-md w-48 mb-36 mx-auto pt-16">
+            <div
+              key={employee._id}
+              className="relative flex flex-col items-center p-4 rounded-lg shadow-md w-48 mb-36 mx-auto pt-16"
+            >
               <div className="absolute -top-20  w-36 h-36 rounded-full border-4 overflow-hidden">
                 <img
                   src={employee?.photo}
