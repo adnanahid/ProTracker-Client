@@ -1,16 +1,20 @@
-
 # Project : ProTracker
+
 # Description
+
 Welcome to ProTracker, a powerful and intuitive web application designed to streamline asset and product management for businesses. AMS provides HR managers and other stakeholders with a centralized platform to track, monitor
 
 # HR information
-    email: nahid@hasan.com
-    pass : 123456  
 
-# Live link: 
-https://assignment-12-6f00e.web.app
+    email: nahid@hasan.com
+    pass : 123456
+
+# Live link:
+
+https://assignment-12-6f00e.web.app/
 
 # Key Features:
+
 # Asset Management System (AMS)
 
 Welcome to **XYZ's Asset Management System (AMS)**!  
@@ -42,5 +46,6 @@ AMS is a comprehensive web application designed to help businesses efficiently m
         ## Technology Stack
 
     This structure includes all the key features, a brief introduction, and technical guidance for setup. Let me know if you'd like any other adjustments!
-        
+
+
 This web application is built using the **MERN stack** (MongoDB, Express.js, React.js, Node.js), ensuring a modern, scalable, and efficient solution.

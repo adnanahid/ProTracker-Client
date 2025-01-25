@@ -6,7 +6,7 @@ import { AuthContext } from "../Provider/AuthProvider";
 const useCheckRole = () => {
   const { user, loading } = useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
-
+  const token = localStorage.getItem("access-token");
   const {
     data: clientDetails = null,
     isLoading: isReloading,
@@ -14,8 +14,8 @@ const useCheckRole = () => {
     error,
     refetch: clientDetailsRefetch,
   } = useQuery({
-    queryKey: ["userRole", user?.email],
-    enabled: !loading && !!user?.email,
+    queryKey: ["userRole", user?.email, token],
+    enabled: !!token && !loading && !!user?.email,
     queryFn: async () => {
       try {
         const res = await axiosPublic.get(`/detailsOf/${user.email}`);

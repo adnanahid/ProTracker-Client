@@ -5,7 +5,7 @@ import useCheckRole from "./useCheckRole";
 const useAssetRequests = (currentPage, itemsPerPage, search) => {
   const axiosSecure = useAxiosSecure();
   const { clientDetails } = useCheckRole();
-
+  const token = localStorage.getItem("access-token");
   const {
     data: { assetRequests = [], totalCount = 0 } = {},
     isLoading: isAssetRequestsLoading,
@@ -17,6 +17,7 @@ const useAssetRequests = (currentPage, itemsPerPage, search) => {
       currentPage,
       itemsPerPage,
       search,
+      token
     ],
     queryFn: async () => {
       const response = await axiosSecure.get(
@@ -24,7 +25,7 @@ const useAssetRequests = (currentPage, itemsPerPage, search) => {
       );
       return response.data;
     },
-    enabled: !!clientDetails?.email,
+    enabled: !!token && !!clientDetails?.email,
   });
 
   return {
