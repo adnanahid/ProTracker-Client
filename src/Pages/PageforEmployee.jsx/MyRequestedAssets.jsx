@@ -78,7 +78,7 @@ const MyRequestedAssets = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           type="text"
-          placeholder="Search by Asset Name"
+          placeholder="Search Asset by Name"
           className="input input-bordered w-full sm:w-1/2"
         />
         <select

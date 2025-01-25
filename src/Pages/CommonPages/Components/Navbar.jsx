@@ -170,11 +170,11 @@ const Navbar = () => {
             <NavLink className="font-semibold text-lg" to="/assetRequests">
               All Assets Request
             </NavLink>
-            <NavLink className="font-semibold text-lg" to="/all-employees">
-              Add an Employee
-            </NavLink>
             <NavLink className="font-semibold text-lg" to="/my-employee-list">
               My Employee List
+            </NavLink>
+            <NavLink className="font-semibold text-lg" to="/all-employees">
+              Add an Employee
             </NavLink>
             <NavLink className="font-semibold text-lg" to="/profile">
               Profile
@@ -191,7 +191,7 @@ const Navbar = () => {
             >
               Log Out
             </button>
-            <div className="flex items-center gap-5">
+            <div className="text-center">
               <div className="avatar">
                 <div className="w-8 rounded-full">
                   <img
@@ -201,11 +201,14 @@ const Navbar = () => {
                   />
                 </div>
               </div>
-              {/* <p className="text-sm">{user.displayName}</p> */}
+              <p className="text-sm">{user.displayName}</p>
             </div>
           </div>
         ) : (
-          <Link to="/login" className="btn bg-black text-white btn-sm rounded-lg">
+          <Link
+            to="/login"
+            className="btn bg-black text-white btn-sm rounded-lg"
+          >
             Log in
           </Link>
         )}

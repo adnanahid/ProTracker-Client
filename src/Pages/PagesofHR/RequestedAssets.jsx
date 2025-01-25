@@ -77,30 +77,30 @@ const RequestedAssets = () => {
         <table className="table w-full text-sm md:text-base">
           <thead className="bg-[#323232] text-white">
             <tr>
-              <th className="text-center p-4">Asset Name</th>
-              <th className="text-center p-4">Type</th>
-              <th className="text-center p-4">Requester Email</th>
-              <th className="text-center p-4">Requester Name</th>
-              <th className="text-center p-4">Request Date</th>
-              <th className="text-center p-4">Additional Notes</th>
-              <th className="text-center p-4">Status</th>
-              <th className="text-center p-4">Actions</th>
+              <th className="text-center">Asset Name</th>
+              <th className="text-center">Type</th>
+              <th className="text-center">Requester Email</th>
+              <th className="text-center">Requester Name</th>
+              <th className="text-center">Request Date</th>
+              <th className="text-center">Additional Notes</th>
+              <th className="text-center">Status</th>
+              <th className="text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
             {assetRequests.length > 0 ? (
               assetRequests.map((request) => (
                 <tr key={request._id} className="hover:bg-gray-100">
-                  <td className="text-center p-3">{request.AssetName}</td>
-                  <td className="text-center p-3">{request.AssetType}</td>
-                  <td className="text-center p-3">{request.email}</td>
-                  <td className="text-center p-3">{request.RequestedBy}</td>
-                  <td className="text-center p-3">{request.RequestedDate}</td>
-                  <td className="text-center p-3">
+                  <td className="text-center">{request.AssetName}</td>
+                  <td className="text-center">{request.AssetType}</td>
+                  <td className="text-center">{request.email}</td>
+                  <td className="text-center">{request.RequestedBy}</td>
+                  <td className="text-center">{request.RequestedDate}</td>
+                  <td className="text-center">
                     {request.AdditionalNotes || "n/a"}
                   </td>
-                  <td className="text-center p-3">{request.RequestStatus}</td>
-                  <td className="text-center p-3">
+                  <td className="text-center">{request.RequestStatus}</td>
+                  <td className="text-center">
                     {request.RequestStatus === "Approved" ||
                     request.RequestStatus === "canceled" ||
                     request.RequestStatus === "Returned" ? null : (
