@@ -105,7 +105,7 @@ const RequestForAnAsset = () => {
       </Modal>
 
       {/* Page Header */}
-      <h1 className="text-4xl font-bold text-center pb-12 text-gray-800">
+      <h1 className="text-4xl font-bold text-center pb-6 text-gray-800">
         Asset List
       </h1>
 

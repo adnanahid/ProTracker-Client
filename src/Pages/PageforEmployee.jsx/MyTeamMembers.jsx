@@ -12,27 +12,28 @@ const MyTeamMembers = () => {
         <title>My Team Members - ProTracker</title>
       </Helmet>
       <h1 className="text-4xl font-bold text-center pb-12">My Team Members</h1>
-
+      <div>
+        {/* HrDetails */}
+        <div className="relative flex flex-col items-center p-4 rounded-lg shadow-md w-56 mb-16 mx-auto my-12">
+          <div className="absolute -top-12 w-24 h-24 rounded-full border-4 border-[#323232] overflow-hidden">
+            <img
+              src={clientDetails?.hrPhoto}
+              alt={clientDetails?.hrName}
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <h2 className="text-black text-lg font-bold mt-16">
+            {clientDetails?.hrName}
+          </h2>
+          <h3 className="text-gray-500 text-sm">Hr</h3>
+          <p className="text-gray-500 text-xs">{clientDetails?.hrEmail}</p>
+        </div>
+      </div>
       {/* Loading State */}
       {isMyTeamMembersLoading ? (
         <div className="text-center text-xl">Loading team members...</div>
       ) : myTeamMembers.length > 0 ? (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 mt-12">
-          {/* HrDetails */}
-          <div className="relative flex flex-col items-center p-4 rounded-lg shadow-md w-full mb-16">
-            <div className="absolute -top-12 w-24 h-24 rounded-full border-4 border-[#323232] overflow-hidden">
-              <img
-                src={clientDetails?.hrPhoto}
-                alt={clientDetails?.hrName}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <h2 className="text-black text-lg font-bold mt-16">
-              {clientDetails?.hrName}
-            </h2>
-            <h3 className="text-gray-500 text-sm">Hr</h3>
-            <p className="text-gray-500 text-xs">{clientDetails?.hrEmail}</p>
-          </div>
           {myTeamMembers.map((member) => (
             <div
               key={member._id}

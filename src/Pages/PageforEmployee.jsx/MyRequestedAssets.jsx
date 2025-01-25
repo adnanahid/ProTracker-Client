@@ -70,7 +70,7 @@ const MyRequestedAssets = () => {
       <Helmet>
         <title>My Requested Assets - ProTracker</title>
       </Helmet>
-      <h1 className="text-3xl md:text-4xl font-bold text-center pb-8 text-[#323232]">
+      <h1 className="text-3xl md:text-4xl font-bold text-center pb-6 text-[#323232]">
         My Requested Assets
       </h1>
       <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6">

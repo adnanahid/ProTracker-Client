@@ -17,15 +17,15 @@ const useAssetRequests = (currentPage, itemsPerPage, search) => {
       currentPage,
       itemsPerPage,
       search,
-      token
+      token,
     ],
+    enabled: !!token && !!clientDetails?.email,
     queryFn: async () => {
       const response = await axiosSecure.get(
         `/assetRequests/${clientDetails?.email}?page=${currentPage}&limit=${itemsPerPage}&search=${search}`
       );
       return response.data;
     },
-    enabled: !!token && !!clientDetails?.email,
   });
 
   return {

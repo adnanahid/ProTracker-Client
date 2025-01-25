@@ -12,14 +12,20 @@ const useMyEmployeeList = (currentPage, itemsPerPage) => {
     refetch: RefetchMyEmployeeList,
     isError: MyEmployeeError,
   } = useQuery({
-    queryKey: ["employeeList", clientDetails?.email, currentPage, itemsPerPage, token],
+    queryKey: [
+      "employeeList",
+      clientDetails?.email,
+      currentPage,
+      itemsPerPage,
+      token,
+    ],
+    enabled: !!token && !!clientDetails?.email,
     queryFn: async () => {
       const response = await axiosSecure.get(
         `/my-employee-list/${clientDetails?.email}?page=${currentPage}&limit${itemsPerPage}`
       );
       return response.data;
     },
-    enabled: !!token && !!clientDetails?.email,
   });
   return {
     myEmployeeList,

@@ -80,7 +80,7 @@ const AssetList = () => {
   const pages = [...Array(numberOfPages).keys()];
 
   return (
-    <div className="p-4 sm:p-6 min-h-screen pt-28 max-w-screen-xl mx-auto">
+    <div className="p-4 sm:p-6 min-h-screen md:pt-28 max-w-screen-xl mx-auto">
       <Helmet>
         <title>Asset List - ProTracker</title>
       </Helmet>
@@ -136,19 +136,19 @@ const AssetList = () => {
             <tbody>
               {assets.map((asset) => (
                 <tr key={asset._id} className="border-b hover:bg-gray-100">
-                  <td className="text-center text-gray-700">
+                  <td className="text-center p-1 text-gray-700">
                     {asset.productName}
                   </td>
-                  <td className="text-center text-gray-700">
+                  <td className="text-center p-1 text-gray-700">
                     {asset.productType}
                   </td>
-                  <td className="text-center text-gray-700">
+                  <td className="text-center p-1 text-gray-700">
                     {asset.productQuantity}
                   </td>
-                  <td className="text-center text-gray-700">
+                  <td className="text-center p-1 text-gray-700">
                     {asset.addedDate}
                   </td>
-                  <td className="text-center flex justify-center gap-2">
+                  <td className="text-center p-1 flex justify-center gap-2">
                     <button
                       className="btn btn-sm bg-[#323232] hover:bg-[#191919] text-white"
                       onClick={() => handleUpdate(asset)}

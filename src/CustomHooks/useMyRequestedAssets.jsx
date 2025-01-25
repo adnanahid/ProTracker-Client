@@ -27,7 +27,6 @@ const useMyRequestedAssets = (search, filters, currentPage, itemsPerPage) => {
       );
       return response.data;
     },
-    enabled: !!token && !!clientDetails?.email,
   });
   return {
     myRequestedAssetList,

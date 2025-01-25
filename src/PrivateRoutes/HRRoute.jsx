@@ -1,10 +1,10 @@
 import { Navigate, useLocation } from "react-router-dom";
 import useCheckRole from "../CustomHooks/useCheckRole";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const HRRoute = ({ children }) => {
-  const { loading } = useContext(AuthContext);
+  const { loading, userLogOut } = useContext(AuthContext);
   const { clientDetails, isReloading, isError, error, refetch } =
     useCheckRole();
   const location = useLocation();

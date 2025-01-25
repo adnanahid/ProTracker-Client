@@ -30,7 +30,6 @@ const useAllAssets = (currentPage, itemsPerPage, search, filterBy, sortBy) => {
       );
       return response.data;
     },
-    enabled: !!clientDetails?.email,
   });
   return { assets, totalCount, isLoading, isError, error, RefetchAllAssets };
 };

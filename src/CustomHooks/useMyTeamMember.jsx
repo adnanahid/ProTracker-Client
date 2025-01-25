@@ -12,13 +12,13 @@ const useMyTeamMember = () => {
     refetch: myTeamMembersRefetch,
   } = useQuery({
     queryKey: ["myTeamMembers", clientDetails?.email, token],
+    enabled: !!token && !!clientDetails?.email,
     queryFn: async () => {
       const response = await axiosSecure.get(
         `/myTeamMembers/${clientDetails?.hrEmail}`
       );
       return response.data.result;
     },
-    enabled: !!token && !!clientDetails?.email,
   });
   return {
     myTeamMembers,

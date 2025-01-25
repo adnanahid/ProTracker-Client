@@ -11,6 +11,12 @@ const HomePageForHr = () => {
   const { assets } = useAllAssets(1, 10, "", "", "");
   const [selectedDate, setSelectedDate] = useState(new Date());
 
+  const notices = [
+    "Office will be closed on January 26, 2025, due to maintenance.",
+    "Submit your project updates by January 28, 2025.",
+    "Training session on 'Effective Communication' on February 1, 2025.",
+  ];
+
   // PendingAssets
   const PendingAssets = assetRequests
     ?.filter((asset) => asset.RequestStatus === "Pending")
@@ -51,7 +57,7 @@ const HomePageForHr = () => {
       </Helmet>
 
       {/* Pending Asset Requests */}
-      <h1 className="pt-28 text-4xl font-bold text-center">
+      <h1 className="pt-28 text-3xl font-semibold text-center">
         Pending Asset Requests
       </h1>
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 p-6">
@@ -78,7 +84,9 @@ const HomePageForHr = () => {
       </section>
 
       {/* Limited Stock Section */}
-      <h1 className="pt-28 text-4xl font-bold text-center">Limited Stock</h1>
+      <h1 className="pt-28 text-3xl font-semibold text-center">
+        Limited Stock
+      </h1>
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 p-6">
         {limitedStock && limitedStock.length > 0 ? (
           limitedStock.map((asset, index) => (
@@ -91,7 +99,7 @@ const HomePageForHr = () => {
               </h2>
               <h2 className="text-lg font-semibold mb-2">
                 Available:
-                <span className="text-4xl font-bold">
+                <span className="text-3xl font-semibold">
                   {asset.productQuantity}
                 </span>
               </h2>
@@ -105,44 +113,59 @@ const HomePageForHr = () => {
       </section>
 
       {/* Top Requested Assets Section */}
-      <h1 className="pt-28 text-4xl font-bold text-center">
-        Top Requested Assets
-      </h1>
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 p-6">
-        {topAssets && topAssets.length > 0 ? (
-          topAssets.map((asset, index) => (
-            <div
-              key={index}
-              className="flex flex-col border rounded-lg shadow-md p-4 bg-white"
-            >
-              <h2 className="flex-grow text-xl font-semibold mb-2">
-                {asset.name}
-              </h2>
-              <p className="text-gray-700">
-                <strong>Requests:</strong>{" "}
-                <span className="text-4xl font-bold">{asset.count}</span>
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mt-12">
+        {/* Notices Section */}
+        <div className="md:col-span-4">
+          <h2 className="text-2xl font-semibold text-center text-gray-800">
+            Notices
+          </h2>
+          <div className="bg-white shadow-md rounded-lg p-6 mt-6">
+            <ul className="list-disc pl-6 text-gray-700 space-y-2">
+              {notices.map((notice, index) => (
+                <li key={index}>{notice}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div className="md:col-span-8">
+          <h1 className="text-3xl font-semibold text-center">
+            Top Requested Assets
+          </h1>
+          <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
+            {topAssets && topAssets.length > 0 ? (
+              topAssets.map((asset, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col border rounded-lg shadow-md p-4 bg-white"
+                >
+                  <h2 className="flex-grow text-xl font-semibold mb-2">
+                    {asset.name}
+                  </h2>
+                  <p className="text-gray-700">
+                    <strong>Requests:</strong>{" "}
+                    <span className="text-4xl font-bold">{asset.count}</span>
+                  </p>
+                </div>
+              ))
+            ) : (
+              <p className="col-span-full text-center text-gray-500">
+                No top requested assets available.
               </p>
-            </div>
-          ))
-        ) : (
-          <p className="col-span-full text-center text-gray-500">
-            No top requested assets available.
-          </p>
-        )}
-      </section>
+            )}
+          </section>
+        </div>
+      </div>
 
       {/* Asset Type Distribution */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-2">
-          <h1 className="pt-28 text-4xl font-bold text-center">
+          <h1 className="pt-28 text-3xl font-semibold text-center">
             Asset Type Distribution
           </h1>
           <div className="flex justify-center p-6">
             {data01.length > 0 &&
             (data01[0].value > 0 || data01[1].value > 0) ? (
-              <div
-                className="w-full max-w-[600px] h-[400px]"
-              >
+              <div className="w-full max-w-[600px] h-[400px]">
                 <ResponsiveContainer>
                   <PieChart>
                     <Pie
@@ -170,7 +193,7 @@ const HomePageForHr = () => {
 
         {/* Calendar Section */}
         <div>
-          <h1 className="pt-28 text-4xl font-bold text-center">Calendar</h1>
+          <h1 className="pt-28 text-3xl font-semibold text-center">Calendar</h1>
           <div className="flex justify-center p-6">
             <Calendar onChange={setSelectedDate} value={selectedDate} />
           </div>

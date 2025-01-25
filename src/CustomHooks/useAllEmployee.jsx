@@ -27,7 +27,6 @@ const useAllEmployee = (currentPage, itemsPerPage) => {
       );
       return response.data;
     },
-    enabled: !!clientDetails?.email,
   });
 
   return {
