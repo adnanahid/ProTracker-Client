@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import useCheckRole from "../../../CustomHooks/useCheckRole";
 
 const Navbar = () => {
   const { user, userLogOut } = useContext(AuthContext);
   const { clientDetails } = useCheckRole();
-
+  const navigate = useNavigate();
   return (
     <div className="navbar fixed z-10 text-[#191919] bg-white px-5">
       <div className="navbar-start z-20">
@@ -186,22 +186,22 @@ const Navbar = () => {
         {user ? (
           <div className="flex items-center space-x-5">
             <button
-              onClick={() => userLogOut()}
+              onClick={() => {
+                userLogOut();
+                navigate("/");
+              }}
               className="btn bg-black text-white btn-sm rounded-lg"
             >
               Log Out
             </button>
-            <div className="text-center">
-              <div className="avatar">
-                <div className="w-8 rounded-full">
-                  <img
-                    referrerPolicy="no-referrer"
-                    src={user?.photoURL}
-                    alt={user?.displayName}
-                  />
-                </div>
+            <div className="avatar">
+              <div className="w-8 rounded-full">
+                <img
+                  referrerPolicy="no-referrer"
+                  src={user?.photoURL}
+                  alt={user?.displayName}
+                />
               </div>
-              <p className="text-sm">{user.displayName}</p>
             </div>
           </div>
         ) : (

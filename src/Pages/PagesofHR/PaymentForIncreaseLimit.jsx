@@ -93,7 +93,7 @@ const CheckoutForm = () => {
             console.log(error);
           });
         toast.success(
-          `Payment successful! Transaction ID: ${paymentIntent.id}`
+          `${price}USD Payment successful! Transaction ID: ${paymentIntent.id}`
         );
         navigate("/all-employees");
       }

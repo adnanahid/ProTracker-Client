@@ -107,13 +107,13 @@ const RequestedAssets = () => {
                       <div className="flex justify-center gap-2">
                         <button
                           onClick={() => handleApprove(request._id)}
-                          className="btn btn-sm rounded-md bg-green-500 hover:bg-green-600 text-white"
+                          className="btn btn-sm rounded-md bg-[#323232] hover:bg-[#191919] text-white"
                         >
                           Approve
                         </button>
                         <button
                           onClick={() => handleReject(request)}
-                          className="btn btn-sm rounded-md bg-red-500 hover:bg-red-600 text-white"
+                          className="btn btn-sm rounded-md bg-[#323232] hover:bg-[#191919] text-white"
                         >
                           Reject
                         </button>
