@@ -13,20 +13,19 @@ import { Helmet } from "react-helmet-async";
 
 const stripePromise = loadStripe(import.meta.env.VITE_Publishable_Key);
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ PayInfo }) => {
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const stripe = useStripe();
   const elements = useElements();
-  const location = useLocation();
-  const HRInfo = location.state;
-  const amount = parseInt(HRInfo.packageAmount);
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
 
   useEffect(() => {
     axiosPublic
-      .post("/create-payment-intent", { amount: amount })
+      .post("/create-payment-intent", {
+        amount: parseInt(PayInfo.packageAmount),
+      })
       .then((res) => {
         setClientSecret(res.data.clientSecret);
         console.log("Client secret:", res.data.clientSecret);
@@ -34,7 +33,7 @@ const CheckoutForm = () => {
       .catch((error) => {
         console.error("Error fetching client secret:", error);
       });
-  }, [axiosPublic, amount]);
+  }, [axiosPublic, PayInfo.packageAmount]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,8 +54,8 @@ const CheckoutForm = () => {
         payment_method: {
           card: card,
           billing_details: {
-            email: HRInfo.email,
-            name: HRInfo.fullName,
+            email: PayInfo.email,
+            name: PayInfo.fullName,
           },
         },
       });
@@ -67,13 +66,13 @@ const CheckoutForm = () => {
     } else {
       console.log("Payment successful:", paymentIntent);
       if (paymentIntent.status === "succeeded") {
-        const updatedHRInfo = {
-          ...HRInfo,
+        const updatedPayInfo = {
+          ...PayInfo,
           transactionId: paymentIntent.id,
           paymentStatus: paymentIntent.status,
         };
         axiosPublic
-          .post("/add-hr", updatedHRInfo)
+          .post("/add-hr", updatedPayInfo)
           .then((res) => {
             console.log(res.data);
           })
@@ -81,7 +80,7 @@ const CheckoutForm = () => {
             console.log(error);
           });
         toast.success(
-          `${amount}USD Payment successful! Transaction ID: ${paymentIntent.id}`
+          `${PayInfo.packageAmount}USD Payment successful! Transaction ID: ${paymentIntent.id}`
         );
         navigate("/");
       }
@@ -90,8 +89,8 @@ const CheckoutForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-screen-sm mx-auto mt-16">
-      <div className="border border-gray-300 rounded-md p-4">
+    <div className="max-w-screen-sm mx-auto mt-16">
+      <div className="border border-gray-300 rounded-md p-3">
         <CardElement
           options={{
             style: {
@@ -111,28 +110,85 @@ const CheckoutForm = () => {
       </div>
       {error && <p className="text-red-600">{error}</p>}
       <button
-        type="submit"
         disabled={!stripe || !clientSecret}
         className="btn btn-sm text-white mt-4 bg-black w-32 hover:bg-gray-700"
+        onClick={handleSubmit}
       >
         Pay
       </button>
-    </form>
+    </div>
+  );
+};
+
+const CheckoutFormSSL = ({ PayInfo }) => {
+  const axiosPublic = useAxiosPublic();
+
+  const payment = {
+    email: PayInfo.email,
+    price: PayInfo.packageAmount,
+    trxId: "",
+    data: new Date(),
+    status: "pending",
+  };
+
+  const handlePay = async () => {
+    const response = await axiosPublic.post("/create-ssl-payment", payment);
+    if (response.data?.gatewayUrl) {
+      window.location.replace(response.data.gatewayUrl);
+    }
+  };
+  return (
+    <div className="max-w-screen-sm mx-auto mt-16">
+      <input
+        type="text"
+        placeholder={`${PayInfo.email}`}
+        readOnly
+        className="input input-bordered w-full py-4"
+      />
+      <br />
+      <button
+        className="w-32 btn mt-3 btn-sm bg-black text-white"
+        onClick={handlePay}
+      >
+        Pay
+      </button>
+    </div>
   );
 };
 
 const Payment = () => {
+  const [method, setMethod] = useState("stripe");
+  const location = useLocation();
+  const PayInfo = location.state;
+
   return (
     <div className="p-24">
       <Helmet>
         <title>Payment - ProTracker</title>
       </Helmet>
-      <h1 className="text-4xl font-bold text-center text-black">Payment</h1>
-      <div>
-        <Elements stripe={stripePromise}>
-          <CheckoutForm />
-        </Elements>
+      <div className="my-4 flex justify-center gap-5">
+        <h1 className="text-4xl font-bold text-center text-black">
+          Payment With
+        </h1>
+        <select
+          value={method}
+          onChange={(e) => setMethod(e.target.value)}
+          className="select select-bordered max-w-xs"
+        >
+          <option value="stripe">Stripe</option>
+          <option value="sslcommerz">SSL Commerz</option>
+        </select>
       </div>
+      {method === "stripe" && (
+        <Elements stripe={stripePromise}>
+          <CheckoutForm PayInfo={PayInfo} />
+        </Elements>
+      )}
+      {method === "sslcommerz" && (
+        <p className="mt-4">
+          <CheckoutFormSSL PayInfo={PayInfo}></CheckoutFormSSL>
+        </p>
+      )}
     </div>
   );
 };

@@ -266,9 +266,6 @@ const JoinAsHR = () => {
           <select
             id="package"
             {...register("package", { required: "Please select a package" })}
-            // onChange={(e) =>
-            //   setPackage(Number(e.target.value))
-            // }
             className={`w-full mt-1 px-4 py-2 border rounded-md ${
               errors.package ? "border-red-500" : "border-gray-300"
             }`}
