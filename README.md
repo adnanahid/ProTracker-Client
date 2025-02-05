@@ -1,5 +1,9 @@
 # ProTracker - Asset & Product Management System
+<div align="center">
+  <img height="200" src="https://i.ibb.co.com/8gTCsqts/Screenshot-2025-02-01-161518.png"  />
+</div>
 
+###
 # Description
 
 Welcome to ProTracker, a powerful and intuitive web application designed to streamline asset and product management for businesses. ProTracker provides HR managers and key stakeholders with a centralized platform to track, monitor, and manage company assets efficiently.
