@@ -7,9 +7,7 @@
   <img height="200" src="https://i.ibb.co.com/8gTCsqts/Screenshot-2025-02-01-161518.png" />
 
   <p style="max-width: 500; text-align: left;">
-    Welcome to <strong>ProTracker</strong>, a powerful and intuitive web application designed to streamline 
-    asset and product management for businesses. ProTracker provides HR managers and key stakeholders with 
-    a centralized platform to track, monitor, and manage company assets efficiently.
+ProTracker is a powerful and intuitive asset and product management system designed to help businesses efficiently track, monitor, and manage company assets. It provides HR managers and key stakeholders with a centralized platform to organize returnable and non-returnable assets, ensuring better resource utilization and accountability.
   </p>
 
 </div>
@@ -86,19 +84,34 @@ https://assignment-12-6f00e.web.app/
 
 #  How to Run ProTracker Locally
 - Step 1: Clone the Repository
-     Use Git to clone the repository to your local system:
   
          git clone https://github.com/your-username/protracker.git
-    Then, navigate into the project directory:
-  
           cd protracker
+  
 - Step 2: Install Dependencies
   
          npm install
 - Step 3: Set Up Environment Variables
+
+        REACT_APP_FIREBASE_API_KEY=your_api_key
+        REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain
+        REACT_APP_FIREBASE_PROJECT_ID=your_project_id
+
   
 - Step 4: Run the Development Server:
   
          npm run dev
           
+#  Usage
+- Login as an HR Manager using the provided credentials.
+- Add assets and categorize them as Returnable or Non-returnable.
+- Assign assets to employees and track their usage.
+- Monitor asset status using the dashboard.
+- Generate reports for audits and better decision-making.
+- Manage subscriptions through the integrated payment system.
+
+# Configuration
+- Firebase Authentication – Ensure Firebase is properly set up in your .env file.
+- MongoDB Database – Use a remote MongoDB Atlas instance or local setup.
+- Payment Integration – Configure Stripe or SSLCommerz for payments.
 
