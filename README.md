@@ -50,29 +50,37 @@ https://assignment-12-6f00e.web.app/
 - Vercel Deployment platform for seamless hosting
 
 # Dependencies Used:
-- React (react, react-dom) – Component-based UI development
-- React Router (react-router-dom) – Client-side routing
-- Axios (axios) – HTTP request handling
-- Firebase (firebase) – Authentication & database (if used)
-- TanStack React Query (@tanstack/react-query) – Data fetching & caching
-- Chart.js & Recharts (chart.js, react-chartjs-2, recharts) – Data visualization
-- React Hook Form (react-hook-form) – Form handling
-- React Helmet Async (react-helmet-async) – SEO & metadata management
-- Lottie React (lottie-react) – Animations
-- Radix UI (@radix-ui/react-popover) – Accessible UI components
-- Tailwind CSS (tailwindcss) – Utility-first styling
-- DaisyUI (daisyui) – UI components for Tailwind CSS
-- React Icons (react-icons) – Icon library
-- React Modal (react-modal) – Pop-up modal dialogs
-- Swiper (swiper) – Carousel & slider functionality
-- Stripe (@stripe/react-stripe-js, @stripe/stripe-js) – Payment processing
-- SSLCommerz (sslcommerz-lts) – Payment gateway integration
-- Date-fns (date-fns) – Date formatting & manipulation
-- Lodash (lodash) – Utility functions for arrays, objects, and more
-- Match Sorter (match-sorter) – Sorting and filtering
-- Vite (vite, @vitejs/plugin-react) – Frontend build tool
-- ESLint (eslint, eslint-plugin-react, eslint-plugin-react-hooks, eslint-plugin-react-refresh) – Code linting
-- PostCSS & Autoprefixer (postcss, autoprefixer) – CSS processing</p>
+
+    "dependencies": {
+      "react": "^18.0.0",
+      "react-router-dom": "^6.0.0",
+      "axios": "^0.27.0",
+      "firebase": "^9.0.0",
+      "@tanstack/react-query": "^4.0.0",
+      "chart.js": "^3.7.0",
+      "react-chartjs-2": "^4.0.0",
+      "recharts": "^2.1.0",
+      "react-hook-form": "^7.0.0",
+      "react-helmet-async": "^1.2.0",
+      "lottie-react": "^1.4.0",
+      "@radix-ui/react-popover": "^1.0.0",
+      "tailwindcss": "^3.0.0",
+      "daisyui": "^2.0.0",
+      "react-icons": "^4.3.1",
+      "react-modal": "^3.14.0",
+      "swiper": "^8.0.0",
+      "@stripe/react-stripe-js": "^1.9.0",
+      "@stripe/stripe-js": "^1.19.0",
+      "sslcommerz-lts": "^2.0.0",
+      "date-fns": "^2.28.0",
+      "lodash": "^4.17.21",
+      "match-sorter": "^6.3.0",
+      "vite": "^3.0.0",
+      "@vitejs/plugin-react": "^1.0.0",
+      "eslint": "^8.10.0",
+      "eslint-plugin-react": "^7.31.0"
+    }
+
 
 ###
 
