@@ -62,4 +62,14 @@ https://assignment-12-6f00e.web.app/
 
 ###
 
-This web application is built using the **MERN stack** (MongoDB, Express.js, React.js, Node.js), ensuring a modern, scalable, and efficient solution.
+#  How to Run ProTracker Locally
+- Step 1: Clone the Repository
+     Use Git to clone the repository to your local system:
+         git clone https://github.com/your-username/protracker.git
+    Then, navigate into the project directory:
+          cd protracker
+- Step 2: Install Dependencies
+         npm install
+- Step 3: Set Up Environment Variables
+- Step 4: Run the Development Server
+    npm run dev
