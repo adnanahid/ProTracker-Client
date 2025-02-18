@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PieChart, Pie, Legend, Tooltip, ResponsiveContainer } from "recharts";
 import useAssetRequests from "../../CustomHooks/useAssetRequest";
 import useAllAssets from "../../CustomHooks/useAllAssets";
 import { Helmet } from "react-helmet-async";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
+import useCheckRole from "../../CustomHooks/useCheckRole";
+import toast from "react-hot-toast";
+import useNotice from "../../CustomHooks/useNotice";
 
 const HomePageForHr = () => {
   const { assetRequests } = useAssetRequests(1, 10, "");
   const { assets } = useAllAssets(1, 10, "", "", "");
   const [selectedDate, setSelectedDate] = useState(new Date());
-
+  const axiosSecure = useAxiosSecure();
+  const { clientDetails } = useCheckRole();
+  const { notice } = useNotice();
+  console.log(notice);
   const notices = [
     "Office will be closed on January 26, 2025, due to maintenance.",
     "Submit your project updates by January 28, 2025.",
@@ -49,6 +56,35 @@ const HomePageForHr = () => {
     { name: "Returnable", value: returnableCount },
     { name: "Non-Returnable", value: nonReturnableCount },
   ];
+
+  //handle add notice
+  const handleAddNotice = async (e) => {
+    e.preventDefault();
+    const notice = {
+      notice: e.target.notice.value,
+      by: clientDetails.email,
+    };
+    const response = await axiosSecure.post("/add-notice", notice);
+    if (response.data.acknowledged) {
+      toast.success("Notice sended");
+    } else {
+      toast.error("Failed to send notice");
+    }
+  };
+
+  // useEffect(() => {
+  //   const fetchNotice = async () => {
+  //     try {
+  //       const noticeResponse = await axiosSecure.get("/get-notice", {
+  //         params: { hrEmail: clientDetails.email },
+  //       });
+  //       console.log(noticeResponse.data);
+  //     } catch (error) {
+  //       console.error("Error fetching notice:", error);
+  //     }
+  //   };
+  //   fetchNotice();
+  // }, [axiosSecure, clientDetails.email]);
 
   return (
     <div className="max-w-screen-xl mx-auto px-4">
@@ -113,9 +149,9 @@ const HomePageForHr = () => {
       </section>
 
       {/* Top Requested Assets Section */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mt-12">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mt-12 mb-12">
         {/* Notices Section */}
-        <div className="md:col-span-4">
+        <div className="md:col-span-7">
           <h2 className="text-2xl font-semibold text-center text-gray-800">
             Notices
           </h2>
@@ -127,33 +163,56 @@ const HomePageForHr = () => {
             </ul>
           </div>
         </div>
-        <div className="md:col-span-8">
-          <h1 className="text-3xl font-semibold text-center">
-            Top Requested Assets
-          </h1>
-          <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
-            {topAssets && topAssets.length > 0 ? (
-              topAssets.map((asset, index) => (
-                <div
-                  key={index}
-                  className="flex flex-col border rounded-lg shadow-md p-4 bg-white"
-                >
-                  <h2 className="flex-grow text-xl font-semibold mb-2">
-                    {asset.name}
-                  </h2>
-                  <p className="text-gray-700">
-                    <strong>Requests:</strong>{" "}
-                    <span className="text-4xl font-bold">{asset.count}</span>
-                  </p>
-                </div>
-              ))
-            ) : (
-              <p className="col-span-full text-center text-gray-500">
-                No top requested assets available.
-              </p>
-            )}
-          </section>
-        </div>
+
+        {/* add notice */}
+        <section className="md:col-span-5 bg-white shadow-md rounded-lg p-6 mt-8">
+          <h2 className="text-2xl font-semibold mb-4 text-center text-gray-800">
+            Add Notice
+          </h2>
+          <form onSubmit={handleAddNotice}>
+            <textarea
+              name="notice"
+              placeholder="Write your notice here..."
+              rows={1}
+              className="w-full border border-gray-300 rounded p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            ></textarea>
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+            >
+              Send Notice
+            </button>
+          </form>
+        </section>
+      </div>
+
+      {/* Top Requested Assets */}
+      <div className="">
+        <h1 className="text-3xl font-semibold text-center">
+          Top Requested Assets
+        </h1>
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
+          {topAssets && topAssets.length > 0 ? (
+            topAssets.map((asset, index) => (
+              <div
+                key={index}
+                className="flex flex-col border rounded-lg shadow-md p-4 bg-white"
+              >
+                <h2 className="flex-grow text-xl font-semibold mb-2">
+                  {asset.name}
+                </h2>
+                <p className="text-gray-700">
+                  <strong>Requests:</strong>{" "}
+                  <span className="text-4xl font-bold">{asset.count}</span>
+                </p>
+              </div>
+            ))
+          ) : (
+            <p className="col-span-full text-center text-gray-500">
+              No top requested assets available.
+            </p>
+          )}
+        </section>
       </div>
 
       {/* Asset Type Distribution */}

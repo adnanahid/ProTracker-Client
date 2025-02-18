@@ -4,6 +4,7 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import { Helmet } from "react-helmet-async";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css"; // Calendar styling
+import useNotice from "../../CustomHooks/useNotice";
 
 const RequestCard = ({ request }) => (
   <div className="card bg-white shadow-md rounded-lg p-4 border">
@@ -72,11 +73,7 @@ const HomePageForEmployee = () => {
     },
   ];
 
-  const notices = [
-    "Office will be closed on January 26, 2025, due to maintenance.",
-    "Submit your project updates by January 28, 2025.",
-    "Training session on 'Effective Communication' on February 1, 2025.",
-  ];
+  const { notice } = useNotice();
 
   if (loading) {
     return <div>Loading ....</div>;
@@ -124,8 +121,21 @@ const HomePageForEmployee = () => {
 
       <section className="mt-12">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
+          {/* Notices Section */}
+          <div className="md:col-span-5">
+            <h2 className="text-2xl font-semibold text-center text-gray-800">
+              Notices
+            </h2>
+            <div className="bg-white shadow-md rounded-lg p-6 mt-6">
+              <ul className="list-disc pl-6 text-gray-700 space-y-2 h-[150px] overflow-y-auto">
+                {notice.map((notice, index) => (
+                  <li key={index}>{notice.notice}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
           {/* My Monthly Requests Section */}
-          <div className="md:col-span-8">
+          <div className="md:col-span-7 shadow-lg rounded-lg">
             <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">
               My Monthly Requests
             </h2>
@@ -136,24 +146,10 @@ const HomePageForEmployee = () => {
                 ))}
               </div>
             ) : (
-              <p className="text-center text-lg text-gray-500">
+              <p className="text-center text-lg text-gray-500 pt-20">
                 No requests made this month.
               </p>
             )}
-          </div>
-
-          {/* Notices Section */}
-          <div className="md:col-span-4">
-            <h2 className="text-2xl font-semibold text-center text-gray-800">
-              Notices
-            </h2>
-            <div className="bg-white shadow-md rounded-lg p-6 mt-6">
-              <ul className="list-disc pl-6 text-gray-700 space-y-2">
-                {notices.map((notice, index) => (
-                  <li key={index}>{notice}</li>
-                ))}
-              </ul>
-            </div>
           </div>
         </div>
       </section>
