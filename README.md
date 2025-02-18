@@ -60,6 +60,3 @@ https://assignment-12-6f00e.web.app/
 - ESLint (eslint, eslint-plugin-react, eslint-plugin-react-hooks, eslint-plugin-react-refresh) – Code linting
 - PostCSS & Autoprefixer (postcss, autoprefixer) – CSS processing</p>
 
-###
-
-This web application is built using the **MERN stack** (MongoDB, Express.js, React.js, Node.js), ensuring a modern, scalable, and efficient solution.

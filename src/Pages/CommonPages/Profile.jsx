@@ -24,7 +24,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-64px)]">
       <Helmet>
         <title>Profile - ProTracker</title>
       </Helmet>

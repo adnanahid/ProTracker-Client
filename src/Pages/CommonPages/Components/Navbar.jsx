@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider";
@@ -8,8 +8,31 @@ const Navbar = () => {
   const { user, userLogOut } = useContext(AuthContext);
   const { clientDetails } = useCheckRole();
   const navigate = useNavigate();
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > lastScrollY) {
+        // Scrolling down
+        setIsVisible(false);
+      } else {
+        // Scrolling up
+        setIsVisible(true);
+      }
+      setLastScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+  
   return (
-    <div className="navbar fixed z-10 text-[#191919] bg-white px-5">
+    <div
+      className={`navbar fixed z-10 text-[#191919] bg-white px-5 tracking-wide shadow-lg transition-transform duration-300 ${
+        isVisible ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
       <div className="navbar-start z-20">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
