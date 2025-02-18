@@ -15,7 +15,7 @@ const App = () => {
       <Outlet></Outlet>
       <footer className="footer footer-center p-4 tracking-widest">
         <aside>
-          <p>
+          <p className="mb-2">
             Copyright © {new Date().getFullYear()} - All right reserved by Protracker
           </p>
         </aside>

@@ -102,7 +102,7 @@ const AddEmployeeToTeam = () => {
   const pages = [...Array(numberOfPages).keys()];
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto min-h-[calc(100vh-72px)]">
       <h1 className="text-4xl font-bold text-center pt-28">Add Employees</h1>
       <div className="flex justify-around my-12">
         <p className="text-center mt-4 text-lg">

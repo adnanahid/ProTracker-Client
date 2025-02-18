@@ -80,7 +80,7 @@ const AssetList = () => {
   const pages = [...Array(numberOfPages).keys()];
 
   return (
-    <div className="p-4 sm:p-6 min-h-screen md:pt-28 max-w-screen-xl mx-auto">
+    <div className="p-4 sm:p-6 min-h-[calc(100vh-72px)] md:pt-28 max-w-screen-xl mx-auto">
       <Helmet>
         <title>Asset List - ProTracker</title>
       </Helmet>

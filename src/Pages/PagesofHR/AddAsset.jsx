@@ -44,7 +44,7 @@ const AddAsset = () => {
   };
 
   return (
-    <div className="p-8 pt-28 min-h-[calc(100vh-64px)] grid place-items-center">
+    <div className="p-8 pt-28 min-h-[calc(100vh-72px)] grid place-items-center">
       <Helmet>
         <title>Add an Asset - ProTracker</title>
       </Helmet>
