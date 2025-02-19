@@ -210,9 +210,6 @@ const Navbar = () => {
             <NavLink className="font-semibold text-lg" to="/myTeamMembers">
               My Team
             </NavLink>
-            <NavLink className="font-semibold text-lg" to="/profile">
-              Profile
-            </NavLink>
             <NavLink className="font-semibold text-lg" to="/dashboard">
               Dashboard
             </NavLink>

@@ -9,6 +9,7 @@ import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
 import useCheckRole from "../../CustomHooks/useCheckRole";
 import toast from "react-hot-toast";
 import useNotice from "../../CustomHooks/useNotice";
+import useTodo from "../../CustomHooks/useTodo";
 
 const HomePageForHr = () => {
   const { assetRequests } = useAssetRequests(1, 10, "");
@@ -17,6 +18,7 @@ const HomePageForHr = () => {
   const axiosSecure = useAxiosSecure();
   const { clientDetails } = useCheckRole();
   const { notice, noticeRefetch } = useNotice();
+  const { todo, todoRefetch } = useTodo();
 
   // PendingAssets
   const PendingAssets = assetRequests
@@ -61,10 +63,43 @@ const HomePageForHr = () => {
     const response = await axiosSecure.post("/add-notice", notice);
     if (response.data.acknowledged) {
       noticeRefetch();
-      toast.success("Notice sended");
+      toast.success("Notice sent");
     } else {
       toast.error("Failed to send notice");
     }
+  };
+
+  const [taskInput, setTaskInput] = useState("");
+
+  // Add task function
+  const addTask = () => {
+    if (taskInput.trim()) {
+      axiosSecure
+        .post("/todo", { email: clientDetails.email, text: taskInput })
+        .then((response) => {
+          todoRefetch(); // Refetch tasks after adding a new one
+          setTaskInput(""); // Clear the input field
+          toast.success("Task added");
+        })
+        .catch((error) => {
+          console.error("There was an error adding the task!", error);
+          toast.error("Failed to add task");
+        });
+    }
+  };
+
+  // Delete task function
+  const deleteTask = (taskId) => {
+    axiosSecure
+      .delete(`/todo/${taskId}`)
+      .then(() => {
+        todoRefetch(); // Refetch tasks after deleting one
+        toast.success("Task deleted successfully");
+      })
+      .catch((error) => {
+        console.error("Error deleting task:", error);
+        toast.error("Failed to delete task");
+      });
   };
 
   return (
@@ -72,6 +107,50 @@ const HomePageForHr = () => {
       <Helmet>
         <title>Home - ProTracker</title>
       </Helmet>
+
+      {/* Asset Type Distribution */}
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-6 place-items-center">
+        <div className="md:col-span-2">
+          <h1 className="pt-28 text-3xl font-semibold text-center">
+            Asset Type Distribution
+          </h1>
+          <div className="flex justify-center p-6">
+            {data01.length > 0 &&
+            (data01[0].value > 0 || data01[1].value > 0) ? (
+              <div className="w-full max-w-[600px] h-[400px]">
+                <ResponsiveContainer>
+                  <PieChart>
+                    <Pie
+                      dataKey="value"
+                      isAnimationActive
+                      data={data01}
+                      cx="50%"
+                      cy="50%"
+                      outerRadius={150}
+                      fill="#191919"
+                      label={(entry) => `${entry.name}: ${entry.value}`}
+                    />
+                    <Tooltip />
+                    <Legend />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+            ) : (
+              <p className="text-center text-gray-500">
+                No data available for asset type distribution.
+              </p>
+            )}
+          </div>
+        </div>
+
+        {/* Calendar Section */}
+        <div>
+          <h1 className="pt-28 text-3xl font-semibold text-center">Calendar</h1>
+          <div className="flex justify-center p-6">
+            <Calendar onChange={setSelectedDate} value={selectedDate} />
+          </div>
+        </div>
+      </section>
 
       {/* Pending Asset Requests */}
       <h1 className="pt-28 text-3xl font-semibold text-center">
@@ -130,115 +209,81 @@ const HomePageForHr = () => {
       </section>
 
       {/* Top Requested Assets Section */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mt-12 mb-12">
-        {/* Notices Section */}
-        <div className="md:col-span-7">
-          <h2 className="text-2xl font-semibold text-center text-gray-800">
-            Notices
-          </h2>
-          <div className="bg-white shadow-md rounded-lg p-6 mt-6">
-            <ul className="list-disc pl-6 text-gray-700 space-y-2 h-[150px]">
-              {notice.map((notice, index) => (
-                <li key={index}>{notice.notice}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* add notice */}
-        <section className="md:col-span-5 bg-white shadow-md rounded-lg p-6 mt-8">
-          <h2 className="text-2xl font-semibold mb-4 text-center text-gray-800">
-            Add Notice
-          </h2>
-          <form onSubmit={handleAddNotice}>
-            <textarea
-              name="notice"
-              placeholder="Write your notice here..."
-              rows={1}
-              className="w-full border border-gray-300 rounded p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            ></textarea>
-            <button
-              type="submit"
-              className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+      <h1 className="text-3xl font-semibold text-center mb-6">
+        Top Requested Assets
+      </h1>
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
+        {topAssets && topAssets.length > 0 ? (
+          topAssets.map((asset, index) => (
+            <div
+              key={index}
+              className="flex flex-col border rounded-lg shadow-md p-4 bg-white"
             >
-              Send Notice
-            </button>
-          </form>
-        </section>
-      </div>
-
-      {/* Top Requested Assets */}
-      <div className="">
-        <h1 className="text-3xl font-semibold text-center">
-          Top Requested Assets
-        </h1>
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
-          {topAssets && topAssets.length > 0 ? (
-            topAssets.map((asset, index) => (
-              <div
-                key={index}
-                className="flex flex-col border rounded-lg shadow-md p-4 bg-white"
-              >
-                <h2 className="flex-grow text-xl font-semibold mb-2">
-                  {asset.name}
-                </h2>
-                <p className="text-gray-700">
-                  <strong>Requests:</strong>{" "}
-                  <span className="text-4xl font-bold">{asset.count}</span>
-                </p>
-              </div>
-            ))
-          ) : (
-            <p className="col-span-full text-center text-gray-500">
-              No top requested assets available.
-            </p>
-          )}
-        </section>
-      </div>
-
-      {/* Asset Type Distribution */}
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="md:col-span-2">
-          <h1 className="pt-28 text-3xl font-semibold text-center">
-            Asset Type Distribution
-          </h1>
-          <div className="flex justify-center p-6">
-            {data01.length > 0 &&
-            (data01[0].value > 0 || data01[1].value > 0) ? (
-              <div className="w-full max-w-[600px] h-[400px]">
-                <ResponsiveContainer>
-                  <PieChart>
-                    <Pie
-                      dataKey="value"
-                      isAnimationActive
-                      data={data01}
-                      cx="50%"
-                      cy="50%"
-                      outerRadius={150}
-                      fill="#191919"
-                      label={(entry) => `${entry.name}: ${entry.value}`}
-                    />
-                    <Tooltip />
-                    <Legend />
-                  </PieChart>
-                </ResponsiveContainer>
-              </div>
-            ) : (
-              <p className="text-center text-gray-500">
-                No data available for asset type distribution.
+              <h2 className="flex-grow text-xl font-semibold mb-2">
+                {asset.name}
+              </h2>
+              <p className="text-gray-700">
+                <strong>Requests:</strong>{" "}
+                <span className="text-4xl font-bold">{asset.count}</span>
               </p>
-            )}
-          </div>
-        </div>
-
-        {/* Calendar Section */}
-        <div>
-          <h1 className="pt-28 text-3xl font-semibold text-center">Calendar</h1>
-          <div className="flex justify-center p-6">
-            <Calendar onChange={setSelectedDate} value={selectedDate} />
-          </div>
-        </div>
+            </div>
+          ))
+        ) : (
+          <p className="col-span-full text-center text-gray-500">
+            No top requested assets available.
+          </p>
+        )}
       </section>
+
+      {/* To-Do List Section */}
+      <div className="md:col-span-7 shadow-lg rounded-lg p-6 bg-white">
+        <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">
+          Add To-Do
+        </h2>
+
+        {/* Flex container for the input and task list */}
+        <div className="flex space-x-6">
+          {/* Input for adding tasks */}
+          <div className="w-full md:w-1/3">
+            <input
+              type="text"
+              value={taskInput}
+              onChange={(e) => setTaskInput(e.target.value)}
+              placeholder="Add a new task..."
+              className="w-full p-2 border border-gray-300 rounded-lg mb-4"
+            />
+            <button
+              onClick={addTask}
+              className="w-full p-2 bg-[#191919] text-white rounded-lg"
+            >
+              Add Task
+            </button>
+          </div>
+
+          {/* Task list */}
+          <div className="w-full md:w-2/3">
+            <h3 className="text-xl font-semibold text-center mb-4">
+              Your Tasks
+            </h3>
+            <div className="space-y-4">
+              {todo?.map((task) => (
+                <div
+                  key={task._id}
+                  className="flex justify-between items-center p-4 border rounded-lg shadow-md"
+                >
+                  <span>{task.text}</span>
+                  <button
+                    onClick={() => deleteTask(task._id)}
+                    className="text-red-500 hover:text-red-700"
+                  >
+                    Delete
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

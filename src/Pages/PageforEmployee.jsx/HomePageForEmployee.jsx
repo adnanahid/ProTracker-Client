@@ -5,6 +5,10 @@ import { Helmet } from "react-helmet-async";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css"; // Calendar styling
 import useNotice from "../../CustomHooks/useNotice";
+import useTodo from "../../CustomHooks/useTodo";
+import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
+import useCheckRole from "../../CustomHooks/useCheckRole";
+import toast from "react-hot-toast";
 
 const RequestCard = ({ request }) => (
   <div className="card bg-white shadow-md rounded-lg p-4 border">
@@ -38,6 +42,9 @@ const HomePageForEmployee = () => {
   const { myRequestedAssetList } = useMyRequestedAssets("", "", 1, 10);
   const { loading } = useContext(AuthContext);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const { todo, todoRefetch } = useTodo();
+  const axiosSecure = useAxiosSecure();
+  const { clientDetails } = useCheckRole();
 
   // Filter pending requests
   const myPendingRequest = myRequestedAssetList.filter(
@@ -78,6 +85,42 @@ const HomePageForEmployee = () => {
     return <div>Loading ....</div>;
   }
 
+  const [tasks, setTasks] = useState([]);
+  const [taskInput, setTaskInput] = useState("");
+
+  // Add task function
+  const addTask = () => {
+    if (taskInput.trim()) {
+      axiosSecure
+        .post("/todo", { email: clientDetails.email, text: taskInput })
+        .then((response) => {
+          setTasks([...tasks, response.data]);
+          setTaskInput("");
+          todoRefetch();
+          toast.success("Todo added");
+        })
+        .catch((error) => {
+          console.error("There was an error adding the task!", error);
+        });
+    }
+  };
+
+  // Delete task function
+  const deleteTask = (taskId) => {
+    axiosSecure
+      .delete(`/todo/${taskId}`)
+      .then(() => {
+        setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+        toast.success("Task deleted successfully");
+        todoRefetch();
+        toast.error("Todo Removed");
+      })
+      .catch((error) => {
+        console.error("Error deleting task:", error);
+        toast.error("Failed to delete task");
+      });
+  };
+
   return (
     <div className="max-w-screen-xl mx-auto pt-28">
       <Helmet>
@@ -117,6 +160,56 @@ const HomePageForEmployee = () => {
           </div>
         </div>
       </section>
+
+      {/* To-Do List Section */}
+      <div className="md:col-span-7 shadow-lg rounded-lg p-6 bg-white">
+        <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">
+          Add To-Do
+        </h2>
+
+        {/* Flex container for the input and task list */}
+        <div className="flex space-x-6">
+          {/* Input for adding tasks */}
+          <div className="w-full md:w-1/3">
+            <input
+              type="text"
+              value={taskInput}
+              onChange={(e) => setTaskInput(e.target.value)}
+              placeholder="Add a new task..."
+              className="w-full p-2 border border-gray-300 rounded-lg mb-4"
+            />
+            <button
+              onClick={addTask}
+              className="w-full p-2 bg-[#191919] text-white rounded-lg"
+            >
+              Add Task
+            </button>
+          </div>
+
+          {/* Task list */}
+          <div className="w-full md:w-2/3">
+            <h3 className="text-xl font-semibold text-center mb-4">
+              Your Tasks
+            </h3>
+            <div className="space-y-4">
+              {todo?.map((task) => (
+                <div
+                  key={task._id}
+                  className="flex justify-between items-center p-4 border rounded-lg shadow-md"
+                >
+                  <span>{task.text}</span>
+                  <button
+                    onClick={() => deleteTask(task._id)}
+                    className="text-red-500 hover:text-red-700"
+                  >
+                    Delete
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
 
       <section className="mt-12">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12">

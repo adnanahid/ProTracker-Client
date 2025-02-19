@@ -190,7 +190,7 @@ const RequestForAnAsset = () => {
             <button
               key={page}
               className={`btn btn-sm mx-1 ${
-                currentPage === page + 1 ? "bg-blue-500 text-white" : ""
+                currentPage === page + 1 ? "bg-[#191919] text-white" : ""
               }`}
               onClick={() => setCurrentPage(page + 1)}
             >

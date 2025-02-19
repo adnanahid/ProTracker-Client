@@ -14,31 +14,31 @@ import {
 } from "recharts";
 import useAssetRequests from "../../CustomHooks/useAssetRequest";
 import useAllAssets from "../../CustomHooks/useAllAssets";
+import useMyRequestedAssets from "../../CustomHooks/useMyRequestedAssets";
 
-const HrOverview = () => {
-  const { assetRequests } = useAssetRequests(1, 10, "");
-  const { assets } = useAllAssets(1, 10, "", "", "");
-  console.log(assets);
-  const returnableCount =
-    assetRequests?.filter((asset) => asset.AssetType === "returnable").length ||
-    0;
+const EmployeeOverview = () => {
+  const { myRequestedAssetList } = useMyRequestedAssets("", "", 1, 10);
+  console.log(myRequestedAssetList);
+  //   const returnableCount =
+  //     assetRequests?.filter((asset) => asset.AssetType === "returnable").length ||
+  //     0;
 
-  const nonReturnableCount =
-    assetRequests?.filter((asset) => asset.AssetType === "non-returnable")
-      .length || 0;
+  //   const nonReturnableCount =
+  //     assetRequests?.filter((asset) => asset.AssetType === "non-returnable")
+  //       .length || 0;
 
-  const data01 = [
-    { name: "Returnable", value: returnableCount },
-    { name: "Non-Returnable", value: nonReturnableCount },
-  ];
+  //   const data01 = [
+  //     { name: "Returnable", value: returnableCount },
+  //     { name: "Non-Returnable", value: nonReturnableCount },
+  //   ];
 
-  const formattedData = assets?.map((asset) => ({
+  const formattedData = myRequestedAssetList?.map((asset) => ({
     name: asset.productName, // Using product name as the label
     product_quantity: asset.productQuantity, // Using product quantity for the bar height
   }));
 
   return (
-    <div className="border border-red-950">
+    <div>
       <div className="flex items-center">
         <section className="w-7/12 h-[300px]">
           <ResponsiveContainer width="100%" height="100%">
@@ -57,7 +57,7 @@ const HrOverview = () => {
           </ResponsiveContainer>
         </section>
 
-        <section className="w-5/12">
+        {/* <section className="w-5/12">
           <h1 className="pt-28 text-3xl font-semibold text-center">
             Asset Type Distribution
           </h1>
@@ -88,10 +88,10 @@ const HrOverview = () => {
               </p>
             )}
           </div>
-        </section>
+        </section> */}
       </div>
     </div>
   );
 };
 
-export default HrOverview;
+export default EmployeeOverview;
