@@ -29,6 +29,7 @@ import { HelmetProvider } from "react-helmet-async";
 import PaymentForIncreaseLimit from "./Pages/PagesofHR/PaymentForIncreaseLimit";
 import ContactUs from "./Pages/CommonPages/ContactUs";
 import Community from "./Pages/CommonPages/Community";
+import Dashboard from "./Pages/CommonPages/Dashboard";
 
 // Initialize QueryClient
 const queryClient = new QueryClient();
@@ -164,6 +165,12 @@ const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard></Dashboard>,
+    errorElement: <ErrorPage></ErrorPage>,
+    children: [],
   },
 ]);
 

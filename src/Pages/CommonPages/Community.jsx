@@ -32,6 +32,7 @@ const Community = () => {
       name: clientDetails?.name,
       dp: clientDetails?.photo,
       post: e.target.post.value,
+      date: new Date(),
       comments: [],
     };
 
@@ -141,7 +142,9 @@ const Community = () => {
                           <h5 className="text-sm font-semibold text-gray-800">
                             {post.name}
                           </h5>
-                          <p className="text-sm text-gray-600">{comment.comment}</p>
+                          <p className="text-sm text-gray-600">
+                            {comment.comment}
+                          </p>
                         </div>
                       </div>
                     ))}

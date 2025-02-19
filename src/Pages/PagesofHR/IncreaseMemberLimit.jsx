@@ -26,7 +26,7 @@ const IncreaseMemberLimit = () => {
         {packageData.map((pkg, index) => (
           <div
             key={index}
-            className="border rounded-lg shadow-lg p-6 bg-white hover:shadow-xl transition duration-300"
+            className="border rounded-lg shadow-lg p-6 hover:shadow-xl transition duration-300"
           >
             <h2 className="text-2xl font-semibold text-center mb-4">
               {pkg.membersLimit} Members

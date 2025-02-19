@@ -192,6 +192,9 @@ const Navbar = () => {
             <NavLink className="font-semibold text-lg" to="/profile">
               Profile
             </NavLink>
+            <NavLink className="font-semibold text-lg" to="/dashboard">
+              Dashboard
+            </NavLink>
             <NavLink className="font-semibold text-lg pb-5" to="/community">
               Community
             </NavLink>
@@ -222,6 +225,9 @@ const Navbar = () => {
             </NavLink>
             <NavLink className="font-semibold text-lg" to="/profile">
               Profile
+            </NavLink>
+            <NavLink className="font-semibold text-lg" to="/dashboard">
+              Dashboard
             </NavLink>
             <NavLink className="font-semibold text-lg pb-5" to="/community">
               Community
