@@ -49,7 +49,10 @@ const Navbar = () => {
               <NavLink className="font-semibold text-lg" to="/join-as-hr">
                 Join as HR Manager
               </NavLink>
-              <NavLink className="font-semibold text-lg" to="/contact-us">
+              <NavLink className="font-semibold text-lg pb-5" to="/community">
+                Community
+              </NavLink>
+              <NavLink className="font-semibold text-lg pb-5" to="/contact-us">
                 Contact Us
               </NavLink>
             </div>
@@ -61,6 +64,12 @@ const Navbar = () => {
               </NavLink>
               <NavLink className="font-semibold text-lg" to="/profile">
                 Profile
+              </NavLink>
+              <NavLink className="font-semibold text-lg pb-5" to="/community">
+                Community
+              </NavLink>
+              <NavLink className="font-semibold text-lg pb-5" to="/contact-us">
+                Contact Us
               </NavLink>
             </div>
           )}
@@ -84,8 +93,14 @@ const Navbar = () => {
               <NavLink className="font-semibold text-lg" to="/myTeamMembers">
                 My Team
               </NavLink>
-              <NavLink className="font-semibold text-lg" to="/profile">
-                Profile
+              <NavLink className="font-semibold text-lg" to="/dashboard">
+                Dashboard
+              </NavLink>
+              <NavLink className="font-semibold text-lg pb-5" to="/community">
+                Community
+              </NavLink>
+              <NavLink className="font-semibold text-lg pb-5" to="/contact-us">
+                Contact Us
               </NavLink>
             </div>
           )}
@@ -109,8 +124,14 @@ const Navbar = () => {
               <NavLink className="font-semibold text-lg" to="/my-employee-list">
                 My Employee List
               </NavLink>
-              <NavLink className="font-semibold text-lg" to="/profile">
-                Profile
+              <NavLink className="font-semibold text-lg" to="/dashboard">
+                Dashboard
+              </NavLink>
+              <NavLink className="font-semibold text-lg pb-5" to="/community">
+                Community
+              </NavLink>
+              <NavLink className="font-semibold text-lg pb-5" to="/contact-us">
+                Contact Us
               </NavLink>
             </div>
           )}
@@ -222,9 +243,6 @@ const Navbar = () => {
             </NavLink>
             <NavLink className="font-semibold text-lg" to="/all-employees">
               Add an Employee
-            </NavLink>
-            <NavLink className="font-semibold text-lg" to="/profile">
-              Profile
             </NavLink>
             <NavLink className="font-semibold text-lg" to="/dashboard">
               Dashboard

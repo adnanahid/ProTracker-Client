@@ -215,7 +215,7 @@ const HomePageForHr = () => {
                       cx="50%"
                       cy="50%"
                       outerRadius={150}
-                      fill="#393E46"
+                      fill="#191919"
                       label={(entry) => `${entry.name}: ${entry.value}`}
                     />
                     <Tooltip />

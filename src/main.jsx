@@ -30,6 +30,7 @@ import PaymentForIncreaseLimit from "./Pages/PagesofHR/PaymentForIncreaseLimit";
 import ContactUs from "./Pages/CommonPages/ContactUs";
 import Community from "./Pages/CommonPages/Community";
 import Dashboard from "./Pages/CommonPages/Dashboard";
+import Overview from "./Pages/CommonPages/Overview";
 
 // Initialize QueryClient
 const queryClient = new QueryClient();
@@ -67,14 +68,6 @@ const router = createBrowserRouter([
       {
         path: "/payment",
         element: <Payment></Payment>,
-      },
-      {
-        path: "/profile",
-        element: (
-          <PrivateRoute>
-            <Profile></Profile>,
-          </PrivateRoute>
-        ),
       },
       {
         path: "/login",
@@ -170,7 +163,16 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: <Dashboard></Dashboard>,
     errorElement: <ErrorPage></ErrorPage>,
-    children: [],
+    children: [
+      {
+        path: "/dashboard",
+        element: <Profile></Profile>,
+      },
+      {
+        path: "/dashboard/overview",  
+        element: <Overview></Overview>,
+      },
+    ],
   },
 ]);
 
