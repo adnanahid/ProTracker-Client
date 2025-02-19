@@ -16,13 +16,7 @@ const HomePageForHr = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const axiosSecure = useAxiosSecure();
   const { clientDetails } = useCheckRole();
-  const { notice } = useNotice();
-  console.log(notice);
-  const notices = [
-    "Office will be closed on January 26, 2025, due to maintenance.",
-    "Submit your project updates by January 28, 2025.",
-    "Training session on 'Effective Communication' on February 1, 2025.",
-  ];
+  const { notice, noticeRefetch } = useNotice();
 
   // PendingAssets
   const PendingAssets = assetRequests
@@ -66,25 +60,12 @@ const HomePageForHr = () => {
     };
     const response = await axiosSecure.post("/add-notice", notice);
     if (response.data.acknowledged) {
+      noticeRefetch();
       toast.success("Notice sended");
     } else {
       toast.error("Failed to send notice");
     }
   };
-
-  // useEffect(() => {
-  //   const fetchNotice = async () => {
-  //     try {
-  //       const noticeResponse = await axiosSecure.get("/get-notice", {
-  //         params: { hrEmail: clientDetails.email },
-  //       });
-  //       console.log(noticeResponse.data);
-  //     } catch (error) {
-  //       console.error("Error fetching notice:", error);
-  //     }
-  //   };
-  //   fetchNotice();
-  // }, [axiosSecure, clientDetails.email]);
 
   return (
     <div className="max-w-screen-xl mx-auto px-4">
@@ -156,9 +137,9 @@ const HomePageForHr = () => {
             Notices
           </h2>
           <div className="bg-white shadow-md rounded-lg p-6 mt-6">
-            <ul className="list-disc pl-6 text-gray-700 space-y-2">
-              {notices.map((notice, index) => (
-                <li key={index}>{notice}</li>
+            <ul className="list-disc pl-6 text-gray-700 space-y-2 h-[150px]">
+              {notice.map((notice, index) => (
+                <li key={index}>{notice.notice}</li>
               ))}
             </ul>
           </div>

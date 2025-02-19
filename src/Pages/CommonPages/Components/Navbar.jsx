@@ -26,7 +26,7 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
-  
+
   return (
     <div
       className={`navbar fixed z-10 text-[#191919] bg-white px-5 tracking-wide shadow-lg transition-transform duration-300 ${
@@ -48,6 +48,9 @@ const Navbar = () => {
               </NavLink>
               <NavLink className="font-semibold text-lg" to="/join-as-hr">
                 Join as HR Manager
+              </NavLink>
+              <NavLink className="font-semibold text-lg" to="/contact-us">
+                Contact Us
               </NavLink>
             </div>
           )}
@@ -141,6 +144,9 @@ const Navbar = () => {
             </NavLink>
             <NavLink className="font-semibold text-lg" to="/join-as-hr">
               Join as HR Manager
+            </NavLink>
+            <NavLink className="font-semibold text-lg" to="/contact-us">
+              Contact Us
             </NavLink>
           </div>
         )}

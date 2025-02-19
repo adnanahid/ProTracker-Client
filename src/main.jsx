@@ -27,6 +27,7 @@ import RequestedAssets from "./Pages/PagesofHR/RequestedAssets";
 import IncreaseMemberLimit from "./Pages/PagesofHR/IncreaseMemberLimit";
 import { HelmetProvider } from "react-helmet-async";
 import PaymentForIncreaseLimit from "./Pages/PagesofHR/PaymentForIncreaseLimit";
+import ContactUs from "./Pages/PageofGuest/ContactUs";
 
 // Initialize QueryClient
 const queryClient = new QueryClient();
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: "/join-as-hr",
         element: <JoinAsHR></JoinAsHR>,
+      },
+      {
+        path: "/contact-us",
+        element: <ContactUs></ContactUs>,
       },
       {
         path: "/profile",

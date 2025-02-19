@@ -37,7 +37,6 @@ const RequestCard = ({ request }) => (
 const HomePageForEmployee = () => {
   const { myRequestedAssetList } = useMyRequestedAssets("", "", 1, 10);
   const { loading } = useContext(AuthContext);
-
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   // Filter pending requests
