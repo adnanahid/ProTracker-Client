@@ -125,7 +125,7 @@ const AddEmployeeToTeam = () => {
         {allEmployees.map((employee) => (
           <div
             key={employee._id}
-            className="w-[220px] border p-4 rounded shadow hover:shadow-lg transition"
+            className="w-[220px] h-[280px] border p-4 rounded shadow hover:shadow-lg transition"
           >
             <div className="mt-4">
               <img
@@ -142,8 +142,8 @@ const AddEmployeeToTeam = () => {
               )}
               onChange={() => handleCheckboxToggle(employee)}
             />
-            <p className="font-medium">{employee.name}</p>
-            <p className="font-medium">{employee.email}</p>
+            <p className="font-medium overflow-hidden">{employee.name}</p>
+            <p className="font-medium text-xs overflow-hidden">{employee.email}</p>
             <button
               onClick={() => handleAddToTeam(employee)}
               className="bg-[#191919] btn btn-sm w-full text-white py-2 px-4 rounded mt-4 hover:bg-gray-800"

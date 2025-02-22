@@ -70,9 +70,9 @@ const MyEmployeeList = () => {
           {myEmployeeList.map((employee) => (
             <div
               key={employee._id}
-              className="relative flex flex-col items-center p-4 rounded-lg shadow-md w-48 mb-36 mx-auto pt-16"
+              className="relative h-[220px] flex flex-col items-center p-4 rounded-lg shadow-md w-48 mb-36 mx-auto pt-16"
             >
-              <div className="absolute -top-20  w-36 h-36 rounded-full border-4 overflow-hidden">
+              <div className="absolute -top-20 w-36 h-36 rounded-full border-4 overflow-hidden">
                 <img
                   src={employee?.photo}
                   alt={employee?.name}
@@ -85,7 +85,7 @@ const MyEmployeeList = () => {
               <h3 className="text-gray-500 text-sm mb-5">{employee?.role}</h3>
               <button
                 onClick={() => handleRemoveEmployee(employee)}
-                className="btn bg-[#191919] btn-sm text-white hover:text-black"
+                className="w-full mt-auto btn text-xs bg-[#191919] btn-sm text-white hover:text-black rounded-b-lg"
               >
                 Remove From Team
               </button>
