@@ -75,24 +75,24 @@ https://assignment-12-6f00e.web.app/
 
 # How to Run ProTracker Locally
 
-- Step 1: Clone the Repository
+### Step 1: Clone the Repository
 
-  git clone https://github.com/your-username/protracker.git
-  cd protracker
+    git clone https://github.com/your-username/protracker.git
+    cd protracker
 
-- Step 2: Install Dependencies
+### Step 2: Install Dependencies
 
-  npm install
+    npm install
 
-- Step 3: Set Up Environment Variables
+### Step 3: Set Up Environment Variables
 
-  REACT_APP_FIREBASE_API_KEY=your_api_key
-  REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain
-  REACT_APP_FIREBASE_PROJECT_ID=your_project_id
+    REACT_APP_FIREBASE_API_KEY=your_api_key
+    REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain
+    REACT_APP_FIREBASE_PROJECT_ID=your_project_id
 
-- Step 4: Run the Development Server:
+### Step 4: Run the Development Server:
 
-  npm run dev
+    npm run dev
 
 # Usage
 
@@ -124,4 +124,5 @@ This project is licensed under the MIT License. 📄 See the full LICENSE file f
 ## Need Help?
 
 ### For any issues or feature requests, feel free to:
+
 Open an Issue in the repository Contact us at nahidhasan3.1416@gmail.com Let’s build an amazing game review community together! 🚀
