@@ -4,10 +4,10 @@
 
 # Description
 
-<div style="display: grid; grid-template-columns: 1fr 2fr; gap: 20px; align-items: center; text-align: left;">
-  <img height="200" src="https://i.ibb.co/8gTCsqts/Screenshot-2025-02-01-161518.png" />
-  <p style="max-width: 500px;">
-    ProTracker is a powerful and intuitive asset and product management system designed to help businesses efficiently track, monitor, and manage company assets. It provides HR managers and key stakeholders with a centralized platform to organize returnable and non-returnable assets, ensuring better resource utilization and accountability.
+<div style="text-align:center" style="display: flex; align-items: center; gap: 20;">
+  <img height="200" src="https://i.ibb.co.com/8gTCsqts/Screenshot-2025-02-01-161518.png" />
+  <p style="max-width: 500; text-align: left;">
+      ProTracker is a powerful and intuitive asset and product management system designed to help businesses efficiently track, monitor, and manage company assets. It provides HR managers and key stakeholders with a centralized platform to organize returnable and non-returnable assets, ensuring better resource utilization and accountability.
   </p>
 </div>
 
