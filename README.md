@@ -73,6 +73,55 @@ https://assignment-12-6f00e.web.app/
 - ESLint (eslint, eslint-plugin-react, eslint-plugin-react-hooks, eslint-plugin-react-refresh) – Code linting
 - PostCSS & Autoprefixer (postcss, autoprefixer) – CSS processing</p>
 
-###
+# How to Run ProTracker Locally
 
-This web application is built using the **MERN stack** (MongoDB, Express.js, React.js, Node.js), ensuring a modern, scalable, and efficient solution.
+- Step 1: Clone the Repository
+
+  git clone https://github.com/your-username/protracker.git
+  cd protracker
+
+- Step 2: Install Dependencies
+
+  npm install
+
+- Step 3: Set Up Environment Variables
+
+  REACT_APP_FIREBASE_API_KEY=your_api_key
+  REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain
+  REACT_APP_FIREBASE_PROJECT_ID=your_project_id
+
+- Step 4: Run the Development Server:
+
+  npm run dev
+
+# Usage
+
+- Login as an HR Manager using the provided credentials.
+- Add assets and categorize them as Returnable or Non-returnable.
+- Assign assets to employees and track their usage.
+- Monitor asset status using the dashboard.
+- Generate reports for audits and better decision-making.
+- Manage subscriptions through the integrated payment system.
+
+# Configuration
+
+- Firebase Authentication – Ensure Firebase is properly set up in your .env file.
+- MongoDB Database – Use a remote MongoDB Atlas instance or local setup.
+- Payment Integration – Configure Stripe or SSLCommerz for payments.
+
+# Contribution Guidelines
+
+We welcome contributions! Please follow these steps:
+
+## Fork the repository
+
+Create a feature branch (git checkout -b feature-new-feature). Commit changes (git commit -m "Add new feature"). Push to GitHub (git push origin feature-new-feature). Open a Pull Request (PR) for review.
+
+## License
+
+This project is licensed under the MIT License. 📄 See the full LICENSE file for more details.
+
+## Need Help?
+
+### For any issues or feature requests, feel free to:
+Open an Issue in the repository Contact us at nahidhasan3.1416@gmail.com Let’s build an amazing game review community together! 🚀
