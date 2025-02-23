@@ -14,14 +14,12 @@ import { Link } from "react-router-dom";
 import CalendarSection from "../CommonPages/Components/CalenderSection";
 
 const HomePageForHr = () => {
-  const { assetRequests } = useAssetRequests(1, 10, "");
-  const { assets } = useAllAssets(1, 10, "", "", "");
+  const { assetRequests } = useAssetRequests(1, 100, "");
+  const { assets } = useAllAssets(1, 100, "", "", "");
   const axiosSecure = useAxiosSecure();
   const { clientDetails } = useCheckRole();
   const { notice, noticeRefetch } = useNotice();
   const { todo, todoRefetch } = useTodo();
-
-  console.log(notice);
 
   // pending for return
   const pendingToReturn = assetRequests?.filter(

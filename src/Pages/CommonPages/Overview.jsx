@@ -5,7 +5,7 @@ import EmployeeOverview from "../PageforEmployee.jsx/EmployeeOverview";
 
 const Overview = () => {
   const { clientDetails } = useCheckRole();
-  console.log(clientDetails);
+
   return (
     <div>
       <div>{clientDetails?.role === "hr" && <HrOverview></HrOverview>}</div>

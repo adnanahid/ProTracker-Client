@@ -12,23 +12,23 @@ const MyTeamMembers = () => {
         <title>My Team Members - ProTracker</title>
       </Helmet>
       <h1 className="text-4xl font-bold text-center pb-12">My Team Members</h1>
-      <div>
-        {/* HrDetails */}
-        <div className="relative flex flex-col items-center p-4 rounded-lg shadow-md w-56 mb-16 mx-auto my-12">
-          <div className="absolute -top-12 w-24 h-24 rounded-full border-4 border-[#323232] overflow-hidden">
-            <img
-              src={clientDetails?.hrPhoto}
-              alt={clientDetails?.hrName}
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <h2 className="text-black text-lg font-bold mt-16">
-            {clientDetails?.hrName}
-          </h2>
-          <h3 className="text-gray-500 text-sm">Hr</h3>
-          <p className="text-gray-500 text-xs">{clientDetails?.hrEmail}</p>
+
+      {/* HrDetails */}
+      <div className="relative flex flex-col items-center p-4 rounded-lg shadow-md w-56 mb-28 mx-auto my-12 h-[220px] bg-[#191919] ">
+        <div className="absolute -top-12 w-24 h-24 rounded-full border-4 border-[#323232] overflow-hidden">
+          <img
+            src={clientDetails?.hrPhoto}
+            alt={clientDetails?.hrName}
+            className="w-full h-full object-cover"
+          />
         </div>
+        <h2 className="text-gray-100 text-lg font-bold mt-16">
+          {clientDetails?.hrName}
+        </h2>
+        <h3 className="text-gray-100 text-sm">Hr</h3>
+        <p className="text-gray-100 text-xs">{clientDetails?.hrEmail}</p>
       </div>
+
       {/* Loading State */}
       {isMyTeamMembersLoading ? (
         <div className="text-center text-xl">Loading team members...</div>
@@ -37,7 +37,7 @@ const MyTeamMembers = () => {
           {myTeamMembers.map((member) => (
             <div
               key={member._id}
-              className="relative flex flex-col items-center p-4 rounded-lg shadow-md w-full mb-16"
+              className="relative flex flex-col items-center p-4 rounded-lg shadow-md w-full h-[220px] mb-16"
             >
               <div className="absolute -top-12 w-24 h-24 rounded-full border-4 border-[#323232] overflow-hidden">
                 <img

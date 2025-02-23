@@ -16,9 +16,9 @@ import useAssetRequests from "../../CustomHooks/useAssetRequest";
 import useAllAssets from "../../CustomHooks/useAllAssets";
 
 const HrOverview = () => {
-  const { assetRequests } = useAssetRequests(1, 10, "");
-  const { assets } = useAllAssets(1, 10, "", "", "");
-  console.log(assets);
+  const { assetRequests } = useAssetRequests(1, 100, "");
+  const { assets } = useAllAssets(1, 100, "", "", "");
+
   const returnableCount =
     assetRequests?.filter((asset) => asset.AssetType === "returnable").length ||
     0;
@@ -38,7 +38,7 @@ const HrOverview = () => {
   }));
 
   return (
-    <div className="border border-red-950">
+    <div className="border">
       <div className="flex items-center">
         <section className="w-7/12 h-[300px]">
           <ResponsiveContainer width="100%" height="100%">

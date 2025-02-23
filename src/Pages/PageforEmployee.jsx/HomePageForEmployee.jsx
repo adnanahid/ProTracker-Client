@@ -184,12 +184,12 @@ const HomePageForEmployee = () => {
       </section>
 
       {/* To-Do List Section */}
-      <div className="md:col-span-7 shadow-lg rounded-lg p-6 bg-white mt-28 max-w-screen-xl mx-auto">
+      <div className="md:col-span-7 shadow-lg rounded-lg p-6 bg-white mt-28 max-w-screen-lg mx-auto">
         {/* Flex container for the input and task list */}
         <div className="flex items-center space-x-6">
           {/* Input for adding tasks */}
           <div className="w-full md:w-1/3">
-            <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">
+            <h2 className="text-xl font-semibold text-center mb-6 text-gray-800">
               Add To-Do
             </h2>
             <textarea
@@ -203,14 +203,14 @@ const HomePageForEmployee = () => {
               onClick={addTask}
               className="w-full p-2 bg-[#191919] text-white rounded-lg"
             >
-              Add Task
+              Add ToDo
             </button>
           </div>
 
           {/* Task list */}
           <div className="w-full md:w-2/3">
             <h3 className="text-xl font-semibold text-center mb-4">
-              Tasks list
+              My Tasks
             </h3>
             <div className="grid md:grid-cols-2 gap-3">
               {todo?.map((task, index) => (
