@@ -49,10 +49,10 @@ const Navbar = () => {
               <NavLink className="font-semibold text-sm" to="/join-as-hr">
                 Join as HR Manager
               </NavLink>
-              <NavLink className="font-semibold text-sm pb-5" to="/community">
+              <NavLink className="font-semibold text-sm" to="/community">
                 Community
               </NavLink>
-              <NavLink className="font-semibold text-sm pb-5" to="/contact-us">
+              <NavLink className="font-semibold text-sm" to="/contact-us">
                 Contact Us
               </NavLink>
             </div>
@@ -65,10 +65,10 @@ const Navbar = () => {
               <NavLink className="font-semibold text-sm" to="/profile">
                 Profile
               </NavLink>
-              <NavLink className="font-semibold text-sm pb-5" to="/community">
+              <NavLink className="font-semibold text-sm" to="/community">
                 Community
               </NavLink>
-              <NavLink className="font-semibold text-sm pb-5" to="/contact-us">
+              <NavLink className="font-semibold text-sm" to="/contact-us">
                 Contact Us
               </NavLink>
             </div>
@@ -109,10 +109,10 @@ const Navbar = () => {
               <NavLink className="font-semibold text-sm" to="/dashboard">
                 Dashboard
               </NavLink>
-              <NavLink className="font-semibold text-sm pb-5" to="/community">
+              <NavLink className="font-semibold text-sm" to="/community">
                 Community
               </NavLink>
-              <NavLink className="font-semibold text-sm pb-5" to="/contact-us">
+              <NavLink className="font-semibold text-sm" to="/contact-us">
                 Contact Us
               </NavLink>
             </div>
@@ -148,10 +148,10 @@ const Navbar = () => {
             <NavLink className="font-semibold text-lg" to="/join-as-hr">
               Join as HR Manager
             </NavLink>
-            <NavLink className="font-semibold text-lg pb-5" to="/community">
+            <NavLink className="font-semibold text-lg" to="/community">
               Community
             </NavLink>
-            <NavLink className="font-semibold text-lg pb-5" to="/contact-us">
+            <NavLink className="font-semibold text-lg" to="/contact-us">
               Contact Us
             </NavLink>
           </div>
@@ -164,10 +164,10 @@ const Navbar = () => {
             <NavLink className="font-semibold text-lg" to="/profile">
               Profile
             </NavLink>
-            <NavLink className="font-semibold text-lg pb-5" to="/community">
+            <NavLink className="font-semibold text-lg" to="/community">
               Community
             </NavLink>
-            <NavLink className="font-semibold text-lg pb-5" to="/contact-us">
+            <NavLink className="font-semibold text-lg" to="/contact-us">
               Contact Us
             </NavLink>
           </div>
@@ -186,10 +186,10 @@ const Navbar = () => {
             <NavLink className="font-semibold text-lg" to="/dashboard">
               Dashboard
             </NavLink>
-            <NavLink className="font-semibold text-lg pb-5" to="/community">
+            <NavLink className="font-semibold text-lg" to="/community">
               Community
             </NavLink>
-            <NavLink className="font-semibold text-lg pb-5" to="/contact-us">
+            <NavLink className="font-semibold text-lg" to="/contact-us">
               Contact Us
             </NavLink>
           </div>
@@ -208,10 +208,10 @@ const Navbar = () => {
             <NavLink className="font-semibold text-lg" to="/dashboard">
               Dashboard
             </NavLink>
-            <NavLink className="font-semibold text-lg pb-5" to="/community">
+            <NavLink className="font-semibold text-lg" to="/community">
               Community
             </NavLink>
-            <NavLink className="font-semibold text-lg pb-5" to="/contact-us">
+            <NavLink className="font-semibold text-lg" to="/contact-us">
               Contact Us
             </NavLink>
           </div>

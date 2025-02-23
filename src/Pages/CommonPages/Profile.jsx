@@ -1,12 +1,14 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { Helmet } from "react-helmet-async";
+import useCheckRole from "../../CustomHooks/useCheckRole";
 
 const Profile = () => {
   const { user, updateUserProfile } = useContext(AuthContext);
   const [update, setUpdate] = useState(false);
   const [newDisplayName, setNewDisplayName] = useState(user?.displayName || "");
   const [newPhotoURL, setNewPhotoURL] = useState(user?.photoURL || "");
+  const { clientDetails } = useCheckRole();
 
   const handleUpdate = () => {
     if (

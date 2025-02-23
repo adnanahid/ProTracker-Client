@@ -148,7 +148,7 @@ const HomePageForHr = () => {
       </div>
 
       {/* Asset Type Distribution */}
-      <section className="max-w-screen-xl mx-auto px-4 mt-28 grid grid-cols-1 md:grid-cols-3">
+      <section className="max-w-screen-xl mx-auto px-4 mt-28 grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="col-span-1 md:col-span-2">
           <h1 className="text-3xl font-semibold text-center">
             Asset Type Distribution
@@ -156,7 +156,7 @@ const HomePageForHr = () => {
           <div className="flex justify-center">
             {data01.length > 0 &&
             (data01[0].value > 0 || data01[1].value > 0) ? (
-              <div className="w-[250px] md:w-[600px] h-[400px]">
+              <div className="w-[350px] md:w-[600px] h-[400px]">
                 <ResponsiveContainer>
                   <PieChart>
                     <Pie
@@ -183,64 +183,73 @@ const HomePageForHr = () => {
         </div>
 
         {/* Calendar Section */}
-        <div className="col-span-1">
-          <h1 className="text-3xl font-semibold text-center">Calendar</h1>
-          <CalendarSection></CalendarSection>
+        <div className="col-span-1 md:flex hidden">
+          <>
+            <h1 className="text-3xl font-semibold text-center">Calendar</h1>
+            <CalendarSection />
+          </>
         </div>
       </section>
 
-      <section className="max-w-screen-lg mx-auto justify-around items-center mt-28 grid grid-cols-6 gap-5">
+      <section className="max-w-screen-lg mx-auto mt-28 px-4">
         {/* Notices Section */}
-        <div className="w-full col-span-2">
-          <h2 className="text-xl font-semibold text-center mb-6 text-gray-800">
-            Add Notice
-          </h2>
-          <form onSubmit={handleAddNotice}>
-            <textarea
-              type="text"
-              name="notice"
-              placeholder="Add a new notice"
-              className="w-full p-2 border border-gray-300 rounded-lg mb-4"
-            />
-            <button
-              type="submit"
-              className="w-full p-2 bg-[#191919] text-white rounded-lg"
-            >
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-6 justify-around items-center">
+          {/* Add Notice Section */}
+          <div className="w-full col-span-1 md:col-span-2 mx-auto">
+            <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">
               Add Notice
-            </button>
-          </form>
-        </div>
-        <div className="w-full col-span-4">
-          <h2 className="text-3xl font-semibold text-center">Notices</h2>
-          <div className="shadow-md rounded-lg p-6 mt-6 bg-[#191919]">
-            <ul className="list-disc pl-6 text-white space-y-2">
-              {notice.map((notice, index) => (
-                <li key={index}>{notice.notice}</li>
-              ))}
-            </ul>
+            </h2>
+            <form onSubmit={handleAddNotice}>
+              <textarea
+                type="text"
+                name="notice"
+                placeholder="Add a new notice"
+                className="w-full p-2 border border-gray-300 rounded-lg mb-4"
+              />
+              <button
+                type="submit"
+                className="w-full p-2 bg-[#191919] text-white rounded-lg"
+              >
+                Add Notice
+              </button>
+            </form>
+          </div>
+
+          {/* Notices List Section */}
+          <div className="w-full col-span-1 md:col-span-4">
+            <h2 className="text-2xl md:text-3xl font-semibold text-center">
+              Notices
+            </h2>
+            <div className="shadow-md rounded-lg p-6 mt-6 bg-[#191919]">
+              <ul className="list-disc pl-6 text-white space-y-2">
+                {notice.map((notice, index) => (
+                  <li key={index}>{notice.notice}</li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Pending Asset Requests */}
       <section className="max-w-screen-xl mx-auto px-4 mt-28">
-        <h1 className="text-3xl font-semibold text-center">
+        <h1 className="text-2xl md:text-3xl font-semibold text-center mb-6">
           Pending Asset Requests
         </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 p-6 ">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-2 md:gap-6">
           {PendingAssets && PendingAssets.length > 0 ? (
             PendingAssets.map((asset, index) => (
               <div
                 key={index}
                 className="border rounded-lg shadow-md p-4 bg-white"
               >
-                <h2 className="text-xl font-semibold mb-2">
+                <h2 className="text-base md:text-xl font-semibold mb-2">
                   {asset.AssetName}
                 </h2>
-                <p className="text-gray-700">
+                <p className="text-gray-700 text-xs md:text-base">
                   <strong>By:</strong> {asset.RequestedBy}
                 </p>
-                <p className="text-gray-700">
+                <p className="text-gray-700 text-xs md:text-base">
                   <strong>Date:</strong> {asset.RequestedDate}
                 </p>
               </div>
@@ -255,20 +264,22 @@ const HomePageForHr = () => {
 
       {/* Limited Stock Section */}
       <section className="max-w-screen-xl mx-auto px-4 mt-28">
-        <h1 className="text-3xl font-semibold text-center">Limited Stock</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 p-6 ">
+        <h1 className="text-2xl md:text-3xl font-semibold text-center mb-6">
+          Limited Stock
+        </h1>
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-6">
           {limitedStock && limitedStock.length > 0 ? (
             limitedStock.map((asset, index) => (
               <div
                 key={index}
                 className="flex border rounded-lg shadow-md p-4 bg-white flex-col"
               >
-                <h2 className="text-xl font-semibold mb-2 flex-grow">
+                <h2 className="text-base md:text-xl font-semibold mb-2 flex-grow">
                   {asset.productName}
                 </h2>
-                <h2 className="text-lg font-semibold mb-2">
+                <h2 className="text-sm md:text-lg font-semibold mb-2">
                   Available:
-                  <span className="text-3xl font-semibold">
+                  <span className="text-2xl md:text-3xl font-semibold">
                     {asset.productQuantity}
                   </span>
                 </h2>
@@ -284,22 +295,24 @@ const HomePageForHr = () => {
 
       <section className="max-w-screen-xl mx-auto px-4 mt-28">
         {/* Top Requested Assets Section */}
-        <h1 className="text-3xl font-semibold text-center">
+        <h1 className="text-2xl md:text-3xl font-semibold text-center mb-6">
           Top Requested Assets
         </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6 ">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-6">
           {topAssets && topAssets.length > 0 ? (
             topAssets.map((asset, index) => (
               <div
                 key={index}
                 className="flex flex-col border rounded-lg shadow-md p-4 bg-white"
               >
-                <h2 className="flex-grow text-xl font-semibold mb-2">
+                <h2 className="flex-grow text-base md:text-xl font-semibold mb-2">
                   {asset.name}
                 </h2>
                 <p className="text-gray-700">
-                  <strong>Requests:</strong>{" "}
-                  <span className="text-4xl font-bold">{asset.count}</span>
+                  <strong>Requests:</strong>
+                  <span className="text-2xl font-semibold md:text-4xl md:font-bold">
+                    {asset.count}
+                  </span>
                 </p>
               </div>
             ))
@@ -312,11 +325,10 @@ const HomePageForHr = () => {
       </section>
 
       {/* To-Do List Section */}
-      <div className="md:col-span-7 shadow-lg rounded-lg p-6 bg-white max-w-screen-lg mx-auto px-4 mt-28">
-        {/* Flex container for the input and task list */}
-        <div className="flex space-x-6">
+      <div className="shadow-lg rounded-lg p-6 bg-white max-w-screen-lg mx-auto px-4 mt-28">
+        <div className="flex flex-col md:flex-row">
           {/* Input for adding tasks */}
-          <div className="w-full md:w-1/3">
+          <div className="w-full md:w-1/3 mb-6 md:mb-0">
             <h2 className="text-xl font-semibold text-center mb-6 text-gray-800">
               Add To-Do
             </h2>
@@ -358,27 +370,28 @@ const HomePageForHr = () => {
         </div>
       </div>
 
+      {/* Pending to return */}
       <section className="max-w-screen-xl mx-auto px-4 mt-28">
-        <h1 className="text-3xl font-semibold text-center">
+        <h1 className="text-2xl md:text-3xl font-semibold text-center pb-6">
           Pending to return
         </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6 ">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-6">
           {pendingToReturn && pendingToReturn.length > 0 ? (
             pendingToReturn.map((asset, index) => (
               <div
                 key={index}
                 className="border rounded-lg shadow-md p-4 bg-white"
               >
-                <h2 className="text-xl font-semibold mb-2">
+                <h2 className="text-base md:text-xl font-semibold mb-2">
                   {asset.AssetName}
                 </h2>
-                <p className="text-gray-700">
+                <p className="text-gray-700 text-xs md:text-base">
                   <strong>By:</strong> {asset.RequestedBy}
                 </p>
-                <p className="text-gray-700 overflow-hidden">
+                <p className="text-gray-700 overflow-hidden text-xs md:text-base">
                   <strong>email:</strong> {asset.email}
                 </p>
-                <p className="text-gray-700">
+                <p className="text-gray-700 text-xs md:text-base">
                   <strong>Req. Date:</strong> {asset.RequestedDate}
                 </p>
               </div>

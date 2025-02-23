@@ -101,31 +101,35 @@ const AddEmployeeToTeam = () => {
   const pages = [...Array(numberOfPages).keys()];
 
   return (
-    <div className="container mx-auto min-h-[calc(100vh-72px)]">
-      <h1 className="text-4xl font-bold text-center pt-28">Add Employees</h1>
-      <div className="flex justify-around my-12">
-        <p className="text-center mt-4 text-lg">
-          Team Members:
-          <span className="font-semibold">
-            {clientDetails.teamMembersLength || 0}
-          </span>
-        </p>
-        <p className="text-center mt-4 text-lg">
-          Package Limit:
-          <span className="font-semibold">{clientDetails.packageLimit}</span>
-        </p>
+    <div className="container mx-auto min-h-[calc(100vh-72px)] px-2">
+      <h1 className="text-2xl md:text-4xl font-bold text-center pt-28">
+        Add Employees
+      </h1>
+      <div className="flex justify-around items-center my-12">
+        <div className="md:flex">
+          <p className="text-sm md:text-base text-center mt-4">
+            Team Members:
+            <span className="font-semibold">
+              {clientDetails.teamMembersLength || 0}
+            </span>
+          </p>
+          <p className="text-center mt-4 text-sm md:text-base ">
+            Package Limit:
+            <span className="font-semibold">{clientDetails.packageLimit}</span>
+          </p>
+        </div>
         <Link to="/increaseLimit">
-          <button className="btn text-white bg-[#191919]">
+          <button className="btn btn-sm md:btn text-white bg-[#191919]">
             Increase Member Limit
           </button>
         </Link>
       </div>
 
-      <div className="mt-10 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+      <div className="mt-10 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-2 md:gap-6">
         {allEmployees.map((employee) => (
           <div
             key={employee._id}
-            className="w-[220px] h-[280px] border p-4 rounded shadow hover:shadow-lg transition"
+            className="w-[200px] md:w-[220px] h-[280px] border p-2 rounded shadow hover:shadow-lg transition"
           >
             <div className="mt-4">
               <img
@@ -143,7 +147,9 @@ const AddEmployeeToTeam = () => {
               onChange={() => handleCheckboxToggle(employee)}
             />
             <p className="font-medium overflow-hidden">{employee.name}</p>
-            <p className="font-medium text-xs overflow-hidden">{employee.email}</p>
+            <p className="font-medium text-xs overflow-hidden">
+              {employee.email}
+            </p>
             <button
               onClick={() => handleAddToTeam(employee)}
               className="bg-[#191919] btn btn-sm w-full text-white py-2 px-4 rounded mt-4 hover:bg-gray-800"

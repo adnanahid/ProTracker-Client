@@ -44,7 +44,7 @@ const AddAsset = () => {
   };
 
   return (
-    <div className="p-8 pt-28 min-h-[calc(100vh-72px)] grid place-items-center">
+    <div className="px-2 min-h-[calc(100vh-72px)] grid place-items-center">
       <Helmet>
         <title>Add an Asset - ProTracker</title>
       </Helmet>
@@ -52,7 +52,7 @@ const AddAsset = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="max-w-lg w-full bg-white shadow-md rounded-lg p-6"
       >
-        <h1 className="text-4xl font-bold text-center mb-12">Add New Asset</h1>
+        <h1 className="text-2xl font-semibold md:text-4xl md:font-bold text-center mb-12">Add New Asset</h1>
 
         {/* Product Name */}
         <div className="mb-4">
