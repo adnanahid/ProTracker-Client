@@ -27,14 +27,14 @@ const ContactUs = () => {
 
   return (
     <div className="max-w-5xl mx-auto pt-28 min-h-[calc(100vh-152px)] px-6">
-      <h2 className="text-4xl font-bold text-center text-gray-800 mb-12">
+      <h2 className="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-8 sm:mb-12">
         Get in Touch
       </h2>
 
-      <div className="grid md:grid-cols-2 gap-10">
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10">
         {/* Contact Form */}
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h3 className="text-2xl font-semibold text-gray-800 mb-4">
+          <h3 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-4">
             Send Us a Message
           </h3>
           <form ref={form} onSubmit={sendEmail} className="space-y-4">
@@ -45,7 +45,7 @@ const ContactUs = () => {
               <input
                 type="text"
                 name="user_name"
-                className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full p-1 md:p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
             </div>
@@ -57,7 +57,7 @@ const ContactUs = () => {
               <input
                 type="email"
                 name="user_email"
-                className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full p-1 md:p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
             </div>
@@ -76,7 +76,7 @@ const ContactUs = () => {
 
             <button
               type="submit"
-              className="w-full bg-black text-white py-3 rounded-md font-medium hover:bg-gray-900 transition duration-300"
+              className="btn btn-sm md:btn w-full bg-black text-white rounded-md font-medium hover:bg-gray-900 transition duration-300"
             >
               Send Message
             </button>
@@ -85,14 +85,14 @@ const ContactUs = () => {
 
         {/* Contact Details */}
         <div className="flex flex-col justify-center bg-gray-100 p-6 rounded-lg shadow-md">
-          <h3 className="text-2xl font-semibold text-gray-800 mb-4">
+          <h3 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-4">
             Contact Information
           </h3>
-          <p className="text-gray-600 mb-4">
+          <p className="text-sm sm:text-base text-gray-600 mb-4">
             Feel free to reach out for inquiries, feedback, or assistance.
           </p>
 
-          <div className="space-y-4 text-gray-700">
+          <div className="space-y-4 text-gray-700 text-sm sm:text-base">
             <p>
               <strong>Address:</strong> Nirala R/A, Khulna, Bangladesh
             </p>

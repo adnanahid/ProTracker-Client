@@ -20,7 +20,7 @@ const App = () => {
       <div className="min-h-screen">
         <Outlet></Outlet>
       </div>
-      <footer className="footer footer-center tracking-widest mt-28">
+      <footer className="footer footer-center tracking-widest mt-28 text-xs md:text-base">
         <aside>
           <p className="mb-2">
             Copyright © {new Date().getFullYear()} - All right reserved by

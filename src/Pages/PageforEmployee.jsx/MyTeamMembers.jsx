@@ -11,7 +11,7 @@ const MyTeamMembers = () => {
       <Helmet>
         <title>My Team Members - ProTracker</title>
       </Helmet>
-      <h1 className="text-4xl font-semibold text-center pb-12 tracking-widest">
+      <h1 className="text-2xl md:text-4xl font-semibold text-center pb-12 tracking-widest md:mt-0 mt-20">
         My Team Members
       </h1>
 

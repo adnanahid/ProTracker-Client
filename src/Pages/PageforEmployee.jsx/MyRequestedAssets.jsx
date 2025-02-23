@@ -24,7 +24,10 @@ const MyRequestedAssets = () => {
 
   const cancelRequest = (asset) => {
     axiosSecure
-      .delete(`/cancel-asset-request/${asset._id}?AssetName=${asset.AssetName}`, asset)
+      .delete(
+        `/cancel-asset-request/${asset._id}?AssetName=${asset.AssetName}`,
+        asset
+      )
       .then((res) => {
         toast.success("Request Canceled");
         myRequestedAssetListRefetch();
@@ -70,19 +73,19 @@ const MyRequestedAssets = () => {
       <Helmet>
         <title>My Requested Assets - ProTracker</title>
       </Helmet>
-      <h1 className="text-3xl md:text-4xl font-bold text-center pb-6 text-[#323232]">
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold md:font-bold text-center pb-6 text-[#323232] mt-20 md:mt-0">
         My Requested Assets
       </h1>
-      <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6">
+      <div className="flex justify-center gap-4 mb-6">
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           type="text"
           placeholder="Search Asset by Name"
-          className="input input-bordered w-full sm:w-1/2"
+          className="input input-bordered md:w-full w-2/3 text-xs md:text-base"
         />
         <select
-          className="select select-bordered w-full sm:w-1/4"
+          className="select select-bordered md:w-full w-1/3 text-xs md:text-base"
           value={filters}
           onChange={(e) => setFilters(e.target.value)}
         >
@@ -94,7 +97,7 @@ const MyRequestedAssets = () => {
         </select>
       </div>
       <div className="overflow-x-auto rounded-md shadow-lg">
-        <table className="table w-full mx-auto">
+        <table className="table w-full mx-auto text-sm sm:text-base">
           <thead className="bg-[#323232] text-white">
             <tr>
               <th className="text-center">Asset Name</th>
@@ -151,7 +154,7 @@ const MyRequestedAssets = () => {
         </table>
       </div>
 
-      {/* pagination */}
+      {/* Pagination */}
       <div className="text-center py-6">
         <div className="join">
           <button
@@ -193,7 +196,7 @@ const MyRequestedAssets = () => {
               setItemsPerPage(Number(e.target.value));
               setCurrentPage(1);
             }}
-            className="p-1 border rounded-xl"
+            className="p-1 border rounded-xl text-sm sm:text-base"
           >
             <option value={10}>10</option>
             <option value={20}>20</option>

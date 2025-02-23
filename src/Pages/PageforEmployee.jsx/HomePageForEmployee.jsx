@@ -25,16 +25,16 @@ import {
 
 const RequestCard = ({ request }) => (
   <div className="card bg-white shadow-md rounded-lg p-4 border">
-    <h3 className="text-xl font-bold text-gray-800 mb-2">
+    <h3 className="text-sm md:text-xl font-bold text-gray-800 mb-2">
       {request.AssetName}
     </h3>
-    <p>
+    <p className="text-xs md:text-base">
       <strong>Type:</strong> {request.AssetType}
     </p>
-    <p>
+    <p className="text-xs md:text-base">
       <strong>Date:</strong> {request.RequestedDate}
     </p>
-    <p>
+    <p className="text-xs md:text-base">
       <strong>Status:</strong>{" "}
       <span
         className={`${
@@ -135,9 +135,9 @@ const HomePageForEmployee = () => {
         <title>Home - ProTracker</title>
       </Helmet>
 
-      <div className="bg-[#191919] text-white flex flex-col items-center justify-center text-center px-6 min-h-[500px]">
+      <div className="bg-[#191919] text-white flex flex-col items-center justify-center text-center px-6 h-[400px] md:h-[500px]">
         <motion.h1
-          className="text-4xl md:text-5xl font-semibold mb-4 tracking-widest"
+          className="text-2xl md:text-5xl font-semibold mb-4 tracking-widest"
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -145,7 +145,7 @@ const HomePageForEmployee = () => {
           Welcome, {clientDetails.name}!
         </motion.h1>
         <motion.p
-          className="text-base md:text-lg text-gray-300 max-w-2xl mb-6"
+          className="text-sm md:text-lg text-gray-300 max-w-2xl mb-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.2 }}
@@ -160,14 +160,14 @@ const HomePageForEmployee = () => {
         >
           <Link
             to={"/dashboard"}
-            className="btn bg-white text-black px-6 text-lg rounded-xl"
+            className="btn btn-sm md:btn bg-white text-black px-6 text-lg rounded-xl"
           >
             View Dashboard
           </Link>
         </motion.div>
       </div>
 
-      <section className="max-w-screen-lg mx-auto mt-28 grid grid-cols-1 md:grid-cols-7 gap-10">
+      <section className="max-w-screen-lg mx-auto mt-28 grid grid-cols-1 md:grid-cols-7 gap-10 px-2">
         <div className="md:col-span-4">
           <h2 className="text-2xl font-semibold text-center">Notices</h2>
           <div className="shadow-md rounded-lg p-6 mt-6 bg-[#191919]">
@@ -179,23 +179,23 @@ const HomePageForEmployee = () => {
           </div>
         </div>
         {/* Calender Section */}
-        <div className="md:col-span-3">
-          <h2 className="text-3xl font-semibold text-center text-gray-800 mb-5">
-            Calender
-          </h2>
+        <div className="md:col-span-3 hidden md:flex">
           <div className="rounded-lg w-10/12 mx-auto">
+            <h2 className="text-3xl font-semibold text-center text-gray-800">
+              Calender
+            </h2>
             <CalendarSection></CalendarSection>
           </div>
         </div>
       </section>
 
-      {/* To-Do List Section */}
+      {/* todo section */}
       <div className="md:col-span-7 shadow-lg rounded-lg p-6 bg-white mt-28 max-w-screen-lg mx-auto">
         {/* Flex container for the input and task list */}
-        <div className="flex items-center space-x-6">
+        <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-6">
           {/* Input for adding tasks */}
           <div className="w-full md:w-1/3">
-            <h2 className="text-xl font-semibold text-center mb-6 text-gray-800">
+            <h2 className="text-xl font-semibold text-center mb-4 text-gray-800">
               Add To-Do
             </h2>
             <textarea
@@ -209,18 +209,18 @@ const HomePageForEmployee = () => {
               onClick={addTask}
               className="w-full p-2 bg-[#191919] text-white rounded-lg"
             >
-              Add ToDo
+              Add To-Do
             </button>
           </div>
 
           {/* Task list */}
           <div className="w-full md:w-2/3">
             <h3 className="text-xl font-semibold text-center mb-4">My Tasks</h3>
-            <div className="grid md:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {todo?.map((task, index) => (
                 <div
                   key={task._id}
-                  className="flex justify-between items-center p-4 border rounded-lg  shadow-md bg-[#191919]"
+                  className="flex justify-between items-center p-4 border rounded-lg shadow-md bg-[#191919]"
                 >
                   <div className="text-white">
                     <span>{index + 1}. </span>
@@ -240,11 +240,11 @@ const HomePageForEmployee = () => {
       </div>
 
       {/* My Assets Requests Section */}
-      <section className="mt-28 max-w-screen-xl mx-auto ">
-        <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">
+      <section className="mt-28 max-w-screen-xl mx-auto px-2">
+        <h2 className="text-2xl md:text-3xl font-semibold text-center mb-6 text-gray-800">
           My Requested Assets
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-6">
           {myRequestedAssetList.length > 0 ? (
             myRequestedAssetList.map((request) => (
               <RequestCard key={request._id} request={request} />
@@ -258,11 +258,11 @@ const HomePageForEmployee = () => {
       </section>
 
       {/* Pending Requests Section */}
-      <section className="mt-28 max-w-screen-xl mx-auto ">
-        <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">
+      <section className="mt-28 max-w-screen-xl mx-auto px-2">
+        <h2 className="text-2xl md:text-3xl font-semibold text-center mb-6 text-gray-800">
           Pending Requests
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-6">
           {myPendingRequest.length > 0 ? (
             myPendingRequest.map((request) => (
               <RequestCard key={request._id} request={request} />
@@ -275,13 +275,13 @@ const HomePageForEmployee = () => {
         </div>
       </section>
 
-      <section className="mt-28 max-w-screen-xl mx-auto ">
+      <section className="mt-28 max-w-screen-xl mx-auto px-2">
         {/* My Monthly Requests Section */}
-        <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">
+        <h2 className="text-2xl md:text-3xl font-semibold text-center mb-6 text-gray-800">
           My Monthly Requests
         </h2>
         {myMonthlyRequests.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-6">
             {myMonthlyRequests.map((request) => (
               <RequestCard key={request._id} request={request} />
             ))}
@@ -294,19 +294,25 @@ const HomePageForEmployee = () => {
       </section>
 
       <section className="max-w-screen-xl mx-auto mt-28">
-        <h1 className="text-3xl font-semibold mb-8 text-center">
+        <h1 className="text-2xl md:text-3xl font-semibold mb-8 text-center">
           Pending to Return
         </h1>
-        <div className="grid grid-cols-4 gap-5">
-          {pendingToReturn.map((pending, idx) => (
-            <RequestCard key={idx} request={pending}></RequestCard>
-          ))}
-        </div>
+        {pendingToReturn.length > 0 ? (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-6">
+            {pendingToReturn.map((request) => (
+              <RequestCard key={request._id} request={request} />
+            ))}
+          </div>
+        ) : (
+          <p className="text-center text-lg text-gray-500 pt-20">
+            No requests made this month.
+          </p>
+        )}
       </section>
 
-      <section className="max-w-screen-xl mx-auto mt-28 font-semibold h-[400px] md:pr-10">
-        <h1 className="text-3xl text-center mb-6">BarChart</h1>
-        <ResponsiveContainer width="100%" height="100%">
+      <section className="max-w-screen-xl mx-auto mt-28 font-semibold h-[200px] md:h-[400px]">
+        <h1 className="text-2xl md:text-3xl text-center mb-6">Product Chart</h1>
+        <ResponsiveContainer width="100%" height="100%" className="pr-12">
           <BarChart width={500} height={300} data={formattedData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />

@@ -67,14 +67,14 @@ const Community = () => {
 
   return (
     <div className="max-w-4xl mx-auto min-h-screen pt-20 px-4">
-      <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
+      <h1 className="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-6">
         Community Discussion
       </h1>
 
       {/* Post Form */}
       <div className="max-w-screen-sm mx-auto p-6 rounded-lg shadow-lg mb-8">
         <h2 className="text-xl font-semibold text-gray-800 mb-4">
-          Post a Problem
+          Post your Problem
         </h2>
         <form onSubmit={handlePostSubmit} className="space-y-4">
           <textarea
@@ -87,7 +87,7 @@ const Community = () => {
           <button
             disabled={!clientDetails}
             type="submit"
-            className="w-full py-3 bg-[#191919] text-white font-semibold rounded-md hover:bg-blue-700 transition duration-200"
+            className="btn btn-sm md:btn w-full bg-[#191919] text-white font-semibold rounded-md hover:bg-blue-700 transition duration-200"
           >
             Post
           </button>
@@ -131,7 +131,7 @@ const Community = () => {
                     [post._id]: !prev[post._id],
                   }))
                 }
-                className="mt-4 w-full py-2 bg-[#191919] text-gray-100 font-semibold rounded-md hover:bg-gray-400 transition duration-200"
+                className="btn btn-sm md:btn mt-4 bg-[#191919] text-gray-100 font-semibold rounded-md hover:bg-gray-400 transition duration-200"
               >
                 {openComments[post._id] ? "Hide Comments" : "Show Comments"}
               </button>

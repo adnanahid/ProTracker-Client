@@ -35,21 +35,21 @@ const EmployeeOverview = () => {
 
   const formattedData = requestedAssets
     ? requestedAssets.map((asset) => ({
-        name: asset.productName, // Correctly accessing productName from each asset
-        product_quantity: asset.productQuantity, // Correctly accessing productQuantity
+        name: asset.productName,
+        product_quantity: asset.productQuantity,
       }))
     : [];
 
   return (
-    <section className="grid grid-cols-1 md:grid-cols-5 place-items-center">
-      <div className="w-full col-span-2">
-        <h1 className="pt-28 text-3xl font-semibold text-center">
+    <section className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4 p-4">
+      <div className="w-full">
+        <h1 className="pt-16 text-xl sm:text-2xl md:text-3xl font-semibold text-center">
           My Requested Asset List Type
         </h1>
-        <div className="flex justify-center p-6">
+        <div className="flex justify-center p-4">
           {data01.length > 0 && (data01[0].value > 0 || data01[1].value > 0) ? (
-            <div className="w-full max-w-[600px] h-[400px]">
-              <ResponsiveContainer>
+            <div className="w-full max-w-[400px] sm:h-[250px] md:h-[300px]">
+              <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
                     dataKey="value"
@@ -57,7 +57,7 @@ const EmployeeOverview = () => {
                     data={data01}
                     cx="50%"
                     cy="50%"
-                    outerRadius={150}
+                    outerRadius={80}
                     fill="#191919"
                     label={(entry) => `${entry.value} ${entry.name}`}
                   />
@@ -67,16 +67,16 @@ const EmployeeOverview = () => {
               </ResponsiveContainer>
             </div>
           ) : (
-            <p className="text-center text-gray-500">
+            <p className="text-center text-gray-500 text-xs">
               No data available for asset type distribution.
             </p>
           )}
         </div>
       </div>
 
-      <div className="col-span-3 w-full h-[500px]">
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart width={500} height={300} data={formattedData}>
+      <div className="w-full">
+        <ResponsiveContainer width="100%" height={250}>
+          <BarChart data={formattedData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
             <YAxis />

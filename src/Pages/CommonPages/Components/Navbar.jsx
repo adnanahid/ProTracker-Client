@@ -40,79 +40,79 @@ const Navbar = () => {
           </div>
           {!user && (
             <div className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow bg-white">
-              <NavLink className="font-semibold text-lg" to="/">
+              <NavLink className="font-semibold text-sm" to="/">
                 Home
               </NavLink>
-              <NavLink className="font-semibold text-lg" to="/join-as-employee">
+              <NavLink className="font-semibold text-sm" to="/join-as-employee">
                 Join as Employee
               </NavLink>
-              <NavLink className="font-semibold text-lg" to="/join-as-hr">
+              <NavLink className="font-semibold text-sm" to="/join-as-hr">
                 Join as HR Manager
               </NavLink>
-              <NavLink className="font-semibold text-lg pb-5" to="/community">
+              <NavLink className="font-semibold text-sm pb-5" to="/community">
                 Community
               </NavLink>
-              <NavLink className="font-semibold text-lg pb-5" to="/contact-us">
+              <NavLink className="font-semibold text-sm pb-5" to="/contact-us">
                 Contact Us
               </NavLink>
             </div>
           )}
           {clientDetails?.role === "n/a" && (
             <div className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow bg-white">
-              <NavLink className="font-semibold text-lg" to="/">
+              <NavLink className="font-semibold text-sm" to="/">
                 Home
               </NavLink>
-              <NavLink className="font-semibold text-lg" to="/profile">
+              <NavLink className="font-semibold text-sm" to="/profile">
                 Profile
               </NavLink>
-              <NavLink className="font-semibold text-lg pb-5" to="/community">
+              <NavLink className="font-semibold text-sm pb-5" to="/community">
                 Community
               </NavLink>
-              <NavLink className="font-semibold text-lg pb-5" to="/contact-us">
+              <NavLink className="font-semibold text-sm pb-5" to="/contact-us">
                 Contact Us
               </NavLink>
             </div>
           )}
           {clientDetails?.role === "employee" && (
             <div className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow bg-white">
-              <NavLink className="font-semibold text-lg" to="/">
+              <NavLink className="font-semibold text-sm" to="/">
                 Home
               </NavLink>
               <NavLink
-                className="font-semibold text-lg"
+                className="font-semibold text-sm"
                 to="/request-for-an-assets"
               >
                 Request for Asset
               </NavLink>
-              <NavLink className="font-semibold text-lg" to="/dashboard">
+              <NavLink className="font-semibold text-sm" to="/dashboard">
                 Dashboard
               </NavLink>
-              <NavLink className="font-semibold text-lg pb-5" to="/community">
+              <NavLink className="font-semibold text-sm" to="/community">
                 Community
               </NavLink>
-              <NavLink className="font-semibold text-lg pb-5" to="/contact-us">
+              <NavLink className="font-semibold text-sm" to="/contact-us">
                 Contact Us
               </NavLink>
             </div>
           )}
           {clientDetails?.role === "hr" && (
             <div className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow bg-white">
-              <NavLink className="font-semibold text-lg" to="/">
+              <NavLink className="font-semibold text-sm" to="/">
                 Home
               </NavLink>
-              <NavLink className="font-semibold text-lg" to="/add-asset">
+              <NavLink className="font-semibold text-sm" to="/add-asset">
                 Add an Asset
               </NavLink>
-              <NavLink className="font-semibold text-lg" to="/all-employees">
+              <NavLink className="font-semibold text-sm" to="/all-employees">
                 Add an Employee
               </NavLink>
-              <NavLink className="font-semibold text-lg" to="/dashboard">
+              <NavLink className="font-semibold text-sm" to="/dashboard">
                 Dashboard
               </NavLink>
-              <NavLink className="font-semibold text-lg pb-5" to="/community">
+              <NavLink className="font-semibold text-sm pb-5" to="/community">
                 Community
               </NavLink>
-              <NavLink className="font-semibold text-lg pb-5" to="/contact-us">
+              <NavLink className="font-semibold text-sm pb-5" to="/contact-us">
                 Contact Us
               </NavLink>
             </div>
