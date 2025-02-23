@@ -7,11 +7,13 @@ const MyTeamMembers = () => {
   const { myTeamMembers, isMyTeamMembersLoading } = useMyTeamMember();
   const { clientDetails } = useCheckRole();
   return (
-    <div className="max-w-screen-xl mx-auto pt-28">
+    <div className="max-w-screen-xl mx-auto">
       <Helmet>
         <title>My Team Members - ProTracker</title>
       </Helmet>
-      <h1 className="text-4xl font-bold text-center pb-12">My Team Members</h1>
+      <h1 className="text-4xl font-semibold text-center pb-12 tracking-widest">
+        My Team Members
+      </h1>
 
       {/* HrDetails */}
       <div className="relative flex flex-col items-center p-4 rounded-lg shadow-md w-56 mb-28 mx-auto my-12 h-[220px] bg-[#191919] ">

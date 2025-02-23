@@ -52,7 +52,7 @@ const MyEmployeeList = () => {
       <div className="my-24 max-w-screen-lg mx-auto">
         <div
           key={clientDetails._id}
-          className="relative flex flex-col items-center p-4 rounded-lg shadow-md w-48 mb-36 mx-auto pt-16"
+          className="relative flex flex-col items-center p-4 rounded-lg shadow-md w-48 mb-36 mx-auto pt-16 h-[220px]"
         >
           <div className="absolute -top-20  w-36 h-36 rounded-full border-4 overflow-hidden">
             <img

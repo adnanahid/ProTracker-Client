@@ -66,7 +66,7 @@ const MyRequestedAssets = () => {
   const pages = [...Array(numberOfPages).keys()];
 
   return (
-    <div className="max-w-screen-xl mx-auto pt-28 px-4 sm:px-6 lg:px-8">
+    <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
       <Helmet>
         <title>My Requested Assets - ProTracker</title>
       </Helmet>

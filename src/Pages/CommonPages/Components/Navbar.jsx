@@ -29,7 +29,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`navbar fixed z-10 text-[#191919] bg-white px-5 tracking-wide shadow-lg transition-transform duration-300 ${
+      className={`navbar fixed z-10 text-[#191919] bg-white px-5 tracking-wide top-0 shadow-lg transition-transform duration-300 ${
         isVisible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
@@ -80,18 +80,9 @@ const Navbar = () => {
               </NavLink>
               <NavLink
                 className="font-semibold text-lg"
-                to="/myRequestedAssetList"
-              >
-                My Requested Assets
-              </NavLink>
-              <NavLink
-                className="font-semibold text-lg"
                 to="/request-for-an-assets"
               >
                 Request for Asset
-              </NavLink>
-              <NavLink className="font-semibold text-lg" to="/myTeamMembers">
-                My Team
               </NavLink>
               <NavLink className="font-semibold text-lg" to="/dashboard">
                 Dashboard
@@ -109,20 +100,11 @@ const Navbar = () => {
               <NavLink className="font-semibold text-lg" to="/">
                 Home
               </NavLink>
-              <NavLink className="font-semibold text-lg" to="/all-asset">
-                Asset List
-              </NavLink>
               <NavLink className="font-semibold text-lg" to="/add-asset">
                 Add an Asset
               </NavLink>
-              <NavLink className="font-semibold text-lg" to="/assetRequests">
-                All Assets Request
-              </NavLink>
               <NavLink className="font-semibold text-lg" to="/all-employees">
                 Add an Employee
-              </NavLink>
-              <NavLink className="font-semibold text-lg" to="/my-employee-list">
-                My Employee List
               </NavLink>
               <NavLink className="font-semibold text-lg" to="/dashboard">
                 Dashboard
@@ -197,18 +179,9 @@ const Navbar = () => {
             </NavLink>
             <NavLink
               className="font-semibold text-lg"
-              to="/myRequestedAssetList"
-            >
-              My Requested Assets
-            </NavLink>
-            <NavLink
-              className="font-semibold text-lg"
               to="/request-for-an-assets"
             >
               Request for Asset
-            </NavLink>
-            <NavLink className="font-semibold text-lg" to="/myTeamMembers">
-              My Team
             </NavLink>
             <NavLink className="font-semibold text-lg" to="/dashboard">
               Dashboard
@@ -226,17 +199,8 @@ const Navbar = () => {
             <NavLink className="font-semibold text-lg" to="/">
               Home
             </NavLink>
-            <NavLink className="font-semibold text-lg" to="/all-asset">
-              Asset List
-            </NavLink>
             <NavLink className="font-semibold text-lg" to="/add-asset">
               Add an Asset
-            </NavLink>
-            <NavLink className="font-semibold text-lg" to="/assetRequests">
-              All Assets Request
-            </NavLink>
-            <NavLink className="font-semibold text-lg" to="/my-employee-list">
-              My Employee List
             </NavLink>
             <NavLink className="font-semibold text-lg" to="/all-employees">
               Add an Employee

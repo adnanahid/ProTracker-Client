@@ -84,34 +84,10 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/all-asset",
-        element: (
-          <HRRoute>
-            <AssetList></AssetList>,
-          </HRRoute>
-        ),
-      },
-      {
         path: "/all-employees",
         element: (
           <HRRoute>
             <AddEmployeeToTeam></AddEmployeeToTeam>,
-          </HRRoute>
-        ),
-      },
-      {
-        path: "/my-employee-list",
-        element: (
-          <HRRoute>
-            <MyEmployeeList></MyEmployeeList>,
-          </HRRoute>
-        ),
-      },
-      {
-        path: "/assetRequests",
-        element: (
-          <HRRoute>
-            <RequestedAssets></RequestedAssets>,
           </HRRoute>
         ),
       },
@@ -141,22 +117,6 @@ const router = createBrowserRouter([
           </EmployeeRoutes>
         ),
       },
-      {
-        path: "/myRequestedAssetList",
-        element: (
-          <EmployeeRoutes>
-            <MyRequestedAssets></MyRequestedAssets>
-          </EmployeeRoutes>
-        ),
-      },
-      {
-        path: "/myTeamMembers",
-        element: (
-          <EmployeeRoutes>
-            <MyTeamMembers></MyTeamMembers>
-          </EmployeeRoutes>
-        ),
-      },
     ],
   },
   {
@@ -166,11 +126,63 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/dashboard",
-        element: <Profile></Profile>,
+        element: (
+          <PrivateRoute>
+            <Profile></Profile>,
+          </PrivateRoute>
+        ),
       },
       {
-        path: "/dashboard/overview",  
-        element: <Overview></Overview>,
+        path: "/dashboard/overview",
+        element: (
+          <PrivateRoute>
+            <Overview></Overview>,
+          </PrivateRoute>
+        ),
+      },
+
+      //for employee
+      {
+        path: "/dashboard/myTeamMembers",
+        element: (
+          <EmployeeRoutes>
+            <MyTeamMembers></MyTeamMembers>
+          </EmployeeRoutes>
+        ),
+      },
+      {
+        path: "/dashboard/myRequestedAssetList",
+        element: (
+          <EmployeeRoutes>
+            <MyRequestedAssets></MyRequestedAssets>
+          </EmployeeRoutes>
+        ),
+      },
+
+      //for hr
+      {
+        path: "/dashboard/all-asset",
+        element: (
+          <HRRoute>
+            <AssetList></AssetList>,
+          </HRRoute>
+        ),
+      },
+      {
+        path: "/dashboard/my-employee-list",
+        element: (
+          <HRRoute>
+            <MyEmployeeList></MyEmployeeList>,
+          </HRRoute>
+        ),
+      },
+      {
+        path: "/dashboard/assetRequests",
+        element: (
+          <HRRoute>
+            <RequestedAssets></RequestedAssets>,
+          </HRRoute>
+        ),
       },
     ],
   },
