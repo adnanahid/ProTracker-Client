@@ -1,6 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import useMyRequestedAssets from "../../CustomHooks/useMyRequestedAssets";
-import { AuthContext } from "../../Provider/AuthProvider";
 import { Helmet } from "react-helmet-async";
 import useNotice from "../../CustomHooks/useNotice";
 import useTodo from "../../CustomHooks/useTodo";
@@ -11,6 +10,18 @@ import CalendarSection from "../CommonPages/Components/CalenderSection";
 import { MdDelete } from "react-icons/md";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import useAssetsOfMyCompany from "../../CustomHooks/useAssetsOfMyCompany";
+import {
+  Legend,
+  Tooltip,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Rectangle,
+} from "recharts";
 
 const RequestCard = ({ request }) => (
   <div className="card bg-white shadow-md rounded-lg p-4 border">
@@ -46,8 +57,9 @@ const HomePageForEmployee = () => {
   const axiosSecure = useAxiosSecure();
   const { clientDetails } = useCheckRole();
   const { notice } = useNotice();
+  const { requestedAssets } = useAssetsOfMyCompany(1, 100, "", "");
 
-  console.log(myRequestedAssetList);
+  console.log(requestedAssets);
 
   // pending for return
   const pendingToReturn = (myRequestedAssetList ?? []).filter(
@@ -110,6 +122,13 @@ const HomePageForEmployee = () => {
       });
   };
 
+  const formattedData = requestedAssets
+    ? requestedAssets.map((asset) => ({
+        name: asset.productName, // Correctly accessing productName from each asset
+        product_quantity: asset.productQuantity, // Correctly accessing productQuantity
+      }))
+    : [];
+
   return (
     <div className="pt-16">
       <Helmet>
@@ -148,37 +167,24 @@ const HomePageForEmployee = () => {
         </motion.div>
       </div>
 
-      {/* Pending Requests Section */}
-      <section className="mt-28 max-w-screen-xl mx-auto ">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-          {/* Pending Requests Section */}
-          <div className="md:col-span-8">
-            <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">
-              Pending Requests
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {myPendingRequest.length > 0 ? (
-                myPendingRequest.map((request) => (
-                  <RequestCard key={request._id} request={request} />
-                ))
-              ) : (
-                <p className="text-center text-lg text-gray-500 col-span-full">
-                  You have no pending requests! Enjoy your day.
-                </p>
-              )}
-            </div>
+      <section className="max-w-screen-lg mx-auto mt-28 grid grid-cols-1 md:grid-cols-7 gap-10">
+        <div className="md:col-span-4">
+          <h2 className="text-2xl font-semibold text-center">Notices</h2>
+          <div className="shadow-md rounded-lg p-6 mt-6 bg-[#191919]">
+            <ul className="list-disc pl-6 text-white space-y-2">
+              {notice.map((notice, index) => (
+                <li key={index}>{notice.notice}</li>
+              ))}
+            </ul>
           </div>
-
-          {/* Notices Section */}
-          <div className="md:col-span-4">
-            <h2 className="text-2xl font-semibold text-center">Notices</h2>
-            <div className="shadow-md rounded-lg p-6 mt-6 bg-[#191919]">
-              <ul className="list-disc pl-6 text-white space-y-2">
-                {notice.map((notice, index) => (
-                  <li key={index}>{notice.notice}</li>
-                ))}
-              </ul>
-            </div>
+        </div>
+        {/* Calender Section */}
+        <div className="md:col-span-3">
+          <h2 className="text-3xl font-semibold text-center text-gray-800 mb-5">
+            Calender
+          </h2>
+          <div className="rounded-lg w-10/12 mx-auto">
+            <CalendarSection></CalendarSection>
           </div>
         </div>
       </section>
@@ -209,9 +215,7 @@ const HomePageForEmployee = () => {
 
           {/* Task list */}
           <div className="w-full md:w-2/3">
-            <h3 className="text-xl font-semibold text-center mb-4">
-              My Tasks
-            </h3>
+            <h3 className="text-xl font-semibold text-center mb-4">My Tasks</h3>
             <div className="grid md:grid-cols-2 gap-3">
               {todo?.map((task, index) => (
                 <div
@@ -235,44 +239,69 @@ const HomePageForEmployee = () => {
         </div>
       </div>
 
+      {/* Pending Requests Section */}
       <section className="mt-28 max-w-screen-xl mx-auto ">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
-          {/* Calender Section */}
-          <div className="md:col-span-4">
-            <h2 className="text-3xl font-semibold text-center text-gray-800 mb-5">
-              Calender
-            </h2>
-            <div className="rounded-lg">
-              <CalendarSection></CalendarSection>
-            </div>
-          </div>
-          {/* My Monthly Requests Section */}
-          <div className="md:col-span-8">
-            <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">
-              My Monthly Requests
-            </h2>
-            {myMonthlyRequests.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {myMonthlyRequests.map((request) => (
-                  <RequestCard key={request._id} request={request} />
-                ))}
-              </div>
-            ) : (
-              <p className="text-center text-lg text-gray-500 pt-20">
-                No requests made this month.
-              </p>
-            )}
-          </div>
+        <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">
+          Pending Requests
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {myPendingRequest.length > 0 ? (
+            myPendingRequest.map((request) => (
+              <RequestCard key={request._id} request={request} />
+            ))
+          ) : (
+            <p className="text-center text-lg text-gray-500 col-span-full">
+              You have no pending requests! Enjoy your day.
+            </p>
+          )}
         </div>
       </section>
 
+      <section className="mt-28 max-w-screen-xl mx-auto ">
+        {/* My Monthly Requests Section */}
+        <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">
+          My Monthly Requests
+        </h2>
+        {myMonthlyRequests.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            {myMonthlyRequests.map((request) => (
+              <RequestCard key={request._id} request={request} />
+            ))}
+          </div>
+        ) : (
+          <p className="text-center text-lg text-gray-500 pt-20">
+            No requests made this month.
+          </p>
+        )}
+      </section>
+
       <section className="max-w-screen-xl mx-auto mt-28">
-        <h1 className="text-3xl font-semibold mb-8 text-center">Pending to Return</h1>
+        <h1 className="text-3xl font-semibold mb-8 text-center">
+          Pending to Return
+        </h1>
         <div className="grid grid-cols-4 gap-5">
           {pendingToReturn.map((pending, idx) => (
             <RequestCard key={idx} request={pending}></RequestCard>
           ))}
         </div>
+      </section>
+
+      <section className="max-w-screen-md mx-auto mt-28 font-semibold h-[300px]">
+        <h1 className="text-3xl text-center mb-6">BarChart</h1>
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart width={500} height={300} data={formattedData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar
+              dataKey="product_quantity"
+              fill="#191919"
+              activeBar={<Rectangle fill="#8884d8" stroke="blue" />}
+            />
+          </BarChart>
+        </ResponsiveContainer>
       </section>
     </div>
   );

@@ -18,7 +18,6 @@ import useAssetsOfMyCompany from "../../CustomHooks/useAssetsOfMyCompany";
 const EmployeeOverview = () => {
   const { myRequestedAssetList = [] } = useMyRequestedAssets("", "", 1, 100);
   const { requestedAssets } = useAssetsOfMyCompany(1, 100, "", "");
-  console.log(requestedAssets);
 
   const returnableCount =
     myRequestedAssetList?.filter((asset) => asset.AssetType === "returnable")
