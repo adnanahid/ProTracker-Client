@@ -239,6 +239,24 @@ const HomePageForEmployee = () => {
         </div>
       </div>
 
+      {/* My Assets Requests Section */}
+      <section className="mt-28 max-w-screen-xl mx-auto ">
+        <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">
+          My Requested Assets
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {myRequestedAssetList.length > 0 ? (
+            myRequestedAssetList.map((request) => (
+              <RequestCard key={request._id} request={request} />
+            ))
+          ) : (
+            <p className="text-center text-lg text-gray-500 col-span-full">
+              You have no pending requests! Enjoy your day.
+            </p>
+          )}
+        </div>
+      </section>
+
       {/* Pending Requests Section */}
       <section className="mt-28 max-w-screen-xl mx-auto ">
         <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">
@@ -286,7 +304,7 @@ const HomePageForEmployee = () => {
         </div>
       </section>
 
-      <section className="max-w-screen-md mx-auto mt-28 font-semibold h-[300px]">
+      <section className="max-w-screen-xl mx-auto mt-28 font-semibold h-[400px] md:pr-10">
         <h1 className="text-3xl text-center mb-6">BarChart</h1>
         <ResponsiveContainer width="100%" height="100%">
           <BarChart width={500} height={300} data={formattedData}>
