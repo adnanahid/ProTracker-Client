@@ -10,6 +10,8 @@ import useCheckRole from "../../CustomHooks/useCheckRole";
 import toast from "react-hot-toast";
 import useNotice from "../../CustomHooks/useNotice";
 import useTodo from "../../CustomHooks/useTodo";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const HomePageForHr = () => {
   const { assetRequests } = useAssetRequests(1, 10, "");
@@ -108,6 +110,38 @@ const HomePageForHr = () => {
         <title>Home - ProTracker</title>
       </Helmet>
 
+      <div className="bg-[#191919] text-white flex flex-col items-center justify-center text-center px-6 min-h-[500px]">
+        <motion.h1
+          className="text-4xl md:text-5xl font-semibold mb-4 tracking-widest"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          Welcome, {clientDetails.name}!
+        </motion.h1>
+        <motion.p
+          className="text-base md:text-lg text-gray-300 max-w-2xl mb-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2 }}
+        >
+          Stay updated with your tasks, meetings, and company news. Let's make
+          today productive!
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.5 }}
+        >
+          <Link
+            to={"/dashboard"}
+            className="btn bg-white text-black px-6 text-lg rounded-xl"
+          >
+            View Dashboard
+          </Link>
+        </motion.div>
+      </div>
+
       {/* Asset Type Distribution */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6 place-items-center">
         <div className="md:col-span-2">
@@ -117,7 +151,7 @@ const HomePageForHr = () => {
           <div className="flex justify-center p-6">
             {data01.length > 0 &&
             (data01[0].value > 0 || data01[1].value > 0) ? (
-              <div className="w-full max-w-[600px] h-[400px]">
+              <div className="w-[250px] md:w-[600px] h-[400px]">
                 <ResponsiveContainer>
                   <PieChart>
                     <Pie
