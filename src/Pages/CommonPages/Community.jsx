@@ -6,6 +6,7 @@ const Community = () => {
   const { clientDetails } = useCheckRole();
   const axiosSecure = useAxiosSecure();
   const [posts, setPosts] = useState([]);
+  const [openComments, setOpenComments] = useState({}); // State for toggling comments
 
   console.log(posts);
 
@@ -71,7 +72,7 @@ const Community = () => {
       </h1>
 
       {/* Post Form */}
-      <div className="bg-gray-100 p-6 rounded-lg shadow-lg mb-8">
+      <div className="max-w-screen-sm mx-auto p-6 rounded-lg shadow-lg mb-8">
         <h2 className="text-xl font-semibold text-gray-800 mb-4">
           Post a Problem
         </h2>
@@ -86,7 +87,7 @@ const Community = () => {
           <button
             disabled={!clientDetails}
             type="submit"
-            className="w-full py-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition duration-200"
+            className="w-full py-3 bg-[#191919] text-white font-semibold rounded-md hover:bg-blue-700 transition duration-200"
           >
             Post
           </button>
@@ -94,7 +95,7 @@ const Community = () => {
       </div>
 
       {/* Display Posts */}
-      <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         {posts.length === 0 ? (
           <p className="text-gray-600 text-center">
             No posts yet. Be the first to ask a question!
@@ -122,62 +123,77 @@ const Community = () => {
               </div>
               <p className="text-gray-600 mt-4">{post.post}</p>
 
-              {/* Comment Section */}
-              <div className="mt-6">
-                <h4 className="text-lg font-semibold text-gray-800">
-                  Comments
-                </h4>
-                {post.comments.length === 0 ? (
-                  <p className="text-gray-500">No comments yet.</p>
-                ) : (
-                  <div className="space-y-4">
-                    {post.comments.map((comment, index) => (
-                      <div key={index} className="flex items-start gap-4">
-                        <img
-                          src={comment.dp}
-                          alt={comment.name}
-                          className="w-8 h-8 rounded-full"
-                        />
-                        <div className="space-y-1">
-                          <h5 className="text-sm font-semibold text-gray-800">
-                            {post.name}
-                          </h5>
-                          <p className="text-sm text-gray-600">
-                            {comment.comment}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
+              {/* Show/Hide Comment Button */}
+              <button
+                onClick={() =>
+                  setOpenComments((prev) => ({
+                    ...prev,
+                    [post._id]: !prev[post._id],
+                  }))
+                }
+                className="mt-4 w-full py-2 bg-[#191919] text-gray-100 font-semibold rounded-md hover:bg-gray-400 transition duration-200"
+              >
+                {openComments[post._id] ? "Hide Comments" : "Show Comments"}
+              </button>
 
-                {/* Add Comment Form */}
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    const comment = e.target.elements.comment.value;
-                    if (comment) {
-                      handleCommentSubmit(post._id, comment);
-                      e.target.reset();
-                    }
-                  }}
-                  className="mt-4"
-                >
-                  <input
-                    type="text"
-                    name="comment"
-                    placeholder="Write a comment..."
-                    className="w-full p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                  />
-                  <button
-                    type="submit"
-                    className="mt-3 w-full py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700 transition duration-200"
+              {/* Comment Section (Toggle Visibility) */}
+              {openComments[post._id] && (
+                <div className="mt-6">
+                  <h4 className="text-lg font-semibold text-gray-800">
+                    Comments
+                  </h4>
+                  {post.comments.length === 0 ? (
+                    <p className="text-gray-500">No comments yet.</p>
+                  ) : (
+                    <div className="space-y-4">
+                      {post.comments.map((comment, index) => (
+                        <div key={index} className="flex items-start gap-4">
+                          <img
+                            src={comment.dp}
+                            alt={comment.name}
+                            className="w-8 h-8 rounded-full"
+                          />
+                          <div className="space-y-1">
+                            <h5 className="text-sm font-semibold text-gray-800">
+                              {comment.name}
+                            </h5>
+                            <p className="text-sm text-gray-600">
+                              {comment.comment}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Add Comment Form */}
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      const comment = e.target.elements.comment.value;
+                      if (comment) {
+                        handleCommentSubmit(post._id, comment);
+                        e.target.reset();
+                      }
+                    }}
+                    className="mt-4"
                   >
-                    Comment
-                  </button>
-                </form>
-              </div>
+                    <input
+                      type="text"
+                      name="comment"
+                      placeholder="Write a comment..."
+                      className="w-full p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      required
+                    />
+                    <button
+                      type="submit"
+                      className="mt-3 w-full py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700 transition duration-200"
+                    >
+                      Comment
+                    </button>
+                  </form>
+                </div>
+              )}
             </div>
           ))
         )}
