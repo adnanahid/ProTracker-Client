@@ -66,7 +66,7 @@ const RequestForAnAsset = () => {
   const pages = [...Array(numberOfPages).keys()];
 
   return (
-    <div className="max-w-screen-xl mx-auto pt-28 px-4">
+    <div className="max-w-screen-xl mx-auto pt-24 md:pt-28 px-4">
       {/* Helmet */}
       <Helmet>
         <title>Request for an Assets - ProTracker</title>
@@ -105,12 +105,12 @@ const RequestForAnAsset = () => {
       </Modal>
 
       {/* Page Header */}
-      <h1 className="text-4xl font-bold text-center pb-6 text-gray-800">
+      <h1 className="text-2xl font-semibold md:text-4xl md:font-bold text-center pb-6 text-gray-800">
         Asset List
       </h1>
 
       {/* Search and Filter */}
-      <div className="flex flex-col md:flex-row justify-center gap-4 mb-6">
+      <div className="flex justify-center gap-4 mb-6">
         <input
           defaultValue={search}
           onChange={(e) => {
@@ -119,10 +119,10 @@ const RequestForAnAsset = () => {
           type="text"
           name="search"
           placeholder="Search by requester name or email"
-          className="input input-bordered w-full md:w-6/12"
+          className="input input-bordered w-2/3 md:w-6/12"
         />
         <select
-          className="select select-bordered w-full md:w-3/12"
+          className="select select-bordered w-1/3 md:w-3/12"
           value={filterBy}
           onChange={(e) => setFilterBy(e.target.value)}
         >
@@ -135,7 +135,7 @@ const RequestForAnAsset = () => {
       </div>
 
       {/* Asset List Table */}
-      <div className="overflow-x-auto md:w-10/12 mx-auto rounded-md shadow-lg">
+      <div className="overflow-x-auto md:w-full mx-auto rounded-md shadow-lg">
         <table className="table w-full mx-auto border-collapse border border-gray-200">
           <thead>
             <tr className="bg-[#323232] text-white">
@@ -177,8 +177,8 @@ const RequestForAnAsset = () => {
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-center mt-10">
-        <div className="flex justify-center md:justify-start gap-2">
+      <div className="flex flex-col sm:flex-row justify-center mt-6 sm:mt-10">
+        <div className="flex justify-center md:justify-start gap-2 mb-4 sm:mb-0">
           <button
             className="btn btn-sm mx-1"
             disabled={currentPage === 1}
@@ -207,8 +207,9 @@ const RequestForAnAsset = () => {
             Next
           </button>
         </div>
-        <div className="flex items-center mt-4 md:mt-0">
-          <label htmlFor="itemsPerPage" className="mr-2">
+
+        <div className="flex items-center justify-center sm:justify-start">
+          <label htmlFor="itemsPerPage" className="mr-2 text-sm sm:text-base">
             Items Per Page
           </label>
           <select
@@ -218,7 +219,7 @@ const RequestForAnAsset = () => {
               setItemsPerPage(Number(e.target.value));
               setCurrentPage(1);
             }}
-            className="p-1 border rounded-xl"
+            className="p-1 border rounded-xl text-sm sm:text-base"
           >
             <option value={10}>10</option>
             <option value={20}>20</option>
