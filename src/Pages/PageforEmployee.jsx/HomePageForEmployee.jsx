@@ -42,11 +42,20 @@ const RequestCard = ({ request }) => (
 
 const HomePageForEmployee = () => {
   const { myRequestedAssetList } = useMyRequestedAssets("", "", 1, 10);
-  const { loading } = useContext(AuthContext);
   const { todo, todoRefetch } = useTodo();
   const axiosSecure = useAxiosSecure();
   const { clientDetails } = useCheckRole();
   const { notice } = useNotice();
+
+  console.log(myRequestedAssetList);
+
+  // pending for return
+  const pendingToReturn = (myRequestedAssetList ?? []).filter(
+    (asset) =>
+      asset.RequestStatus === "Approved" && asset.AssetType === "returnable"
+  );
+
+  console.log(pendingToReturn);
 
   // Filter pending requests
   const myPendingRequest = myRequestedAssetList.filter(
@@ -65,10 +74,6 @@ const HomePageForEmployee = () => {
       );
     })
     .sort((a, b) => new Date(b.RequestedDate) - new Date(a.RequestedDate));
-
-  // if (loading) {
-  //   return <div>Loading ....</div>;
-  // }
 
   const [tasks, setTasks] = useState([]);
   const [taskInput, setTaskInput] = useState("");
@@ -232,13 +237,13 @@ const HomePageForEmployee = () => {
 
       <section className="mt-28 max-w-screen-xl mx-auto ">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
-          {/* Notices Section */}
+          {/* Calender Section */}
           <div className="md:col-span-4">
             <h2 className="text-3xl font-semibold text-center text-gray-800 mb-5">
               Calender
             </h2>
             <div className="rounded-lg">
-              {/* <CalendarSection></CalendarSection> */}
+              <CalendarSection></CalendarSection>
             </div>
           </div>
           {/* My Monthly Requests Section */}
@@ -258,6 +263,15 @@ const HomePageForEmployee = () => {
               </p>
             )}
           </div>
+        </div>
+      </section>
+
+      <section className="max-w-screen-xl mx-auto mt-28">
+        <h1 className="text-3xl font-semibold mb-8 text-center">Pending to Return</h1>
+        <div className="grid grid-cols-4 gap-5">
+          {pendingToReturn.map((pending, idx) => (
+            <RequestCard key={idx} request={pending}></RequestCard>
+          ))}
         </div>
       </section>
     </div>

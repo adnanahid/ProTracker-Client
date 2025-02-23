@@ -13,7 +13,7 @@ const App = () => {
         location.pathname !== "/join-as-hr" &&
         location.pathname !== "/join-as-employee" && <Navbar />}
       <Outlet></Outlet>
-      <footer className="footer footer-center p-4 tracking-widest mt-20">
+      <footer className="footer footer-center tracking-widest mt-28">
         <aside>
           <p className="mb-2">
             Copyright © {new Date().getFullYear()} - All right reserved by Protracker
