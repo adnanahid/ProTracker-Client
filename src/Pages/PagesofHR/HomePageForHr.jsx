@@ -326,7 +326,7 @@ const HomePageForHr = () => {
 
       {/* To-Do List Section */}
       <div className="shadow-lg rounded-lg p-6 bg-white max-w-screen-lg mx-auto px-4 mt-28">
-        <div className="flex flex-col md:flex-row">
+        <div className="flex flex-col md:flex-row md:gap-5">
           {/* Input for adding tasks */}
           <div className="w-full md:w-1/3 mb-6 md:mb-0">
             <h2 className="text-xl font-semibold text-center mb-6 text-gray-800">
