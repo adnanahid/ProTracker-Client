@@ -184,10 +184,7 @@ const HomePageForHr = () => {
 
         {/* Calendar Section */}
         <div className="col-span-1 md:flex hidden">
-          <>
-            <h1 className="text-3xl font-semibold text-center">Calendar</h1>
-            <CalendarSection />
-          </>
+          <CalendarSection />
         </div>
       </section>
 

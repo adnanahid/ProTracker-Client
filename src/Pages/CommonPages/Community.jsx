@@ -87,7 +87,7 @@ const Community = () => {
           <button
             disabled={!clientDetails}
             type="submit"
-            className="btn btn-sm md:btn w-full bg-[#191919] text-white font-semibold rounded-md hover:bg-blue-700 transition duration-200"
+            className="btn btn-sm w-full bg-[#191919] text-white font-semibold rounded-md transition duration-200"
           >
             Post
           </button>
@@ -131,7 +131,7 @@ const Community = () => {
                     [post._id]: !prev[post._id],
                   }))
                 }
-                className="btn btn-sm md:btn mt-4 bg-[#191919] text-gray-100 font-semibold rounded-md hover:bg-gray-400 transition duration-200"
+                className="btn btn-sm bg-[#191919] text-gray-100 font-semibold rounded-md hover:bg-gray-400 transition duration-200 mt-2"
               >
                 {openComments[post._id] ? "Hide Comments" : "Show Comments"}
               </button>
