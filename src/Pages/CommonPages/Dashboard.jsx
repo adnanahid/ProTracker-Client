@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import useCheckRole from "../../CustomHooks/useCheckRole";
+import { Helmet } from "react-helmet-async";
 
 const Dashboard = () => {
   const { loading } = useContext(AuthContext);
@@ -102,9 +103,9 @@ const Dashboard = () => {
         </div>
       )}
 
-      <div className="grid grid-cols-12 gap-4 px-4 md:px-8 lg:px-16">
+      <div className="grid grid-cols-12 gap-4">
         {/* Sidebar for larger screens */}
-        <div className="col-span-12 lg:col-span-3 bg-[#191919] text-white min-h-screen p-4 hidden lg:block">
+        <div className="col-span-12 lg:col-span-2 bg-[#191919] text-white min-h-screen p-4 hidden lg:block">
           <div className="mt-12">
             <NavLink
               className="btn btn-sm w-full mb-2 bg-[#191919] text-white"
@@ -170,7 +171,7 @@ const Dashboard = () => {
         </div>
 
         {/* Main Content */}
-        <div className="col-span-12 lg:col-span-9 mt-6">
+        <div className="col-span-12 lg:col-span-10 mt-6">
           <Outlet></Outlet>
         </div>
       </div>

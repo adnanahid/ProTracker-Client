@@ -73,8 +73,8 @@ const RequestedAssets = () => {
       </div>
 
       {/* Table */}
-      <div className="overflow-x-auto rounded-lg shadow-md bg-white">
-        <table className="table w-full text-sm md:text-base">
+      <div className="overflow-x-auto rounded-lg shadow-md">
+        <table className="table w-full">
           <thead className="bg-[#323232] text-white">
             <tr>
               <th className="text-center">Asset Name</th>

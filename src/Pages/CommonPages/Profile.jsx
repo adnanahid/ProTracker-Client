@@ -8,8 +8,7 @@ const Profile = () => {
   const [update, setUpdate] = useState(false);
   const [newDisplayName, setNewDisplayName] = useState(user?.displayName || "");
   const [newPhotoURL, setNewPhotoURL] = useState(user?.photoURL || "");
-  const { clientDetails } = useCheckRole();
-
+  
   const handleUpdate = () => {
     if (
       newDisplayName !== user?.displayName ||
